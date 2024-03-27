@@ -23,6 +23,11 @@ public class Leveling {
         return output;
     }
 
+    public void checkLevelUp( UUID uuid, int experience )
+    {
+        int level = calculateLevel( experience );
+    }
+
     public void gainExperience( UUID uuid, ExperienceType type, int amount )
     {
         // list.iterate == action == xp
