@@ -4,7 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae420f29-eff4-4873-809f-32e1e9401214" name="Changes" comment="" />
+    <list default="true" id="ae420f29-eff4-4873-809f-32e1e9401214" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/sakubami/infinitum/generation/StructureGeneration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/sakubami/infinitum/listeners/PlayerInteractServer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/sakubami/infinitum/player/skills/ExperienceType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/sakubami/infinitum/player/skills/Leveling.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/sakubami/infinitum/player/skills/SkillLevel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/sakubami/infinitum/player/skills/SkillsGUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/xyz/sakubami/infinitum/player/skills/crafting/Experience.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/sakubami/infinitum/Infinitum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xyz/sakubami/infinitum/Infinitum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/sakubami/infinitum/listeners/Interact.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xyz/sakubami/infinitum/listeners/Interact.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/sakubami/infinitum/player/level/PlayerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xyz/sakubami/infinitum/player/level/PlayerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/sakubami/infinitum/utils/worldedit/SchematicType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xyz/sakubami/infinitum/utils/worldedit/InfinitumSchematic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xyz/sakubami/infinitum/utils/worldedit/WorldEditHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xyz/sakubami/infinitum/utils/worldedit/WorldEditHelper.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -22,6 +39,14 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -33,22 +58,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/papri/.m2/repository/org/spigotmc/spigot/1.20.1-R0.1-SNAPSHOT/spigot-1.20.1-R0.1-SNAPSHOT.jar&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.47241378&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;
-  }
-}</component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+  </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="xyz.sakubami.infinitum.utils" />
@@ -79,6 +97,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />

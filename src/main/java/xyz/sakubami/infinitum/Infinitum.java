@@ -5,10 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import xyz.sakubami.infinitum.crafting.Crafting;
 import xyz.sakubami.infinitum.crafting.RecipeConfig;
 import xyz.sakubami.infinitum.crafting.stations.LocationConfig;
-import xyz.sakubami.infinitum.listeners.EntityKill;
-import xyz.sakubami.infinitum.listeners.Interact;
-import xyz.sakubami.infinitum.listeners.Combust;
-import xyz.sakubami.infinitum.listeners.OpenBook;
+import xyz.sakubami.infinitum.listeners.*;
 import xyz.sakubami.infinitum.player.level.PlayerConfig;
 
 public class Infinitum extends JavaPlugin {
@@ -23,20 +20,29 @@ public class Infinitum extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
+        //register listeners
         Bukkit.getPluginManager().registerEvents( new EntityKill(), this );
         Bukkit.getPluginManager().registerEvents( new Interact(), this );
         Bukkit.getPluginManager().registerEvents( new Combust(), this );
         Bukkit.getPluginManager().registerEvents( new OpenBook(), this );
+        Bukkit.getPluginManager().registerEvents( new PlayerInteractServer(), this );
 
+        //load configs
         this.locationConfig = new LocationConfig();
         this.recipeConfig = new RecipeConfig();
         this.crafting = new Crafting();
         this.playerConfig = new PlayerConfig();
 
+        //autosaving
+        playerConfig.autoSave( 10 );
+
         instance.getServer().broadcastMessage("§dInfinitum §7wurde §aeingeschaltet!");
     }
 
     public void onDisable() {
+
+        //saving
+
         instance.getServer().broadcastMessage("§dInfinitum §7wurde §causgeschaltet!");
     }
 

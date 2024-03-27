@@ -51,6 +51,27 @@ public class WorldEditHelper {
         }
     }
 
+    public static void pasteSchematic(Location location, File schematicFile )
+    {
+        try ( EditSession session = createEditSession( location.getWorld() ) )
+        {
+            ClipboardFormat format = ClipboardFormats.findByFile( schematicFile );
+            ClipboardReader reader = format.getReader(new FileInputStream( schematicFile ) );
+
+            Clipboard schematic = reader.read();
+
+            Operation operation = new ClipboardHolder( schematic )
+                    .createPaste( session )
+                    .to( BukkitAdapter.asBlockVector( location ) )
+                    .build();
+            Operations.complete( operation );
+
+        } catch ( final  Throwable t )
+        {
+            t.printStackTrace();
+        }
+    }
+
     private static EditSession createEditSession(World bukkitWorld)
     {
         final EditSession session = WorldEdit.getInstance().newEditSession( BukkitAdapter.adapt( bukkitWorld ) );

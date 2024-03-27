@@ -9,16 +9,16 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.ItemStack;
 import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.crafting.Crafting;
 import xyz.sakubami.infinitum.crafting.stations.Primer;
-import xyz.sakubami.infinitum.items.CustomItem;
+import xyz.sakubami.infinitum.generation.StructureGeneration;
+import xyz.sakubami.infinitum.player.level.PlayerConfig;
+import xyz.sakubami.infinitum.player.skills.ExperienceType;
+import xyz.sakubami.infinitum.player.skills.Leveling;
 import xyz.sakubami.infinitum.utils.InteractHelper;
-import xyz.sakubami.infinitum.utils.worldedit.SchematicType;
+import xyz.sakubami.infinitum.utils.worldedit.InfinitumSchematic;
 import xyz.sakubami.infinitum.utils.worldedit.WorldEditHelper;
-
-import javax.xml.validation.Schema;
 
 public class Interact implements Listener {
 
@@ -66,7 +66,57 @@ public class Interact implements Listener {
                         final Location location = WorldEditHelper.fixTableLocation( e.getClickedBlock().getLocation(), player.getFacing() );
 
                         Bukkit.getScheduler().scheduleSyncDelayedTask( Infinitum.getInstance(), () ->
-                                WorldEditHelper.Paste( location , SchematicType.TABLE.getPath(), player ), 19 );
+                                WorldEditHelper.Paste( location , InfinitumSchematic.TABLE.getPath(), player ), 19 );
+                    }
+                }
+            }
+
+            if ( e.getClickedBlock().getType().equals( Material.DIAMOND_BLOCK ) )
+            {
+                if (e.getItem() != null )
+                {
+                    if ( e.getItem().getItemMeta().getDisplayName().equalsIgnoreCase( "§5Fragment der Realität" ) )
+                    {
+                        player.sendMessage( "spawned tower ig lolz" );
+                        StructureGeneration.findTowerLocations( player );
+                    }
+                }
+            }
+
+            if ( e.getClickedBlock().getType().equals( Material.GOLD_BLOCK ) )
+            {
+                if (e.getItem() != null )
+                {
+                    if ( e.getItem().getItemMeta().getDisplayName().equalsIgnoreCase( "§5Fragment der Realität" ) )
+                    {
+                        StructureGeneration.generateTowers();
+                        player.sendMessage( "spawned tower AJAJJAA" );
+                    }
+                }
+            }
+
+            if ( e.getClickedBlock().getType().equals( Material.NETHERITE_BLOCK ) )
+            {
+                if (e.getItem() != null )
+                {
+                    if ( e.getItem().getItemMeta().getDisplayName().equalsIgnoreCase( "§5Fragment der Realität" ) )
+                    {
+                        StructureGeneration.abort();
+                        player.sendMessage( "ABORTED" );
+                    }
+                }
+            }
+
+            if ( e.getClickedBlock().getType().equals( Material.IRON_BLOCK ) )
+            {
+                if (e.getItem() != null )
+                {
+                    if ( e.getItem().getItemMeta().getDisplayName().equalsIgnoreCase( "§5Fragment der Realität" ) )
+                    {
+                        Leveling leveling = new Leveling();
+                        PlayerConfig config = PlayerConfig.get();
+                        leveling.gainExperience( player.getUniqueId(), ExperienceType.BASE, 28420 );
+                        player.sendMessage( "gave 300k xp lolz have fun hehehe " + leveling.calculateLevel( config.getPlayerExperience( player.getUniqueId() ).get( ExperienceType.BASE ) ) );
                     }
                 }
             }
