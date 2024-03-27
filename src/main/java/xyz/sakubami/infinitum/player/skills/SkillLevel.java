@@ -1,6 +1,7 @@
 package xyz.sakubami.infinitum.player.skills;
 
-public enum SkillLevel {
+public enum SkillLevel
+{
     I( 50, 1 ), // - 50
     II( 125, 2 ), // - 175
     III( 200, 3 ), // - 375

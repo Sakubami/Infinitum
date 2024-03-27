@@ -1,7 +1,7 @@
 package xyz.sakubami.infinitum.crafting.stations;
 
-public enum StationType {
-
+public enum StationType
+{
     TABLE,
     FORGE,
     ALTAR

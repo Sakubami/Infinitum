@@ -1,7 +1,7 @@
 package xyz.sakubami.infinitum.crafting.stations;
 
-public enum Primer {
-
+public enum Primer
+{
     BOOK,
     RUNE
 }

@@ -23,9 +23,11 @@ public class Leveling {
         return output;
     }
 
-    public void checkLevelUp( UUID uuid, int experience )
+    public boolean checkLevelUp( UUID uuid, int experience )
     {
-        int level = calculateLevel( experience );
+        int a = calculateLevel( experience );
+        int b = cache.getPlayerLevel( uuid );
+        return a > b;
     }
 
     public void gainExperience( UUID uuid, ExperienceType type, int amount )
