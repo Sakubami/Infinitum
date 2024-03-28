@@ -136,7 +136,14 @@ public class PlayerConfig {
     {
         if ( playerRecords.stream().noneMatch( playerRecord -> playerRecord.uuid.equals( uuid ) ) )
         {
-            playerRecords.add( new PlayerRecord( uuid, 0 , new HashMap<>(), new HashMap<>() ) );
+            HashMap<ExperienceType ,Integer> experience = new HashMap<>();
+            experience.put( ExperienceType.BASE, 5 );
+            experience.put( ExperienceType.COMBAT, 5 );
+            experience.put( ExperienceType.CRAFTING, 5 );
+
+            HashMap<String, Integer> skillTree = new HashMap<>();
+
+            playerRecords.add( new PlayerRecord( uuid, 0 , skillTree, experience ) );
             savePlayers();
         }
     }
@@ -154,12 +161,12 @@ public class PlayerConfig {
         return findPLayer( uuid ).level;
     }
 
-    public HashMap<String, Integer> getPlayerSkillTree(UUID uuid )
+    public HashMap<String, Integer> getPlayerSkillTree( UUID uuid )
     {
         return findPLayer( uuid ).skillTree;
     }
 
-    public HashMap<ExperienceType, Integer> getPlayerExperience(UUID uuid )
+    public HashMap<ExperienceType, Integer> getPlayerExperience( UUID uuid )
     {
         return findPLayer( uuid ).experience;
     }
@@ -173,6 +180,11 @@ public class PlayerConfig {
     {
         int experience = findPLayer( uuid ).experience.get( type );
         findPLayer( uuid ).experience.put( type, exp + experience );
+    }
+
+    public void setExperience( UUID uuid, ExperienceType type, int exp )
+    {
+        findPLayer( uuid ).experience.put( type, exp );
     }
 
     public static PlayerConfig get() {

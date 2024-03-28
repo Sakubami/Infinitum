@@ -12,15 +12,20 @@ public class Leveling {
     public int calculateLevel( int experience )
     {
         int total = 0;
-        int output = 0;
 
         for ( SkillLevel level : SkillLevel.values() ) {
+
             if ( total > experience )
-                return level.getNormal() -1 ;
+                return level.getNormal() -1;
+
             total += level.getExperience();
         }
 
-        return output;
+        if ( total >= 156597425 ) {
+            return 70;
+        }
+
+        return 0;
     }
 
     public boolean checkLevelUp( UUID uuid, int experience )

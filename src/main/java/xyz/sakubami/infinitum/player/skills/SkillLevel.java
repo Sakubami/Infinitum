@@ -34,7 +34,7 @@ public enum SkillLevel
     XXX( 775000, 30 ), // -
     XXXI( 850000, 31 ), // -
     XXXII( 925000, 32 ), // -
-    XXXIII( 1000000, 33 ), // -
+    XXXIII( 1000000, 33 ), // - 7747425
     XXXIV( 1100000, 34 ), // -
     XXXV( 1200000, 35 ), // -
     XXXVI( 1300000, 36 ), // -
@@ -55,7 +55,7 @@ public enum SkillLevel
     LI( 3400000, 51 ), // -
     LII( 3600000, 52 ), // -
     LIII( 3800000, 53 ), // -
-    LIV( 4000000, 54 ), // -
+    LIV( 4000000, 54 ), // - 56597425
     LV( 4250000, 55 ), // -
     LVI( 4500000, 56 ), // -
     LVII( 4750000, 57 ), // -
@@ -71,7 +71,7 @@ public enum SkillLevel
     LXVII( 7250000, 67 ), // -
     LXVIII( 7500000, 68 ), // -
     LXIX( 7750000, 69 ), // -
-    LXX( 10000000, 70); // -
+    LXX( 10000000, 70 ); // - 156597425 156,597,425
 
     private final int experience;
     private final int normal;

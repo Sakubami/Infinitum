@@ -34,7 +34,7 @@ public class Infinitum extends JavaPlugin {
         this.playerConfig = new PlayerConfig();
 
         //autosaving
-        playerConfig.autoSave( 10 );
+        playerConfig.autoSave( 15 );
 
         instance.getServer().broadcastMessage("§dInfinitum §7wurde §aeingeschaltet!");
     }

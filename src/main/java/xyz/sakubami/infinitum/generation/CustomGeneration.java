@@ -10,7 +10,7 @@ import xyz.sakubami.infinitum.utils.worldedit.WorldEditHelper;
 import java.util.*;
 
 
-public class StructureGeneration {
+public class CustomGeneration {
 
     private static final HashMap<String , Chunk > chunks = new HashMap<>();
     private static double radius = -3125;
@@ -19,42 +19,44 @@ public class StructureGeneration {
     private static int taskID2;
     private static final List<String> locations = new ArrayList<>();
 
-    public static void findTowerLocations( Player player )
+    public static void generateRandomChunks( Player player, Material suitable, int bounds )
     {
         World world = player.getWorld();
         Random random = new Random();
 
-        int bounds = 125;
+        if ( bounds == 0 )
+            bounds = 125;
+
+        int finalBounds = bounds;
 
         taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask( Infinitum.getInstance(), () ->
                 {
-                    int x = ( int ) radius + random.nextInt( bounds );
+                    int x = ( int ) radius + random.nextInt( finalBounds );
                     int convert = -3125;
                     int z = convert + random.nextInt( 6250 );
 
                     int newX = x * 16;
                     int newZ = z * 16;
+                    boolean invalid = true;
 
                     Chunk chunk = world.getChunkAt( x, z);
 
                     for ( int i2 = 63; i2 < 78; i2 ++ )
                     {
                         Block block = chunk.getBlock( 8, i2, 8 );
-                        if ( !block.getType().isAir() )
+                        if ( block.getType().equals( suitable ) )
                         {
-                            if ( !block.getType().equals( Material.WATER ) )
-                            {
-                                if ( block.getType().equals( Material.GRASS_BLOCK ) )
-                                {
-                                    chunks.put(newX + "/" + i2 + "/" + newZ, chunk);
-                                    locations.add(newX + "/" + i2 + "/" + newZ);
-                                    player.sendMessage("possible tower at -> " + newX + "." + i2 + "." + newZ) ;
-                                    radius += 48.828125;
-                                    break;
-                                }
-                            }
+                            chunks.put(newX + "/" + i2 + "/" + newZ, chunk);
+                            locations.add(newX + "/" + i2 + "/" + newZ);
+                            player.sendMessage("valid Chunk at -> " + newX + "." + i2 + "." + newZ) ;
+                            radius += 48.828125;
+                            invalid = false;
+                            break;
                         }
                     }
+
+                    if ( invalid )
+                        Infinitum.getInstance().getServer().broadcastMessage( "skipping... " );
 
                     if ( radius >= 3125 )
                         cancelTask( taskID );
@@ -92,5 +94,10 @@ public class StructureGeneration {
             if ( locations.isEmpty() )
                 cancelTask( taskID2 );
         },0,2);
+    }
+
+    public void generateOres()
+    {
+
     }
 }
