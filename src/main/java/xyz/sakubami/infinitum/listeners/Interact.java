@@ -13,7 +13,7 @@ import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.crafting.Crafting;
 import xyz.sakubami.infinitum.crafting.stations.Primer;
 import xyz.sakubami.infinitum.generation.CustomGeneration;
-import xyz.sakubami.infinitum.player.level.PlayerConfig;
+import xyz.sakubami.infinitum.player.config.PlayerConfig;
 import xyz.sakubami.infinitum.player.skills.ExperienceType;
 import xyz.sakubami.infinitum.player.skills.Leveling;
 import xyz.sakubami.infinitum.utils.InteractHelper;

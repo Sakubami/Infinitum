@@ -7,7 +7,7 @@ import org.bukkit.util.Vector;
 import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.crafting.stations.Primer;
 import xyz.sakubami.infinitum.items.CustomItem;
-import xyz.sakubami.infinitum.items.ItemBuilder;
+import xyz.sakubami.infinitum.builder.item.ItemBuilder;
 import xyz.sakubami.infinitum.utils.Loc;
 
 import java.util.ArrayList;

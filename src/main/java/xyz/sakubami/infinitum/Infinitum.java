@@ -6,7 +6,7 @@ import xyz.sakubami.infinitum.crafting.Crafting;
 import xyz.sakubami.infinitum.crafting.RecipeConfig;
 import xyz.sakubami.infinitum.crafting.stations.LocationConfig;
 import xyz.sakubami.infinitum.listeners.*;
-import xyz.sakubami.infinitum.player.level.PlayerConfig;
+import xyz.sakubami.infinitum.player.config.PlayerConfig;
 
 public class Infinitum extends JavaPlugin {
 

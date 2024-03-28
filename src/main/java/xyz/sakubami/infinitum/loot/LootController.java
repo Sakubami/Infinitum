@@ -1,12 +1,9 @@
 package xyz.sakubami.infinitum.loot;
 
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.inventory.ItemStack;
-import xyz.sakubami.infinitum.Infinitum;
-import xyz.sakubami.infinitum.items.ItemBuilder;
-import xyz.sakubami.infinitum.utils.Chat;
+import xyz.sakubami.infinitum.builder.item.ItemBuilder;
 
 import java.util.ArrayList;
 import java.util.Random;

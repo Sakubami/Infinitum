@@ -3,9 +3,7 @@ package xyz.sakubami.infinitum.listeners;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import xyz.sakubami.infinitum.player.level.PlayerConfig;
-
-import java.net.http.WebSocket;
+import xyz.sakubami.infinitum.player.config.PlayerConfig;
 
 public class PlayerInteractServer implements Listener {
 

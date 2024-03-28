@@ -1,11 +1,9 @@
-package xyz.sakubami.infinitum.player.level;
+package xyz.sakubami.infinitum.player.config;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import xyz.sakubami.infinitum.Infinitum;
-import xyz.sakubami.infinitum.crafting.stations.LocationConfig;
 import xyz.sakubami.infinitum.player.skills.ExperienceType;
 
 import java.io.File;
@@ -117,12 +115,23 @@ public class PlayerConfig {
     } catch ( Exception ignored ) { }
     }
 
+    private boolean scheduled = false;
+
+    public void scheduleSave()
+    {
+        scheduled = true;
+    }
+
     public void autoSave( long seconds ) {
         long math = seconds * 20;
         Bukkit.getScheduler().scheduleSyncRepeatingTask( Infinitum.getInstance(), () ->
         {
-            savePlayers();
-            Infinitum.getInstance().getServer().broadcastMessage( " saving.." );
+            if ( scheduled )
+            {
+                savePlayers();
+                Infinitum.getInstance().getServer().broadcastMessage( " saving.." );
+                scheduled = false;
+            }
         }, math, math);
     }
 

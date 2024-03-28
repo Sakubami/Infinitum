@@ -1,7 +1,6 @@
 package xyz.sakubami.infinitum.player.skills;
 
-import xyz.sakubami.infinitum.player.level.PlayerConfig;
-import xyz.sakubami.infinitum.player.skills.crafting.Experience;
+import xyz.sakubami.infinitum.player.config.PlayerConfig;
 
 import java.util.UUID;
 
@@ -40,5 +39,6 @@ public class Leveling {
         // list.iterate == action == xp
         // calculate bonuses and shit
         cache.addExperience( uuid, type, amount );
+        cache.scheduleSave();
     }
 }

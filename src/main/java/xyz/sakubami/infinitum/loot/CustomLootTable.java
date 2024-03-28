@@ -1,8 +1,6 @@
 package xyz.sakubami.infinitum.loot;
 
-import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-import xyz.sakubami.infinitum.items.ItemBuilder;
 
 import java.util.ArrayList;
 

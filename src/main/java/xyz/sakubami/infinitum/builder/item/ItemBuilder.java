@@ -1,4 +1,4 @@
-package xyz.sakubami.infinitum.items;
+package xyz.sakubami.infinitum.builder.item;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -12,10 +12,7 @@ import org.bukkit.material.MaterialData;
 import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.utils.Chat;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ItemBuilder {
 
@@ -30,8 +27,10 @@ public class ItemBuilder {
     private List<String> lore = new ArrayList<>();
     private List<ItemFlag> flags = new ArrayList<>();
     private String localizedName;
+    private ItemMeta NBTMeta;
     private boolean isGlowing = false;
 
+    private final NBTapi nbtData = new NBTapi();
     private NamespacedKey key(String key) {
         return new NamespacedKey(Infinitum.getInstance(), key);
     }
@@ -66,12 +65,13 @@ public class ItemBuilder {
 
     public ItemBuilder(ItemStack item) {
         this.item = item;
-        if (item.hasItemMeta() && item.getItemMeta() != null) {
+        if ( item.hasItemMeta() && item.getItemMeta() != null ) {
             this.meta = item.getItemMeta();
             this.displayName = meta.getDisplayName();
             this.lore = meta.hasLore() && meta.getLore() != null ? meta.getLore() : new ArrayList<>();
-            this.flags.addAll(item.getItemMeta().getItemFlags());
-        } else this.meta = Bukkit.getItemFactory().getItemMeta(item.getType());
+            this.flags.addAll( item.getItemMeta().getItemFlags() );
+            nbtData.extractNBTData( meta );
+        } else this.meta = Bukkit.getItemFactory().getItemMeta( item.getType() );
         this.material = item.getType();
         this.amount = item.getAmount();
         this.enchantments = item.getEnchantments();
@@ -83,6 +83,33 @@ public class ItemBuilder {
 
     public static void toConfig(FileConfiguration cfg, String path, ItemBuilder builder) {
         cfg.set(path, builder.build());
+    }
+
+    public ItemBuilder addNBTTag(String key, String value) {
+        nbtData.addNBTTag(key(key), value);
+        return this;
+    }
+
+    public ItemBuilder addNBTTagList(HashMap<String, String> value) {
+        HashMap <NamespacedKey, String> list = new HashMap<>();
+        for (String str: value.keySet()) {
+            list.put(key(str), value.get(str));
+        }
+        nbtData.addAllNBTTagList(list);
+        return this;
+    }
+
+    public ItemBuilder setProtected(boolean value) {
+        nbtData.addNBTTag(key("protected"), String.valueOf(value));
+        return this;
+    }
+
+    public ItemBuilder rarity(String rarity) {
+        List<String> rarities = Arrays.asList("DIVINE", "MYTHIC", "LEGENDARY", "EPIC", "RARE", "UNCOMMON", "COMMON");
+        if (rarities.contains(rarity.toUpperCase())) {
+            nbtData.addNBTTag(key("rarity"), rarity);
+        } else nbtData.addNBTTag(key("rarity"), "COMMON");
+        return this;
     }
 
     public ItemBuilder amount(int amount) {
@@ -155,31 +182,36 @@ public class ItemBuilder {
         return this;
     }
 
-    public ItemStack build() {
-        item.setType(material);
-        item.setAmount(amount);
-        if (data != null)
-            item.setData(data);
-        if (!enchantments.isEmpty())
-            item.addUnsafeEnchantments(enchantments);
-        if (displayName != null)
-            meta.setDisplayName(displayName);
-        if (!lore.isEmpty())
-            meta.setLore(lore);
-        if (customModelData != 0)
-            meta.setCustomModelData(customModelData);
-        if (!flags.isEmpty()) {
-            for (ItemFlag f : flags) {
-                meta.addItemFlags(f);
+    public ItemStack build()
+    {
+        item.setType( material );
+        item.setAmount( amount );
+        if ( data != null )
+            item.setData( data );
+        if ( !enchantments.isEmpty() )
+            item.addUnsafeEnchantments( enchantments );
+        if ( displayName != null )
+            meta.setDisplayName( displayName );
+        if ( !lore.isEmpty() )
+            meta.setLore( lore );
+        if ( customModelData != 0 )
+            meta.setCustomModelData( customModelData );
+        if ( !flags.isEmpty() )
+        {
+            for (ItemFlag f : flags )
+            {
+                meta.addItemFlags( f );
             }
         }
-        if (isGlowing) {
+        if ( isGlowing )
+        {
             meta.addEnchant(Enchantment.CHANNELING, 1, true);
             meta.addItemFlags( ItemFlag.HIDE_ENCHANTS );
             meta.addItemFlags( ItemFlag.HIDE_POTION_EFFECTS );
         }
-        meta.setLocalizedName(localizedName);
-        item.setItemMeta(meta);
+        meta.setLocalizedName( localizedName );
+        meta = nbtData.parseAllNBTTags( meta );
+        item.setItemMeta( meta );
         return item;
     }
 }
