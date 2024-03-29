@@ -15,11 +15,12 @@ public class OpenBook implements Listener {
     @EventHandler
     public void onOpenBook( PlayerInteractEvent e )
     {
+        InteractHelper helper = new InteractHelper();
         Player player = e.getPlayer();
 
         if ( player.getItemInHand().hasItemMeta() )
         {
-            if ( InteractHelper.rightClick( e ) )
+            if ( helper.rightClick( e ) )
             {
                 if ( player.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase( "§bInfinita Scientia" ) )
                 {

@@ -11,6 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
+import xyz.sakubami.infinitum.builder.item.nbt.NBTUtils;
 import xyz.sakubami.infinitum.crafting.Crafting;
 
 public class Combust implements Listener {
@@ -18,6 +19,8 @@ public class Combust implements Listener {
     @EventHandler
     public void onCombust( EntityDamageEvent e )
     {
+
+        NBTUtils nbt = new NBTUtils();
         Location location = e.getEntity().getLocation();
         World world = location.getWorld();
         Entity entity = e.getEntity();
@@ -30,9 +33,9 @@ public class Combust implements Listener {
                 {
                     String name;
                     ItemStack item = ( ( Item ) e.getEntity() ).getItemStack();
-                    if ( item.getItemMeta().hasLore() )
+                    if ( nbt.hasID( item ) )
                     {
-                        name = item.getItemMeta().getLore().get( item.getItemMeta().getLore().size() -1 ).replace( "§0", "") + "/" + item.getAmount();
+                        name = nbt.getID( item ) + "/" + item.getAmount();
                     } else
                     {
                         name = item.getType().name() + "/" + item.getAmount();

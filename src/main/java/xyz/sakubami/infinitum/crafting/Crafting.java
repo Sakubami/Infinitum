@@ -42,7 +42,7 @@ public class Crafting {
         queue = new ArrayList<>();
     }
 
-    public void queryCauldronCraft(Location location, String item )
+    public void queryCauldronCraft( Location location, String item )
     {
         if ( queue.stream().anyMatch( queued -> queued.getLocation().equals( Loc.normalize( location ) ) ) )
         {
@@ -98,10 +98,7 @@ public class Crafting {
 
     public void spawnCraftingResult( CustomItem result, Location location )
     {
-        ItemStack itemStack = new ItemBuilder( result.getMaterial() )
-                .displayname( result.getName() )
-                .setLore( result.getLoreList() )
-                .addToLore( "§0" + result.getId() )
+        ItemStack itemStack = new ItemBuilder( result )
                 .setGlowing()
                 .build();
 

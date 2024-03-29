@@ -17,26 +17,17 @@ public enum CustomLoot {
     INFINITA_SCIENTIA( CustomItem.INFINITA_SCIENTIA, 100 );
 
     private final int chance;
-    private final Material material;
-    private final String name;
-    private final List<String> loreList;
-    private final int id;
+    private final CustomItem item;
 
     CustomLoot( CustomItem item, int chance )
     {
         this.chance = chance;
-        this.material = item.getMaterial();
-        this.name = item.getName();
-        this.loreList = item.getLoreList();
-        this.id = item.getId();
+        this.item = item;
     }
 
-    public ItemStack getLootItem()
-    {
-        return new ItemBuilder( material )
-                .displayname( name + "/" + chance )
-                .setLore( loreList != null ? loreList : Collections.emptyList() )
-                .addToLore( "§0" + id )
-                .build();
+    public CustomItem getItem() {
+        return item;
     }
+
+    public int getChance() { return chance; }
 }

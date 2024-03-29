@@ -10,6 +10,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.MaterialData;
 import xyz.sakubami.infinitum.Infinitum;
+import xyz.sakubami.infinitum.builder.item.nbt.NBTApi;
+import xyz.sakubami.infinitum.items.CustomItem;
+import xyz.sakubami.infinitum.items.Tier;
 import xyz.sakubami.infinitum.utils.Chat;
 
 import java.util.*;
@@ -30,9 +33,10 @@ public class ItemBuilder {
     private ItemMeta NBTMeta;
     private boolean isGlowing = false;
 
-    private final NBTapi nbtData = new NBTapi();
-    private NamespacedKey key(String key) {
-        return new NamespacedKey(Infinitum.getInstance(), key);
+    private final NBTApi nbt = new NBTApi();
+
+    private NamespacedKey key( String key ) {
+        return new NamespacedKey( Infinitum.getInstance(), key );
     }
 
     public ItemBuilder(Material material) {
@@ -63,18 +67,28 @@ public class ItemBuilder {
         this.displayName = displayName;
     }
 
-    public ItemBuilder(ItemStack item) {
+    public ItemBuilder( ItemStack item ) {
         this.item = item;
         if ( item.hasItemMeta() && item.getItemMeta() != null ) {
             this.meta = item.getItemMeta();
             this.displayName = meta.getDisplayName();
             this.lore = meta.hasLore() && meta.getLore() != null ? meta.getLore() : new ArrayList<>();
             this.flags.addAll( item.getItemMeta().getItemFlags() );
-            nbtData.extractNBTData( meta );
+            nbt.extractNBTData( meta );
         } else this.meta = Bukkit.getItemFactory().getItemMeta( item.getType() );
         this.material = item.getType();
         this.amount = item.getAmount();
         this.enchantments = item.getEnchantments();
+    }
+
+    public ItemBuilder( CustomItem item ) {
+        this.item = new ItemStack( item.getMaterial() );
+        this.meta = Bukkit.getItemFactory().getItemMeta( item.getMaterial() );
+        this.material = item.getMaterial();
+        this.displayName = item.getName();
+        this.lore = item.getLoreList();
+        nbt.addNBTTag( key( "id" ), item.name() );
+        nbt.addNBTTag( key( "tier" ), item.getTier().name() );
     }
 
     public ItemBuilder(FileConfiguration cfg, String path) {
@@ -86,7 +100,7 @@ public class ItemBuilder {
     }
 
     public ItemBuilder addNBTTag(String key, String value) {
-        nbtData.addNBTTag(key(key), value);
+        nbt.addNBTTag(key(key), value);
         return this;
     }
 
@@ -95,20 +109,20 @@ public class ItemBuilder {
         for (String str: value.keySet()) {
             list.put(key(str), value.get(str));
         }
-        nbtData.addAllNBTTagList(list);
+        nbt.addAllNBTTagList(list);
         return this;
     }
 
     public ItemBuilder setProtected(boolean value) {
-        nbtData.addNBTTag(key("protected"), String.valueOf(value));
+        nbt.addNBTTag(key("protected"), String.valueOf(value));
         return this;
     }
 
-    public ItemBuilder rarity(String rarity) {
+    public ItemBuilder tier(String rarity) {
         List<String> rarities = Arrays.asList("DIVINE", "MYTHIC", "LEGENDARY", "EPIC", "RARE", "UNCOMMON", "COMMON");
         if (rarities.contains(rarity.toUpperCase())) {
-            nbtData.addNBTTag(key("rarity"), rarity);
-        } else nbtData.addNBTTag(key("rarity"), "COMMON");
+            nbt.addNBTTag(key("tier"), rarity);
+        } else nbt.addNBTTag(key("tier"), "COMMON");
         return this;
     }
 
@@ -191,9 +205,9 @@ public class ItemBuilder {
         if ( !enchantments.isEmpty() )
             item.addUnsafeEnchantments( enchantments );
         if ( displayName != null )
-            meta.setDisplayName( displayName );
+            meta.setDisplayName( Chat.translate( displayName) );
         if ( !lore.isEmpty() )
-            meta.setLore( lore );
+            meta.setLore( Chat.translate( lore ) );
         if ( customModelData != 0 )
             meta.setCustomModelData( customModelData );
         if ( !flags.isEmpty() )
@@ -210,7 +224,7 @@ public class ItemBuilder {
             meta.addItemFlags( ItemFlag.HIDE_POTION_EFFECTS );
         }
         meta.setLocalizedName( localizedName );
-        meta = nbtData.parseAllNBTTags( meta );
+        meta = nbt.parseAllNBTTags( meta );
         item.setItemMeta( meta );
         return item;
     }

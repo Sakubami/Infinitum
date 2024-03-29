@@ -9,65 +9,65 @@ public enum CustomItem
 {
     NULL(
             Material.POPPED_CHORUS_FRUIT,
-            1,
+            Tier.O,
             "&5Verfluchte Frucht",
             "&o&7Erschaffen aus einem",
             "&o&7Fehlgeschlagenen Ritual"),
 
     INFINITA_SCIENTIA(
             Material.WRITABLE_BOOK,
-            2,
+            Tier.II,
             "&bInfinita Scientia",
             "&o&7Eine starke Ausstrahlung geht",
             "&o&7von diesem Buch aus..."),
 
     HEART_OF_THE_END(
             Material.PITCHER_PLANT,
-            3,
+            Tier.O,
             "&6Herz des Endes",
             "&o&7Es pulsiert mit",
             "&o&7Dunkler Energie..." ),
 
     RUNE_OF_POWER(
             Material.SILENCE_ARMOR_TRIM_SMITHING_TEMPLATE,
-            4,
+            Tier.O,
             "&6Rune der Macht",
             "&7Stufe &6I"),
 
     END_CRYSTAL(
             Material.END_CRYSTAL,
-            5,
+            Tier.O,
             "&bEnd Crystal" ),
 
     NETHER_STAR(
             Material.NETHER_STAR,
-            6,
+            Tier.O,
             "&eNether Star" ),
 
     FRAGMENT_OF_REALITY(
             Material.ECHO_SHARD,
-            7,
+            Tier.II,
             "&5Fragment der Realität",
             "&7Stufe &6II" );
 
     private final Material material;
-    private final int id;
     private final String name;
     private final List<String> loreList;
+    private final Tier tier;
 
-    CustomItem ( Material material, int id, String name, String... lore )
+    CustomItem ( Material material, Tier tier, String name, String... lore )
     {
         this.material = material;
-        this.id = id;
         this.name = name;
         this.loreList = Arrays.asList( lore );
+        this.tier = tier;
     }
 
     public Material getMaterial()
     {
         return material;
     }
-    public int getId() { return id; }
     public String getName() { return name; }
     public List<String> getLoreList() { return loreList; }
+    public Tier getTier() { return tier; }
 }
