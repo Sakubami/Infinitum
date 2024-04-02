@@ -2,7 +2,7 @@ package xyz.sakubami.infinitum.builder.item;
 
 import xyz.sakubami.infinitum.items.CustomItem;
 import xyz.sakubami.infinitum.items.ItemCategory;
-import xyz.sakubami.infinitum.items.Tier;
+import xyz.sakubami.infinitum.items.ItemTier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,14 +14,14 @@ public class LoreBuilder {
     private List<String> description = new ArrayList<>();
     private final CustomItem item;
     private boolean material = true;
-    private final Tier tier;
+    private final ItemTier itemTier;
 
     public LoreBuilder( CustomItem item )
     {
         if ( item.getItemCategory().equals( ItemCategory.MATERIAL ) )
             this.material = false;
         this.item = item;
-        this.tier = item.getTier();
+        this.itemTier = item.getTier();
     }
 
     public LoreBuilder addDescription()
@@ -126,7 +126,7 @@ public class LoreBuilder {
         if ( !material )
             lore.add( "§4" + item.getItemClass() );
 
-        lore.add( "§f§lSTUFE " + tier.getColor() + "§l" + tier.name() + " §f§l" + item.getItemCategory().getTranslation() );
+        lore.add( "§f§lSTUFE " + itemTier.getColor() + "§l" + itemTier.name() + " §f§l" + item.getItemCategory().getTranslation() );
 
         return this.lore;
     }

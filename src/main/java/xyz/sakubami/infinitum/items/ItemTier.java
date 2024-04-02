@@ -1,6 +1,6 @@
 package xyz.sakubami.infinitum.items;
 
-public enum Tier {
+public enum ItemTier {
     O( "§6" ),
     I( "§9" ),
     II( "§3" ),
@@ -10,7 +10,7 @@ public enum Tier {
 
     private final String color;
 
-    Tier( String color )
+    ItemTier(String color )
     {
         this.color = color;
     }

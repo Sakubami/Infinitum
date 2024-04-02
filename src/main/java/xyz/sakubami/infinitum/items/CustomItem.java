@@ -2,16 +2,13 @@ package xyz.sakubami.infinitum.items;
 
 import org.bukkit.Material;
 
-import java.util.Arrays;
-import java.util.List;
-
 public enum CustomItem
 {
     NULL(
             Material.POPPED_CHORUS_FRUIT,
             ItemCategory.MATERIAL,
             ItemAttributes.NONE,
-            Tier.O,
+            ItemTier.O,
             "&5Verfluchte Frucht",
             "&o&7Erschaffen aus einem Fehlgeschlagenen Ritual" ),
 
@@ -19,7 +16,7 @@ public enum CustomItem
             Material.WRITABLE_BOOK,
             ItemCategory.TOME,
             ItemAttributes.INFINITA_SCIENTIA,
-            Tier.II,
+            ItemTier.II,
             "&bInfinita Scientia",
             "&o&7Eine starke Ausstrahlung geht &o&7Dunkler Energie..." ),
 
@@ -27,7 +24,7 @@ public enum CustomItem
             Material.PITCHER_PLANT,
             ItemCategory.MATERIAL,
             ItemAttributes.NONE,
-            Tier.O,
+            ItemTier.O,
             "&6Herz des Endes",
             "&o&7Es pulsiert mit &o&7Dunkler Energie..." ),
 
@@ -35,7 +32,7 @@ public enum CustomItem
             Material.SILENCE_ARMOR_TRIM_SMITHING_TEMPLATE,
             ItemCategory.MATERIAL,
             ItemAttributes.NONE,
-            Tier.O,
+            ItemTier.O,
             "&6Rune der Macht",
             "&7Stufe &6I"),
 
@@ -43,7 +40,7 @@ public enum CustomItem
             Material.END_CRYSTAL,
             ItemCategory.MATERIAL,
             ItemAttributes.NONE,
-            Tier.O,
+            ItemTier.O,
             "&bEnd Crystal",
             ""),
 
@@ -51,7 +48,7 @@ public enum CustomItem
             Material.NETHER_STAR,
             ItemCategory.MATERIAL,
             ItemAttributes.NONE,
-            Tier.O,
+            ItemTier.O,
             "&eNether Star",
             "das ist ein test string ich hoffe das das funktioniert so wie es soll aber ich habe ehrlich gesagt keine ahnung ob ja oder nein lolz"),
 
@@ -59,14 +56,14 @@ public enum CustomItem
             Material.ECHO_SHARD,
             ItemCategory.MATERIAL,
             ItemAttributes.NONE,
-            Tier.II,
+            ItemTier.II,
             "&5Fragment der Realität",
             "&7Stufe &6II" );
 
     private final Material material;
     private final String name;
     private final String lore;
-    private final Tier tier;
+    private final ItemTier itemTier;
     private final int damage;
     private final int intelligence;
     private final int strength;
@@ -77,12 +74,12 @@ public enum CustomItem
     private final ItemClass itemClass;
     private final ItemCategory itemCategory;
 
-    CustomItem ( Material material, ItemCategory itemCategory, ItemAttributes attributes, Tier tier, String name, String lore )
+    CustomItem (Material material, ItemCategory itemCategory, ItemAttributes attributes, ItemTier itemTier, String name, String lore )
     {
         this.material = material;
         this.name = name;
         this.lore = lore;
-        this.tier = tier;
+        this.itemTier = itemTier;
         this.damage = attributes.getDamage();
         this.intelligence = attributes.getIntelligence();
         this.strength = attributes.getStrength();
@@ -100,7 +97,7 @@ public enum CustomItem
     }
     public String getName() { return name; }
     public String getLore() { return lore; }
-    public Tier getTier() { return tier; }
+    public ItemTier getTier() { return itemTier; }
     public int getDamage()
     {
         return damage;

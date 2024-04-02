@@ -12,7 +12,6 @@ import org.bukkit.material.MaterialData;
 import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.builder.item.nbt.NBTApi;
 import xyz.sakubami.infinitum.items.CustomItem;
-import xyz.sakubami.infinitum.items.Tier;
 import xyz.sakubami.infinitum.utils.Chat;
 
 import java.util.*;
