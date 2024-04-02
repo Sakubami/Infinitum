@@ -84,11 +84,11 @@ public class ItemBuilder {
         this.item = new ItemStack( item.getMaterial() );
         this.meta = Bukkit.getItemFactory().getItemMeta( item.getMaterial() );
         this.material = item.getMaterial();
-        this.displayName = item.getName();
-        this.lore = new LoreBuilder( item )
-                .build();
+        this.displayName = item.getTier().getColor() + item.getName();
+
+        this.lore = new LoreBuilder( item ).addDescription( item.getLore() != null ).build();
+
         nbt.addNBTTag( key( "id" ), item.name() );
-        nbt.addNBTTag( key( "tier" ), item.getTier().name() );
     }
 
     public ItemBuilder(FileConfiguration cfg, String path) {

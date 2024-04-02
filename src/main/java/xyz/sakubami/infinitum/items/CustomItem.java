@@ -9,7 +9,7 @@ public enum CustomItem
             ItemCategory.MATERIAL,
             ItemAttributes.NONE,
             ItemTier.O,
-            "&5Verfluchte Frucht",
+            "Verfluchte Frucht",
             "&o&7Erschaffen aus einem Fehlgeschlagenen Ritual" ),
 
     INFINITA_SCIENTIA(
@@ -17,15 +17,15 @@ public enum CustomItem
             ItemCategory.TOME,
             ItemAttributes.INFINITA_SCIENTIA,
             ItemTier.II,
-            "&bInfinita Scientia",
-            "&o&7Eine starke Ausstrahlung geht &o&7Dunkler Energie..." ),
+            "Infinita Scientia",
+            "&o&7Eine starke Ausstrahlung geht von diesem Wälzer aus..." ),
 
     HEART_OF_THE_END(
             Material.PITCHER_PLANT,
             ItemCategory.MATERIAL,
             ItemAttributes.NONE,
             ItemTier.O,
-            "&6Herz des Endes",
+            "Herz des Endes",
             "&o&7Es pulsiert mit &o&7Dunkler Energie..." ),
 
     RUNE_OF_POWER(
@@ -33,7 +33,7 @@ public enum CustomItem
             ItemCategory.MATERIAL,
             ItemAttributes.NONE,
             ItemTier.O,
-            "&6Rune der Macht",
+            "Rune der Macht",
             "&7Stufe &6I"),
 
     END_CRYSTAL(
@@ -41,23 +41,23 @@ public enum CustomItem
             ItemCategory.MATERIAL,
             ItemAttributes.NONE,
             ItemTier.O,
-            "&bEnd Crystal",
-            ""),
+            "End Crystal",
+            null ),
 
     NETHER_STAR(
             Material.NETHER_STAR,
             ItemCategory.MATERIAL,
             ItemAttributes.NONE,
             ItemTier.O,
-            "&eNether Star",
-            "das ist ein test string ich hoffe das das funktioniert so wie es soll aber ich habe ehrlich gesagt keine ahnung ob ja oder nein lolz"),
+            "Nether Star",
+            "das ist ein test string ich hoffe das das §c§lfunktioniert§7 so wie es soll §c§laber§7 ich habe ehrlich gesagt keine ahnung ob ja oder nein lolz"),
 
     FRAGMENT_OF_REALITY(
             Material.ECHO_SHARD,
             ItemCategory.MATERIAL,
             ItemAttributes.NONE,
             ItemTier.II,
-            "&5Fragment der Realität",
+            "Fragment der Realität",
             "&7Stufe &6II" );
 
     private final Material material;
@@ -74,7 +74,7 @@ public enum CustomItem
     private final ItemClass itemClass;
     private final ItemCategory itemCategory;
 
-    CustomItem (Material material, ItemCategory itemCategory, ItemAttributes attributes, ItemTier itemTier, String name, String lore )
+    CustomItem ( Material material, ItemCategory itemCategory, ItemAttributes attributes, ItemTier itemTier, String name, String lore )
     {
         this.material = material;
         this.name = name;

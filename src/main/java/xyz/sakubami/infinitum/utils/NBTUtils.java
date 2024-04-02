@@ -1,7 +1,11 @@
-package xyz.sakubami.infinitum.builder.item.nbt;
+package xyz.sakubami.infinitum.utils;
 
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import xyz.sakubami.infinitum.builder.item.nbt.NBTApi;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class NBTUtils {
 
@@ -12,6 +16,18 @@ public class NBTUtils {
         if ( NBT.getNBTValue( item, "protected" ) != null )
             return Boolean.parseBoolean( NBT.getNBTValue( item, "protected" ) );
         return false;
+    }
+
+    public List<String> getEnchantments( ItemStack item )
+    {
+        List<String> list = new ArrayList<>();
+
+        if ( NBT.getNBTValue( item, "enchanted" ) != null )
+        {
+
+        }
+
+        return list;
     }
 
     public boolean hasID( ItemStack item )

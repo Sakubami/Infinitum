@@ -5,8 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
-import xyz.sakubami.infinitum.builder.item.nbt.NBTApi;
-import xyz.sakubami.infinitum.builder.item.nbt.NBTUtils;
+import xyz.sakubami.infinitum.utils.NBTUtils;
 
 public class InventoryListener implements Listener {
 

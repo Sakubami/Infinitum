@@ -1,5 +1,6 @@
 package xyz.sakubami.infinitum.builder.item;
 
+import xyz.sakubami.infinitum.utils.NBTUtils;
 import xyz.sakubami.infinitum.items.CustomItem;
 import xyz.sakubami.infinitum.items.ItemCategory;
 import xyz.sakubami.infinitum.items.ItemTier;
@@ -9,7 +10,7 @@ import java.util.List;
 
 public class LoreBuilder {
 
-    // components
+    NBTUtils nbt = new NBTUtils();
     private final List<String> lore = new ArrayList<>();
     private List<String> description = new ArrayList<>();
     private final CustomItem item;
@@ -24,27 +25,37 @@ public class LoreBuilder {
         this.itemTier = item.getTier();
     }
 
-    public LoreBuilder addDescription()
+    public LoreBuilder addDescription( boolean toggle )
     {
         String description = item.getLore();
         List<String> list = new ArrayList<>();
         String newDesc = description;
 
-        for ( int i = 38; true; i += 38 )
-        if ( newDesc.length() > i )
+        for ( int i = 0; true ; i++ )
         {
-            String split = description.substring( 0, i );
-            String remaining = description.substring( 0, split.lastIndexOf( " " ) );
-            list.add ( remaining );
-            newDesc = description.substring ( split.lastIndexOf( " " ) );
-
-        } else
-        {
-            list.add( newDesc );
-            break;
+            if ( newDesc.length() > 38 )
+            {
+                String split = newDesc.substring( 0, 38 ).strip();
+                String remaining = newDesc.substring( 0, split.lastIndexOf( " " ) );
+                list.add ( "§7" + remaining );
+                newDesc = newDesc.substring ( split.lastIndexOf( " " ) ).strip();
+            } else
+            {
+                list.add( "§7" + newDesc.strip() );
+                break;
+            }
         }
 
-        this.description = list;
+        list.add( "§0" );
+
+        if ( toggle )
+            this.description = list;
+
+        return this;
+    }
+
+    public LoreBuilder addEnchantments()
+    {
 
         return this;
     }
@@ -67,7 +78,7 @@ public class LoreBuilder {
 
         if ( item.getCritChance() != 0 )
         {
-            this.lore.add( "§7Krit. Chance: §c" + formatted( item.getCritChance() ) );
+            this.lore.add( "§7Krit. Chance: §c" + item.getCritChance() );
             temp += 1;
         }
 
@@ -116,15 +127,27 @@ public class LoreBuilder {
 
     public List<String> build()
     {
-        if ( !material )
+        boolean attributes = false;
+
+        if ( material )
+        {
             initAttributes();
+            attributes = true;
+        }
+
+        if ( !attributes )
+            lore.add( "§0" );
+
         if ( !description.isEmpty() )
             lore.addAll( description );
 
         // enchants idk
 
-        if ( !material )
+        if ( material )
             lore.add( "§4" + item.getItemClass() );
+
+        // show how well it was crafted
+
 
         lore.add( "§f§lSTUFE " + itemTier.getColor() + "§l" + itemTier.name() + " §f§l" + item.getItemCategory().getTranslation() );
 
