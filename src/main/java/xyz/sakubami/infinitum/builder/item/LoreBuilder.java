@@ -67,13 +67,13 @@ public class LoreBuilder {
 
         if ( item.getDamage() != 0 )
         {
-            this.lore.add( "§7Schaden: §c" + formatted( item.getDamage() ) );
+            this.lore.add( "§7Schaden: §c" + item.getDamage() );
             temp += 1;
         }
 
         if ( item.getStrength() != 0 )
         {
-            this.lore.add( "§7Stärke: §c" + formatted( item.getStrength() ) );
+            this.lore.add( "§7Stärke: §c" + item.getStrength() );
             temp += 1;
         }
 
@@ -85,7 +85,7 @@ public class LoreBuilder {
 
         if ( item.getCritDamage() != 0 )
         {
-            this.lore.add( "§7Krit. Schaden: §c" + formatted( item.getCritDamage() ) );
+            this.lore.add( "§7Krit. Schaden: §c" + item.getCritDamage() );
             temp += 1;
         }
 
@@ -97,19 +97,19 @@ public class LoreBuilder {
 
         if ( item.getDamage() != 0 )
         {
-            this.lore.add( "§7Leben: §a" + formatted( item.getHealth() ) );
+            this.lore.add( "§7Leben: §a" + item.getHealth() );
             temp += 1;
         }
 
         if ( item.getDefense() != 0 )
         {
-            this.lore.add( "§7Rüstung: §a" + formatted( item.getDefense() ) );
+            this.lore.add( "§7Rüstung: §a" + item.getDefense() );
             temp += 1;
         }
 
         if ( item.getIntelligence() != 0 )
         {
-            this.lore.add( "§7Intelligenz: §a" + formatted( item.getIntelligence() ) );
+            this.lore.add( "§7Intelligenz: §a" + item.getIntelligence() );
             temp += 1;
         }
 
@@ -117,13 +117,6 @@ public class LoreBuilder {
         {
             this.lore.add( "§0" );
         }
-    }
-
-    private String formatted( int number)
-    {
-        if ( Integer.signum( number ) == 0 )
-            return "-" + number;
-        else return "+" + number;
     }
 
     public List<String> build()
