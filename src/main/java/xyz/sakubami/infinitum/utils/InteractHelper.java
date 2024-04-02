@@ -24,8 +24,9 @@ public class InteractHelper {
         if ( event.getHand() != null )
             if ( event.getHand().equals( EquipmentSlot.HAND ) )
                 if ( event.getAction().equals( Action.RIGHT_CLICK_AIR ) || event.getAction().equals( Action.RIGHT_CLICK_BLOCK ) )
-                    if ( nbt.hasID( itemStack ) )
-                        return nbt.getID( itemStack ).equalsIgnoreCase( itemID );
+                    if ( event.getItem() != null )
+                        if ( nbt.hasID( itemStack ) )
+                            return nbt.getID( itemStack ).equalsIgnoreCase( itemID );
         return false;
     }
 
@@ -34,7 +35,7 @@ public class InteractHelper {
         if ( event.getHand() != null )
             if ( event.getHand().equals( EquipmentSlot.HAND ) )
                 if ( event.getAction().equals( Action.RIGHT_CLICK_AIR ) || event.getAction().equals( Action.RIGHT_CLICK_BLOCK ) )
-                    if (event.getClickedBlock() != null )
+                    if ( event.getClickedBlock() != null )
                         return event.getClickedBlock().getType().equals( material );
         return false;
     }

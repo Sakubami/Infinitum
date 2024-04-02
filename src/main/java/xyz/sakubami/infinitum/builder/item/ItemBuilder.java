@@ -39,7 +39,7 @@ public class ItemBuilder {
         return new NamespacedKey( Infinitum.getInstance(), key );
     }
 
-    public ItemBuilder(Material material) {
+    public ItemBuilder( Material material ) {
         this.item = new ItemStack(material);
         this.meta = item.hasItemMeta() && item.getItemMeta() != null ? item.getItemMeta() : Bukkit.getItemFactory().getItemMeta( item.getType() );
         this.material = material;
@@ -86,7 +86,8 @@ public class ItemBuilder {
         this.meta = Bukkit.getItemFactory().getItemMeta( item.getMaterial() );
         this.material = item.getMaterial();
         this.displayName = item.getName();
-        this.lore = item.getLoreList();
+        this.lore = new LoreBuilder( item )
+                .build();
         nbt.addNBTTag( key( "id" ), item.name() );
         nbt.addNBTTag( key( "tier" ), item.getTier().name() );
     }

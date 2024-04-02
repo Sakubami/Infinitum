@@ -1,12 +1,12 @@
 package xyz.sakubami.infinitum.items;
 
 public enum Tier {
-    O( "§c" ),
-    I( "§c" ),
-    II( "§c" ),
-    III( "§c" ),
-    IV( "§c" ),
-    V( "§c" );
+    O( "§6" ),
+    I( "§9" ),
+    II( "§3" ),
+    III( "§b" ),
+    IV( "§d" ),
+    V( "§5" );
 
     private final String color;
 

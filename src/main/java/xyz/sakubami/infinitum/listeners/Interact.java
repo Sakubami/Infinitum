@@ -30,12 +30,8 @@ public class Interact implements Listener {
     @EventHandler
     public void onInteract( PlayerInteractEvent e )
     {
-        NBTUtils nbt = new NBTUtils();
         InteractHelper helper = new InteractHelper();
         Player player = e.getPlayer();
-
-         if ( nbt.hasID( e.getItem() ) )
-            Infinitum.getInstance().getServer().broadcastMessage( " I HAVE FOUND ID" + nbt.getID( e.getItem() ) );
 
         if ( helper.rightClickBlockWithItem( e, Material.LAVA_CAULDRON, e.getItem(), "RUNE_OF_POWER" ) )
         {
