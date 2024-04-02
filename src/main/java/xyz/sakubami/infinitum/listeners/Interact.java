@@ -1,5 +1,7 @@
 package xyz.sakubami.infinitum.listeners;
 
+import net.leonardo_dgs.interactivebooks.IBook;
+import net.leonardo_dgs.interactivebooks.InteractiveBooks;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -53,6 +55,12 @@ public class Interact implements Listener {
         if ( helper.rightClickBlockWithItem( e, Material.DIAMOND_BLOCK, e.getItem(), "FRAGMENT_OF_REALITY" ) )
         {
             player.sendMessage( "testing" );
+        }
+
+        if ( helper.rightClickWithItem( e, e.getItem(), "INFINITA_SCIENTIA" ) )
+        {
+            IBook iBook = InteractiveBooks.getBook( "start" );
+            iBook.open( player );
         }
     }
 }

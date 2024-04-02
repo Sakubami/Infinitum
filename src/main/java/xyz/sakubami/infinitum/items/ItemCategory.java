@@ -8,7 +8,8 @@ public enum ItemCategory {
     WAND("ZAUBERSTAB"),
     SWORD("SCHWERT"),
     BOW("BOGEN"),
-    TOOL("WERKZEUG");
+    TOOL("WERKZEUG"),
+    QUEST_ITEM("QUEST ITEM");
 
     private final String translation;
 

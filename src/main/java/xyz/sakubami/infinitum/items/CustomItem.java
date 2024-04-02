@@ -14,7 +14,7 @@ public enum CustomItem
 
     INFINITA_SCIENTIA(
             Material.WRITABLE_BOOK,
-            ItemCategory.TOME,
+            ItemCategory.QUEST_ITEM,
             ItemAttributes.INFINITA_SCIENTIA,
             ItemTier.II,
             "Infinita Scientia",
@@ -42,7 +42,7 @@ public enum CustomItem
             ItemAttributes.NONE,
             ItemTier.O,
             "End Crystal",
-            null ),
+            "null" ),
 
     NETHER_STAR(
             Material.NETHER_STAR,
@@ -50,7 +50,7 @@ public enum CustomItem
             ItemAttributes.NONE,
             ItemTier.O,
             "Nether Star",
-            "das ist ein test string ich hoffe das das §c§lfunktioniert§7 so wie es soll §c§laber§7 ich habe ehrlich gesagt keine ahnung ob ja oder nein lolz"),
+            "das ist ein test string ich hoffe das das ich frage mich was passiert wenn ich einfach weiter schreibe sio lol sollte eigenltihch nicht viel passieren?? §c§lfunktioniert§7 so wie es soll §c§laber§7 ich habe ehrlich gesagt keine ahnung ob ja oder nein lolz"),
 
     FRAGMENT_OF_REALITY(
             Material.ECHO_SHARD,

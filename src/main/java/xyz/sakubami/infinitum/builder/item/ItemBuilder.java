@@ -86,9 +86,12 @@ public class ItemBuilder {
         this.material = item.getMaterial();
         this.displayName = item.getTier().getColor() + item.getName();
 
-        this.lore = new LoreBuilder( item ).addDescription( item.getLore() != null ).build();
+        this.lore = new LoreBuilder( item ).addDescription( !item.getLore().equalsIgnoreCase( "null" ) ).build();
 
-        nbt.addNBTTag( key( "id" ), item.name() );
+        Infinitum.getInstance().getServer().broadcastMessage( item.toString() );
+        Infinitum.getInstance().getServer().broadcastMessage( item.name() );
+
+        nbt.addNBTTag( key( "id" ), item.toString() );
     }
 
     public ItemBuilder(FileConfiguration cfg, String path) {

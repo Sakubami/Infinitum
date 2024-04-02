@@ -11,16 +11,17 @@ import java.util.List;
 public class LoreBuilder {
 
     NBTUtils nbt = new NBTUtils();
+
     private final List<String> lore = new ArrayList<>();
     private List<String> description = new ArrayList<>();
     private final CustomItem item;
-    private boolean material = true;
+    private boolean toggle = true;
     private final ItemTier itemTier;
 
     public LoreBuilder( CustomItem item )
     {
-        if ( item.getItemCategory().equals( ItemCategory.MATERIAL ) )
-            this.material = false;
+        if ( item.getItemCategory().equals( ItemCategory.MATERIAL ) || item.getItemCategory().equals( ItemCategory.QUEST_ITEM ) )
+            this.toggle = false;
         this.item = item;
         this.itemTier = item.getTier();
     }
@@ -129,7 +130,7 @@ public class LoreBuilder {
     {
         boolean attributes = false;
 
-        if ( material )
+        if ( toggle )
         {
             initAttributes();
             attributes = true;
@@ -143,7 +144,7 @@ public class LoreBuilder {
 
         // enchants idk
 
-        if ( material )
+        if (toggle)
             lore.add( "§4" + item.getItemClass() );
 
         // show how well it was crafted

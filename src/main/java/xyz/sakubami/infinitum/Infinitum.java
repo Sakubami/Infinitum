@@ -24,7 +24,6 @@ public class Infinitum extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents( new EntityKill(), this );
         Bukkit.getPluginManager().registerEvents( new Interact(), this );
         Bukkit.getPluginManager().registerEvents( new Combust(), this );
-        Bukkit.getPluginManager().registerEvents( new OpenBook(), this );
         Bukkit.getPluginManager().registerEvents( new PlayerInteractServer(), this );
 
         //load configs
