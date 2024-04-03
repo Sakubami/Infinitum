@@ -15,8 +15,7 @@ public class CombatExperience {
         int amount = 0;
         try {
             amount = EntityExperienceYield.valueOf( entity.getName().toUpperCase() ).getYield();
+            leveling.gainExperience( uuid, ExperienceType.COMBAT, amount );
         } catch ( Exception ignored ) { }
-
-        leveling.gainExperience( uuid, ExperienceType.COMBAT, amount );
     }
 }

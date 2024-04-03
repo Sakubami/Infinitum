@@ -26,12 +26,12 @@ public class LootController{
     }
 
     public void generateLoot( Location location, CustomLootTable lootTable )
-        {
-            ArrayList<CustomLoot> contents = lootTable.getLootTable();
+    {
+        ArrayList<CustomLoot> contents = lootTable.getLootTable();
 
-            for ( CustomLoot item : contents )
-            {
-                generateItem( location, item );
-            }
+        for ( CustomLoot item : contents )
+        {
+            generateItem( location, item );
         }
+    }
 }

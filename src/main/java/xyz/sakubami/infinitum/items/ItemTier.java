@@ -10,7 +10,7 @@ public enum ItemTier {
 
     private final String color;
 
-    ItemTier(String color )
+    ItemTier( String color )
     {
         this.color = color;
     }

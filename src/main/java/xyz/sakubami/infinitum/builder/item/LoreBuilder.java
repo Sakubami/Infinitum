@@ -63,6 +63,8 @@ public class LoreBuilder {
 
     private void initAttributes()
     {
+        // TODO optimize with iteration and hashmap
+
         int temp = 0;
 
         if ( item.getDamage() != 0 )
