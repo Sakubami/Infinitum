@@ -1,4 +1,4 @@
-package xyz.sakubami.infinitum.world.entities.player.config;
+package xyz.sakubami.infinitum.world.entities.player;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;

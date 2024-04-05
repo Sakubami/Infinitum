@@ -1,6 +1,6 @@
 package xyz.sakubami.infinitum.world.entities.player.skills;
 
-import xyz.sakubami.infinitum.world.entities.player.config.PlayerConfig;
+import xyz.sakubami.infinitum.world.entities.player.PlayerConfig;
 
 import java.util.UUID;
 

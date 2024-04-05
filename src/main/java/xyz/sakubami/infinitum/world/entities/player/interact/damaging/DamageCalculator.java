@@ -25,14 +25,12 @@ public class DamageCalculator {
     {
         // make this compatible with custom entities that im gonna add later on
 
-        final int ahp = ;
-        final int bhp = ;
+        final int ahp = 1;
+        final int bhp = 1;
         final int effectiveHealth;
         final int defense;
         final int strength;
-
-
-        if ( )
+        
         return raw;
     }
 }

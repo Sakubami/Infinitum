@@ -91,29 +91,17 @@ public enum CustomItem
         this.itemCategory = itemCategory;
     }
 
-    public Material getMaterial()
-    {
-        return material;
-    }
+    public Material getMaterial() { return material; }
     public String getName() { return name; }
     public String getLore() { return lore; }
     public ItemTier getTier() { return itemTier; }
-    public int getDamage()
-    {
-        return damage;
-    }
+    public int getDamage() { return damage; }
     public int getIntelligence() { return intelligence; }
     public int getStrength() { return strength; }
     public int getDefense() { return def; }
     public int getHealth() { return health; }
-    public int getCritDamage()
-    {
-        return critDamage;
-    }
-    public int getCritChance()
-    {
-        return critChance;
-    }
+    public int getCritDamage() { return critDamage; }
+    public int getCritChance() { return critChance; }
     public ItemClass getItemClass() { return itemClass; }
     public ItemCategory getItemCategory() { return itemCategory; }
 }
