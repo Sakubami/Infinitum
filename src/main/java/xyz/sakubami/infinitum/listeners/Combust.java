@@ -12,7 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import xyz.sakubami.infinitum.utils.NBTUtils;
-import xyz.sakubami.infinitum.crafting.Crafting;
+import xyz.sakubami.infinitum.functionality.crafting.Crafting;
 
 public class Combust implements Listener {
 

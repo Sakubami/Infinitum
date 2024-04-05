@@ -1,8 +1,7 @@
 package xyz.sakubami.infinitum.utils;
 
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import xyz.sakubami.infinitum.builder.item.nbt.NBTApi;
+import xyz.sakubami.infinitum.utils.builder.item.nbt.NBTApi;
 
 import java.util.ArrayList;
 import java.util.List;
