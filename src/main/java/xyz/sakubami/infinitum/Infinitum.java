@@ -2,11 +2,11 @@ package xyz.sakubami.infinitum;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
-import xyz.sakubami.infinitum.crafting.Crafting;
-import xyz.sakubami.infinitum.crafting.RecipeConfig;
-import xyz.sakubami.infinitum.crafting.stations.LocationConfig;
+import xyz.sakubami.infinitum.functionality.crafting.Crafting;
+import xyz.sakubami.infinitum.functionality.crafting.RecipeConfig;
+import xyz.sakubami.infinitum.functionality.crafting.stations.LocationConfig;
 import xyz.sakubami.infinitum.listeners.*;
-import xyz.sakubami.infinitum.player.config.PlayerConfig;
+import xyz.sakubami.infinitum.world.entities.player.config.PlayerConfig;
 
 public class Infinitum extends JavaPlugin {
 
