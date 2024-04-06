@@ -1,8 +1,11 @@
 package xyz.sakubami.infinitum.functionality.items;
 
 import org.bukkit.Material;
+import xyz.sakubami.infinitum.functionality.Attribute;
 
-public enum CustomItem
+import java.util.HashMap;
+
+public enum ItemTemplates
 {
     NULL(
             Material.POPPED_CHORUS_FRUIT,
@@ -64,29 +67,17 @@ public enum CustomItem
     private final String name;
     private final String lore;
     private final ItemTier itemTier;
-    private final int damage;
-    private final int intelligence;
-    private final int strength;
-    private final int def;
-    private final int health;
-    private final int critChance;
-    private final int critDamage;
+    private final ItemAttributes attributes;
     private final ItemClass itemClass;
     private final ItemCategory itemCategory;
 
-    CustomItem ( Material material, ItemCategory itemCategory, ItemAttributes attributes, ItemTier itemTier, String name, String lore )
+    ItemTemplates( Material material, ItemCategory itemCategory, ItemAttributes attributes, ItemTier itemTier, String name, String lore )
     {
         this.material = material;
         this.name = name;
         this.lore = lore;
         this.itemTier = itemTier;
-        this.damage = attributes.getDamage();
-        this.intelligence = attributes.getIntelligence();
-        this.strength = attributes.getStrength();
-        this.def = attributes.getDefense();
-        this.health = attributes.getHealth();
-        this.critChance = attributes.getCritChance();
-        this.critDamage = attributes.getCritDamage();
+        this.attributes = attributes;
         this.itemClass = attributes.getItemClass();
         this.itemCategory = itemCategory;
     }
@@ -95,13 +86,7 @@ public enum CustomItem
     public String getName() { return name; }
     public String getLore() { return lore; }
     public ItemTier getTier() { return itemTier; }
-    public int getDamage() { return damage; }
-    public int getIntelligence() { return intelligence; }
-    public int getStrength() { return strength; }
-    public int getDefense() { return def; }
-    public int getHealth() { return health; }
-    public int getCritDamage() { return critDamage; }
-    public int getCritChance() { return critChance; }
+    public HashMap<Attribute, Integer> getAttributes() { return attributes.getAttributes(); }
     public ItemClass getItemClass() { return itemClass; }
     public ItemCategory getItemCategory() { return itemCategory; }
 }

@@ -6,7 +6,8 @@ import xyz.sakubami.infinitum.functionality.crafting.Crafting;
 import xyz.sakubami.infinitum.functionality.crafting.RecipeConfig;
 import xyz.sakubami.infinitum.functionality.crafting.stations.LocationConfig;
 import xyz.sakubami.infinitum.listeners.*;
-import xyz.sakubami.infinitum.world.entities.player.PlayerConfig;
+import xyz.sakubami.infinitum.world.entities.mob.MobController;
+import xyz.sakubami.infinitum.world.entities.player.PlayerController;
 
 public class Infinitum extends JavaPlugin {
 
@@ -15,7 +16,8 @@ public class Infinitum extends JavaPlugin {
     private LocationConfig locationConfig;
     private RecipeConfig recipeConfig;
     private Crafting crafting;
-    private PlayerConfig playerConfig;
+    private PlayerController playerController;
+    private MobController mobController;
 
     public void onEnable() {
         instance = this;
@@ -30,10 +32,11 @@ public class Infinitum extends JavaPlugin {
         this.locationConfig = new LocationConfig();
         this.recipeConfig = new RecipeConfig();
         this.crafting = new Crafting();
-        this.playerConfig = new PlayerConfig();
+        this.playerController = new PlayerController();
+        this.mobController = new MobController();
 
         //autosaving
-        playerConfig.autoSave( 15 );
+        playerController.autoSave( 15 );
 
         instance.getServer().broadcastMessage("§dInfinitum §7wurde §aeingeschaltet!");
     }
@@ -53,5 +56,7 @@ public class Infinitum extends JavaPlugin {
 
     public Crafting getCrafting() { return crafting; }
 
-    public PlayerConfig getPlayerConfig() { return playerConfig; }
+    public PlayerController getPlayerConfig() { return playerController; }
+
+    public MobController getMobController() { return mobController; }
 }

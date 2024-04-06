@@ -1,5 +1,9 @@
 package xyz.sakubami.infinitum.functionality.items;
 
+import xyz.sakubami.infinitum.functionality.Attribute;
+
+import java.util.HashMap;
+
 public enum ItemAttributes
 {
     NONE(
@@ -7,41 +11,22 @@ public enum ItemAttributes
     INFINITA_SCIENTIA(
             ItemClass.GENERIC, 300, -300,  4, 3, 2, 1, 2 );
 
-    private final int damage;
-    private final int strength;
-    private final int critChance;
-    private final int critDamage;
-
-    private final int health;
-    private final int def;
-    private final int intelligence;
+    private final HashMap<Attribute, Integer> attributes = new HashMap<>();
 
     private final ItemClass itemClass;
 
-    ItemAttributes ( ItemClass itemClass , int damage, int critChance, int critDamage, int intelligence, int strength, int def, int health )
+    ItemAttributes ( ItemClass itemClass , int damage, int criticalChance, int criticalDamage, int intelligence, int strength, int defense, int health )
     {
-        this.damage = damage;
-        this.critChance = critChance;
-        this.critDamage = critDamage;
-        this.intelligence = intelligence;
-        this.strength = strength;
-        this.def = def;
-        this.health = health;
+        attributes.put( Attribute.DAMAGE, damage );
+        attributes.put( Attribute.STRENGTH, strength );
+        attributes.put( Attribute.CRITICAl_CHANCE, criticalChance );
+        attributes.put( Attribute.CRITICAL_DAMAGE, criticalDamage );
+        attributes.put( Attribute.HEALTH, health );
+        attributes.put( Attribute.DEFENSE, defense );
+        attributes.put( Attribute.INTELLIGENCE, intelligence );
         this.itemClass = itemClass;
     }
 
-    public int getDamage() { return damage; }
-    public int getCritDamage()
-    {
-        return critDamage;
-    }
-    public int getCritChance()
-    {
-        return critChance;
-    }
-    public int getIntelligence() { return intelligence; }
-    public int getStrength() { return strength; }
-    public int getDefense() { return def; }
-    public int getHealth() { return health; }
+    public HashMap<Attribute, Integer> getAttributes() { return attributes; }
     public ItemClass getItemClass() { return itemClass; }
 }

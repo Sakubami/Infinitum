@@ -1,14 +1,18 @@
 package xyz.sakubami.infinitum.utils;
 
+import org.bukkit.NamespacedKey;
+import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
-import xyz.sakubami.infinitum.utils.builder.item.nbt.NBTApi;
+import org.bukkit.persistence.PersistentDataType;
+import xyz.sakubami.infinitum.Infinitum;
+import xyz.sakubami.infinitum.utils.builder.item.nbt.ItemNBTApi;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class NBTUtils {
 
-    NBTApi NBT = new NBTApi();
+    ItemNBTApi NBT = new ItemNBTApi();
 
     public boolean isProtected( ItemStack item )
     {
@@ -21,31 +25,45 @@ public class NBTUtils {
     {
         List<String> list = new ArrayList<>();
 
-        if ( NBT.getNBTValue( item, "enchanted" ) != null )
-        {
+        if ( NBT.getNBTValue( item, "enchanted" ) != null ) {
 
         }
 
         return list;
     }
 
-    public boolean hasID( ItemStack item )
-    {
-        return NBT.getNBTValue( item, "id" ) != null;
-    }
+    public boolean hasID( ItemStack item ) { return NBT.getNBTValue( item, "id") != null; }
 
-    public String getID( ItemStack item )
-    {
+    public String getID( ItemStack item ) {
         return NBT.getNBTValue( item, "id" );
     }
 
-    public String getAbility( ItemStack item )
-    {
+    public String getAbility( ItemStack item ) {
         return NBT.getNBTValue( item, "ability" );
     }
 
-    public String getRarity( ItemStack item )
-    {
+    public String getRarity( ItemStack item ) {
         return NBT.getNBTValue( item, "rarity" );
+    }
+
+
+    // vv ENTITIES vv
+
+    private NamespacedKey key( String key ) { return new NamespacedKey( Infinitum.getInstance(), key ); }
+
+    public String getNBTValue( Entity entity, String key )
+    {
+        return entity.getPersistentDataContainer().get( key( key ), PersistentDataType.STRING );
+    }
+
+    private boolean hasData(Entity entity) {
+        return !entity.getPersistentDataContainer().isEmpty();
+    }
+
+    public int getHealth( Entity entity )
+    {
+        if ( hasData( entity ) )
+            return Integer.parseInt( getNBTValue( entity, "health" ) );
+        return -999 ;
     }
 }

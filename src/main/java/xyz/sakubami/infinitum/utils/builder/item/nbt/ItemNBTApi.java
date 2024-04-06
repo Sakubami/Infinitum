@@ -8,10 +8,11 @@ import xyz.sakubami.infinitum.Infinitum;
 
 import java.util.HashMap;
 
-public class NBTApi {
+public class ItemNBTApi {
 
     private final HashMap<NamespacedKey, String> list = new HashMap<>();
-    private NamespacedKey key(String key) { return new NamespacedKey( Infinitum.getInstance(), key); }
+
+    private NamespacedKey key( String key ) { return new NamespacedKey( Infinitum.getInstance(), key ); }
 
     // WARNING dont use outside itembuilder
 
@@ -38,7 +39,7 @@ public class NBTApi {
 
     //
 
-    public String getNBTValue(ItemStack item, String key) {
+    public String getNBTValue( ItemStack item, String key ) {
         return item.getItemMeta().getPersistentDataContainer().get(key(key), PersistentDataType.STRING);
     }
 

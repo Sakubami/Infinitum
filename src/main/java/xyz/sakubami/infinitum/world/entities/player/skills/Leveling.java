@@ -1,12 +1,12 @@
 package xyz.sakubami.infinitum.world.entities.player.skills;
 
-import xyz.sakubami.infinitum.world.entities.player.PlayerConfig;
+import xyz.sakubami.infinitum.world.entities.player.PlayerController;
 
 import java.util.UUID;
 
 public class Leveling {
 
-    PlayerConfig cache = PlayerConfig.get();
+    PlayerController cache = PlayerController.get();
 
     public int calculateLevel( int experience )
     {

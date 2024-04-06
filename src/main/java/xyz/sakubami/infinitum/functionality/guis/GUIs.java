@@ -2,7 +2,7 @@ package xyz.sakubami.infinitum.functionality.guis;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
-import xyz.sakubami.infinitum.utils.builder.InventoryBuilder;
+import xyz.sakubami.infinitum.utils.builder.inventory.InventoryBuilder;
 import xyz.sakubami.infinitum.utils.builder.item.ItemBuilder;
 
 public class GUIs {

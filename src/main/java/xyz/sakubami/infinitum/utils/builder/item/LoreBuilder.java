@@ -1,11 +1,14 @@
 package xyz.sakubami.infinitum.utils.builder.item;
 
+import org.apache.commons.lang.WordUtils;
+import xyz.sakubami.infinitum.functionality.Attribute;
 import xyz.sakubami.infinitum.utils.NBTUtils;
-import xyz.sakubami.infinitum.functionality.items.CustomItem;
+import xyz.sakubami.infinitum.functionality.items.ItemTemplates;
 import xyz.sakubami.infinitum.functionality.items.ItemCategory;
 import xyz.sakubami.infinitum.functionality.items.ItemTier;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class LoreBuilder {
@@ -14,16 +17,20 @@ public class LoreBuilder {
 
     private final List<String> lore = new ArrayList<>();
     private List<String> description = new ArrayList<>();
-    private final CustomItem item;
-    private boolean toggle = true;
+    private final ItemTemplates item;
+    private boolean addAttributes = true;
     private final ItemTier itemTier;
 
-    public LoreBuilder( CustomItem item )
+    public LoreBuilder( ItemTemplates item )
     {
-        if ( item.getItemCategory().equals( ItemCategory.MATERIAL ) || item.getItemCategory().equals( ItemCategory.QUEST_ITEM ) )
-            this.toggle = false;
         this.item = item;
         this.itemTier = item.getTier();
+    }
+
+    public LoreBuilder toggleAttributes( boolean toggle )
+    {
+        this.addAttributes = toggle;
+        return this;
     }
 
     public LoreBuilder addDescription( boolean toggle )
@@ -61,86 +68,38 @@ public class LoreBuilder {
         return this;
     }
 
-    private void initAttributes()
-    {
-        // TODO optimize with iteration and hashmap
 
-        int temp = 0;
-
-        if ( item.getDamage() != 0 )
-        {
-            this.lore.add( "§7Schaden: §c" + item.getDamage() );
-            temp += 1;
-        }
-
-        if ( item.getStrength() != 0 )
-        {
-            this.lore.add( "§7Stärke: §c" + item.getStrength() );
-            temp += 1;
-        }
-
-        if ( item.getCritChance() != 0 )
-        {
-            this.lore.add( "§7Krit. Chance: §c" + item.getCritChance() );
-            temp += 1;
-        }
-
-        if ( item.getCritDamage() != 0 )
-        {
-            this.lore.add( "§7Krit. Schaden: §c" + item.getCritDamage() );
-            temp += 1;
-        }
-
-        if ( temp > 0 )
-        {
-            this.lore.add( "§0" );
-            temp = 0;
-        }
-
-        if ( item.getDamage() != 0 )
-        {
-            this.lore.add( "§7Leben: §a" + item.getHealth() );
-            temp += 1;
-        }
-
-        if ( item.getDefense() != 0 )
-        {
-            this.lore.add( "§7Rüstung: §a" + item.getDefense() );
-            temp += 1;
-        }
-
-        if ( item.getIntelligence() != 0 )
-        {
-            this.lore.add( "§7Intelligenz: §a" + item.getIntelligence() );
-            temp += 1;
-        }
-
-        if ( temp > 0 )
-        {
-            this.lore.add( "§0" );
-        }
-    }
 
     public List<String> build()
     {
-        boolean attributes = false;
-
-        if ( toggle )
+        if ( addAttributes )
         {
-            initAttributes();
-            attributes = true;
-        }
+            int temp = 0;
 
-        if ( !attributes )
+            HashMap<Attribute, Integer> attributes = item.getAttributes();
+
+            for ( Attribute attribute : attributes.keySet() )
+            {
+                this.lore.add( "§7" + attribute.getTranslation() + "§c" + attributes.get( attribute ) );
+                temp += 1;
+                if ( temp >= 4 ) {
+                    this.lore.add( "§0" );
+                    temp = 0;
+                    break;
+                }
+            }
+        } else
+        {
             lore.add( "§0" );
+        }
 
         if ( !description.isEmpty() )
             lore.addAll( description );
 
         // enchants idk
 
-        if (toggle)
-            lore.add( "§4" + item.getItemClass() );
+        if ( addAttributes )
+            lore.add( "§4" + item.getItemClass().getTranslation() );
 
         // show how well it was crafted
 

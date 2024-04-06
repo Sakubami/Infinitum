@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 
-public class PlayerConfig {
+public class PlayerController {
 
     private static class PlayerRecord {
 
@@ -43,7 +43,7 @@ public class PlayerConfig {
 
     private ArrayList<PlayerRecord> playerRecords;
 
-    public PlayerConfig()
+    public PlayerController()
     {
         playerRecords = new ArrayList<>();
         loadPlayers();
@@ -183,23 +183,18 @@ public class PlayerConfig {
         return findPLayer( uuid ).experience;
     }
 
-    public void updateExperience( UUID uuid, ExperienceType type, int exp )
-    {
-        findPLayer( uuid ).experience.put( type, exp );
-    }
-
     public void addExperience( UUID uuid, ExperienceType type, int exp )
     {
         int experience = findPLayer( uuid ).experience.get( type );
-        findPLayer( uuid ).experience.put( type, exp + experience );
+        findPLayer( uuid ).experience.replace( type, exp + experience );
     }
 
     public void setExperience( UUID uuid, ExperienceType type, int exp )
     {
-        findPLayer( uuid ).experience.put( type, exp );
+        findPLayer( uuid ).experience.replace( type, exp );
     }
 
-    public static PlayerConfig get() {
+    public static PlayerController get() {
         return Infinitum.getInstance().getPlayerConfig();
     }
 }

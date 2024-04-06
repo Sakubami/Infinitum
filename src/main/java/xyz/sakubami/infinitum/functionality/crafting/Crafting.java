@@ -6,7 +6,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.functionality.crafting.stations.Primer;
-import xyz.sakubami.infinitum.functionality.items.CustomItem;
+import xyz.sakubami.infinitum.functionality.items.ItemTemplates;
 import xyz.sakubami.infinitum.utils.builder.item.ItemBuilder;
 import xyz.sakubami.infinitum.utils.Loc;
 
@@ -62,12 +62,12 @@ public class Crafting {
 
                 queuedItems.addItem( item );
 
-                CustomItem customItem = RecipeConfig.get().craftRecipe( queuedItems.items, queuedItems.primer );
+                ItemTemplates itemTemplates = RecipeConfig.get().craftRecipe( queuedItems.items, queuedItems.primer );
 
-                Infinitum.getInstance().getServer().broadcastMessage( "a: " + customItem );
+                Infinitum.getInstance().getServer().broadcastMessage( "a: " + itemTemplates);
 
                 Bukkit.getScheduler().scheduleSyncDelayedTask( Infinitum.getInstance(), () ->
-                        spawnCraftingResult( customItem != null ? customItem : CustomItem.NULL, location ), 41 );
+                        spawnCraftingResult( itemTemplates != null ? itemTemplates : ItemTemplates.NULL, location ), 41 );
                 }
 
             queuedItems.addItem( item );
@@ -96,7 +96,7 @@ public class Crafting {
         }
     }
 
-    public void spawnCraftingResult( CustomItem result, Location location )
+    public void spawnCraftingResult(ItemTemplates result, Location location )
     {
         ItemStack itemStack = new ItemBuilder( result )
                 .setGlowing()

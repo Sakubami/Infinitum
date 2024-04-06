@@ -1,4 +1,4 @@
-package xyz.sakubami.infinitum.world.entities.mob.custom;
+package xyz.sakubami.infinitum.world.entities.mob;
 
 public enum MobGroup
 {

@@ -10,8 +10,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.MaterialData;
 import xyz.sakubami.infinitum.Infinitum;
-import xyz.sakubami.infinitum.utils.builder.item.nbt.NBTApi;
-import xyz.sakubami.infinitum.functionality.items.CustomItem;
+import xyz.sakubami.infinitum.utils.builder.item.nbt.ItemNBTApi;
+import xyz.sakubami.infinitum.functionality.items.ItemTemplates;
 import xyz.sakubami.infinitum.utils.Chat;
 
 import java.util.*;
@@ -32,7 +32,7 @@ public class ItemBuilder {
     private ItemMeta NBTMeta;
     private boolean isGlowing = false;
 
-    private final NBTApi nbt = new NBTApi();
+    private final ItemNBTApi nbt = new ItemNBTApi();
 
     private NamespacedKey key( String key ) {
         return new NamespacedKey( Infinitum.getInstance(), key );
@@ -80,7 +80,7 @@ public class ItemBuilder {
         this.enchantments = item.getEnchantments();
     }
 
-    public ItemBuilder( CustomItem item ) {
+    public ItemBuilder( ItemTemplates item ) {
         this.item = new ItemStack( item.getMaterial() );
         this.meta = Bukkit.getItemFactory().getItemMeta( item.getMaterial() );
         this.material = item.getMaterial();
@@ -92,6 +92,12 @@ public class ItemBuilder {
         Infinitum.getInstance().getServer().broadcastMessage( item.name() );
 
         nbt.addNBTTag( key( "id" ), item.toString() );
+
+        /*
+        for ( Attribute attribute : item.get) {
+
+        }
+         */
     }
 
     public ItemBuilder(FileConfiguration cfg, String path) {
