@@ -1,7 +1,7 @@
 package xyz.sakubami.infinitum.world.entities.player.interact.damaging;
 
-import xyz.sakubami.infinitum.world.entities.player.Player;
-import xyz.sakubami.infinitum.world.entities.player.PlayerController;
+import xyz.sakubami.infinitum.world.entities.player.PlayerControl;
+import xyz.sakubami.infinitum.world.entities.player.PlayerConnector;
 
 import javax.swing.text.html.parser.Entity;
 
@@ -9,14 +9,14 @@ public class DamageCalculator {
 
     private final int raw;
     private final boolean who;
-    private final Player damager;
+    private final PlayerControl damager;
     private final Entity receiver;
 
-    private final PlayerController playerController = PlayerController.get();
+    private final PlayerConnector playerConnector = PlayerConnector.get();
 
     // USAGE who = false == received, true == dealt
 
-    public DamageCalculator( int raw, Player damager, Entity receiver, boolean who )
+    public DamageCalculator(int raw, PlayerControl damager, Entity receiver, boolean who )
     {
         this.raw = raw;
         this.damager = damager;
@@ -29,7 +29,7 @@ public class DamageCalculator {
         // make this compatible with custom entities that im gonna add later on
 
         /*
-        final int ahp = playerController;
+        final int ahp = playerConnector;
         final int aehp = ;
         final int defense;
         final int strength;

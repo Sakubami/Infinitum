@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 
-public class PlayerController {
+public class PlayerConnector {
 
     private static class PlayerRecord {
 
@@ -39,11 +39,11 @@ public class PlayerController {
         public void setExperience ( HashMap<ExperienceType, Integer> experience ) { this.experience = experience; }
     }
 
-    private final String path = "plugins/Infinitum/Player/Players.yml";
+    private final String path = "plugins/Infinitum/PlayerControl/Players.yml";
 
     private ArrayList<PlayerRecord> playerRecords;
 
-    public PlayerController()
+    public PlayerConnector()
     {
         playerRecords = new ArrayList<>();
         loadPlayers();
@@ -192,7 +192,7 @@ public class PlayerController {
         findPLayer( uuid ).experience.replace( type, exp );
     }
 
-    public static PlayerController get() {
+    public static PlayerConnector get() {
         return Infinitum.getInstance().getPlayerConfig();
     }
 }

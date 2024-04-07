@@ -1,14 +1,13 @@
 package xyz.sakubami.infinitum;
 
 import org.bukkit.Bukkit;
-import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.sakubami.infinitum.functionality.crafting.Crafting;
 import xyz.sakubami.infinitum.functionality.crafting.RecipeConfig;
 import xyz.sakubami.infinitum.functionality.crafting.stations.LocationConfig;
 import xyz.sakubami.infinitum.listeners.*;
 import xyz.sakubami.infinitum.world.entities.mob.MobConnector;
-import xyz.sakubami.infinitum.world.entities.player.PlayerController;
+import xyz.sakubami.infinitum.world.entities.player.PlayerConnector;
 
 public class Infinitum extends JavaPlugin {
 
@@ -17,7 +16,7 @@ public class Infinitum extends JavaPlugin {
     private LocationConfig locationConfig;
     private RecipeConfig recipeConfig;
     private Crafting crafting;
-    private PlayerController playerController;
+    private PlayerConnector playerConnector;
     private MobConnector mobConnector;
 
     public void onEnable() {
@@ -33,7 +32,7 @@ public class Infinitum extends JavaPlugin {
         this.locationConfig = new LocationConfig();
         this.recipeConfig = new RecipeConfig();
         this.crafting = new Crafting();
-        this.playerController = new PlayerController();
+        this.playerConnector = new PlayerConnector();
         this.mobConnector = new MobConnector();
 
         instance.getServer().broadcastMessage("§dInfinitum §7wurde §aeingeschaltet!");
@@ -54,7 +53,7 @@ public class Infinitum extends JavaPlugin {
 
     public Crafting getCrafting() { return crafting; }
 
-    public PlayerController getPlayerConfig() { return playerController; }
+    public PlayerConnector getPlayerConfig() { return playerConnector; }
 
     public MobConnector getMobController() { return mobConnector; }
 }
