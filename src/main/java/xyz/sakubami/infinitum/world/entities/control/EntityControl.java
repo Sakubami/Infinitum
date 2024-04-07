@@ -3,15 +3,12 @@ package xyz.sakubami.infinitum.world.entities.control;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Location;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.functionality.Attribute;
 import xyz.sakubami.infinitum.utils.math.MathUtils;
-import xyz.sakubami.infinitum.world.entities.deprecated.MobMask;
-import xyz.sakubami.infinitum.world.entities.deprecated.PlayerControl;
 import xyz.sakubami.infinitum.world.entities.player.skills.ExperienceType;
 
 import java.util.HashMap;

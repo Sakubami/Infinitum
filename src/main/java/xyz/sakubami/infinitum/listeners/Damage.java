@@ -12,7 +12,7 @@ import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.functionality.Attribute;
 import xyz.sakubami.infinitum.utils.InteractHelper;
 import xyz.sakubami.infinitum.utils.builder.mob.nbt.MobNBTApi;
-import xyz.sakubami.infinitum.world.entities.deprecated.MobControl;
+import xyz.sakubami.infinitum.world.entities.control.EntityControl;
 
 public class Damage implements Listener {
 
@@ -23,7 +23,7 @@ public class Damage implements Listener {
     public void onDamage( PlayerInteractEntityEvent e )
     {
         LivingEntity entity = helper.rightClickCustomEntity( e );
-        new MobControl( entity )
+        new EntityControl( entity )
                 .attribute( Attribute.MAX_HEALTH, 100 )
                 .heal( 45 )
                 .equip( new ItemStack( Material.DIAMOND_CHESTPLATE ), EquipmentSlot.CHEST )
@@ -39,7 +39,7 @@ public class Damage implements Listener {
             e.setDamage( 0 );
             Infinitum.getInstance().getServer().broadcastMessage( "this mob has some nbt data");
             Infinitum.getInstance().getServer().broadcastMessage( "" + nbt.getNBTTags( entity ) );
-            new MobControl( entity )
+            new EntityControl( entity )
                     .damage( 10 )
                     .queue();
         } else
