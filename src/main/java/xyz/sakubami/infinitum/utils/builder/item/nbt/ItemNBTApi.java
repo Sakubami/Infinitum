@@ -14,8 +14,6 @@ public class ItemNBTApi {
 
     private NamespacedKey key( String key ) { return new NamespacedKey( Infinitum.getInstance(), key ); }
 
-    // WARNING dont use outside itembuilder
-
     public void extractNBTData(ItemMeta meta) {
         for (NamespacedKey key: meta.getPersistentDataContainer().getKeys()) {
             list.put(key, meta.getPersistentDataContainer().get(key, PersistentDataType.STRING));

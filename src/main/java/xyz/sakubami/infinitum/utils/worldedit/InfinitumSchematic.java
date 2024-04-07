@@ -11,7 +11,7 @@ public enum InfinitumSchematic {
     final String path = "plugins/Infinitum/Structures/";
     final String name;
 
-    InfinitumSchematic(String name )
+    InfinitumSchematic( String name )
     {
         this.name = name;
     }

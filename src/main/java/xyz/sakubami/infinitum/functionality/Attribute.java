@@ -5,6 +5,7 @@ import xyz.sakubami.infinitum.functionality.items.ItemClass;
 public enum Attribute
 {
     DAMAGE("Schaden" ),
+    MAX_HEALTH("Maximale Vitalität"),
     HEALTH("Vitalität" ),
     DEFENSE("Rüstung" ),
     INTELLIGENCE("Intelligenz" ),

@@ -1,12 +1,13 @@
 package xyz.sakubami.infinitum;
 
 import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.sakubami.infinitum.functionality.crafting.Crafting;
 import xyz.sakubami.infinitum.functionality.crafting.RecipeConfig;
 import xyz.sakubami.infinitum.functionality.crafting.stations.LocationConfig;
 import xyz.sakubami.infinitum.listeners.*;
-import xyz.sakubami.infinitum.world.entities.mob.MobController;
+import xyz.sakubami.infinitum.world.entities.mob.MobConnector;
 import xyz.sakubami.infinitum.world.entities.player.PlayerController;
 
 public class Infinitum extends JavaPlugin {
@@ -17,7 +18,7 @@ public class Infinitum extends JavaPlugin {
     private RecipeConfig recipeConfig;
     private Crafting crafting;
     private PlayerController playerController;
-    private MobController mobController;
+    private MobConnector mobConnector;
 
     public void onEnable() {
         instance = this;
@@ -33,7 +34,7 @@ public class Infinitum extends JavaPlugin {
         this.recipeConfig = new RecipeConfig();
         this.crafting = new Crafting();
         this.playerController = new PlayerController();
-        this.mobController = new MobController();
+        this.mobConnector = new MobConnector();
 
         //autosaving
         playerController.autoSave( 15 );
@@ -58,5 +59,5 @@ public class Infinitum extends JavaPlugin {
 
     public PlayerController getPlayerConfig() { return playerController; }
 
-    public MobController getMobController() { return mobController; }
+    public MobConnector getMobController() { return mobConnector; }
 }
