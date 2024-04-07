@@ -5,10 +5,11 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import xyz.sakubami.infinitum.utils.builder.item.nbt.ItemNBTUtils;
 
 public class InteractHelper {
 
-    private final NBTUtils nbt = new NBTUtils();
+    private final ItemNBTUtils nbt = new ItemNBTUtils();
 
     public boolean rightClick( PlayerInteractEvent event )
     {

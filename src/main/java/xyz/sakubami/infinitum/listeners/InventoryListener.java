@@ -5,14 +5,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
-import xyz.sakubami.infinitum.utils.NBTUtils;
+import xyz.sakubami.infinitum.utils.builder.item.nbt.ItemNBTUtils;
 
 public class InventoryListener implements Listener {
 
     @EventHandler
     public void onInventoryInteract( InventoryClickEvent e )
     {
-        NBTUtils NBT = new NBTUtils();
+        ItemNBTUtils NBT = new ItemNBTUtils();
 
         Player p = ( Player ) e.getWhoClicked();
         ItemStack item = e.getCursor();

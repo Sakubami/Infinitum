@@ -1,4 +1,4 @@
-package xyz.sakubami.infinitum.utils;
+package xyz.sakubami.infinitum.utils.builder.item.nbt;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Entity;
@@ -10,7 +10,7 @@ import xyz.sakubami.infinitum.utils.builder.item.nbt.ItemNBTApi;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NBTUtils {
+public class ItemNBTUtils {
 
     ItemNBTApi NBT = new ItemNBTApi();
 

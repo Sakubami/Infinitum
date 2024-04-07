@@ -5,10 +5,9 @@ import org.bukkit.World;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import xyz.sakubami.infinitum.functionality.Attribute;
-import xyz.sakubami.infinitum.utils.NBTUtils;
+import xyz.sakubami.infinitum.utils.builder.mob.nbt.MobNBTApi;
 import xyz.sakubami.infinitum.world.entities.mob.MobMask;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 

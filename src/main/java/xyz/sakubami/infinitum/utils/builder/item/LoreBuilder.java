@@ -1,10 +1,8 @@
 package xyz.sakubami.infinitum.utils.builder.item;
 
-import org.apache.commons.lang.WordUtils;
 import xyz.sakubami.infinitum.functionality.Attribute;
-import xyz.sakubami.infinitum.utils.NBTUtils;
+import xyz.sakubami.infinitum.utils.builder.item.nbt.ItemNBTUtils;
 import xyz.sakubami.infinitum.functionality.items.ItemTemplates;
-import xyz.sakubami.infinitum.functionality.items.ItemCategory;
 import xyz.sakubami.infinitum.functionality.items.ItemTier;
 
 import java.util.ArrayList;
@@ -13,7 +11,7 @@ import java.util.List;
 
 public class LoreBuilder {
 
-    NBTUtils nbt = new NBTUtils();
+    ItemNBTUtils nbt = new ItemNBTUtils();
 
     private final List<String> lore = new ArrayList<>();
     private List<String> description = new ArrayList<>();

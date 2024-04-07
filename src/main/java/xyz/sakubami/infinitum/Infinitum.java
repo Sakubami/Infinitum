@@ -36,9 +36,6 @@ public class Infinitum extends JavaPlugin {
         this.playerController = new PlayerController();
         this.mobConnector = new MobConnector();
 
-        //autosaving
-        playerController.autoSave( 15 );
-
         instance.getServer().broadcastMessage("§dInfinitum §7wurde §aeingeschaltet!");
     }
 

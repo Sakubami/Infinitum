@@ -1,4 +1,4 @@
-package xyz.sakubami.infinitum.utils.builder.mob;
+package xyz.sakubami.infinitum.utils.builder.mob.nbt;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.LivingEntity;

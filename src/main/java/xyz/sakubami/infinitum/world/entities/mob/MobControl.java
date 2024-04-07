@@ -5,9 +5,8 @@ import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
-import org.w3c.dom.Attr;
 import xyz.sakubami.infinitum.functionality.Attribute;
-import xyz.sakubami.infinitum.utils.builder.mob.MobNBTApi;
+import xyz.sakubami.infinitum.utils.builder.mob.nbt.MobNBTApi;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,8 +17,8 @@ public class MobControl {
     private final MobNBTApi NBT = new MobNBTApi();
     private MobMask mob;
     private ArrayList<MobMask> crowd = new ArrayList<>();
-    private final MobConnector controller = MobConnector.get();
-    private final HashMap<UUID, MobMask> cache = controller.getCache();
+    private final MobConnector connector = MobConnector.get();
+    private final HashMap<UUID, MobMask> cache = connector.getCache();
     private final HashMap<MobMask, Boolean> queue = new HashMap<>();
 
     public MobControl( MobMask mob )
@@ -105,11 +104,11 @@ public class MobControl {
     {
         for ( MobMask mask : queue.keySet() ) {
             if ( cache.containsValue( mask ) )
-                controller.updateMob( mask );
+                connector.updateMob( mask );
             else if ( queue.get( mask ) )
-                controller.addMob( mask );
+                connector.addMob( mask );
             else if ( cache.containsValue( mask ) )
-                controller.removeMob( mask );
+                connector.removeMob( mask );
         }
         return this;
     }

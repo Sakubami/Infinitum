@@ -120,22 +120,20 @@ public class PlayerController {
     public void scheduleSave()
     {
         scheduled = true;
+        scheduleSave( 45 );
     }
 
-    // TODO replace with queue create new and check for when present etc to avoid useless tasks
-
-    public void autoSave( long seconds )
+    public void scheduleSave( long seconds )
     {
         long math = seconds * 20;
-        Bukkit.getScheduler().scheduleSyncRepeatingTask( Infinitum.getInstance(), () ->
-        {
-            if ( scheduled )
+        if ( !scheduled ) {
+            Bukkit.getScheduler().scheduleSyncDelayedTask( Infinitum.getInstance(), () ->
             {
                 savePlayers();
                 Infinitum.getInstance().getServer().broadcastMessage( " saving.." );
                 scheduled = false;
-            }
-        }, math, math);
+            }, math );
+        }
     }
 
     public void deletePlayer ( UUID uuid )
