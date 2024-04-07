@@ -21,7 +21,7 @@ import xyz.sakubami.infinitum.utils.InteractHelper;
 import xyz.sakubami.infinitum.utils.builder.mob.MobBuilder;
 import xyz.sakubami.infinitum.utils.worldedit.InfinitumSchematic;
 import xyz.sakubami.infinitum.utils.worldedit.WorldEditHelper;
-import xyz.sakubami.infinitum.world.entities.deprecated.MobControl;
+import xyz.sakubami.infinitum.world.entities.control.EntityControl;
 
 public class Interact implements Listener {
 
@@ -61,7 +61,13 @@ public class Interact implements Listener {
         if ( helper.rightClickBlock( e, Material.DIAMOND_BLOCK ) )
         {
             player.sendMessage( "testing" );
-            new MobControl( new MobBuilder( EntityType.ZOMBIE, player.getWorld() ).build() ).teleport( player.getLocation() ).attribute( Attribute.HEALTH, 50 ).equip( new ItemStack( Material.DIAMOND_HELMET ), EquipmentSlot.HEAD ).queue();
+            new EntityControl(
+                    new MobBuilder( EntityType.ZOMBIE, player.getWorld() )
+                            .build() )
+                    .teleport( player.getLocation() )
+                    .attribute( Attribute.HEALTH, 50 )
+                    .equip( new ItemStack( Material.DIAMOND_HELMET ), EquipmentSlot.HEAD )
+                    .queue();
         }
 
         if ( helper.rightClickWithItem( e, e.getItem(), "INFINITA_SCIENTIA" ) )

@@ -3,9 +3,9 @@ package xyz.sakubami.infinitum.world.entities.control;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.LivingEntity;
 import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.functionality.Attribute;
-import xyz.sakubami.infinitum.world.entities.deprecated.PlayerMask;
 import xyz.sakubami.infinitum.world.entities.player.skills.ExperienceType;
 
 import java.io.File;
@@ -17,19 +17,21 @@ import java.util.UUID;
 
 public class PlayerSaving {
 
+    //TODO REPLACE WITH ANYTHING MORE OPTIMIZED
+
     private final String path = "plugins/Infinitum/PlayerControl/Players.yml";
 
-    private ArrayList<PlayerMask> playerMasks;
+    private ArrayList<EntityMask> masks;
 
     public PlayerSaving()
     {
-        playerMasks = new ArrayList<>();
+        masks = new ArrayList<>();
         load();
     }
 
     private void load()
     {
-        playerMasks = new ArrayList<>();
+        masks = new ArrayList<>();
 
         FileConfiguration config = YamlConfiguration.loadConfiguration( new File( path ) );
 
@@ -64,7 +66,9 @@ public class PlayerSaving {
                 experience.put( ExperienceType.valueOf( split[0] ), Integer.parseInt( split[1] ) );
             }
 
-            playerMasks.add( new PlayerMask( uuid, level, skills, experience, attributes ) );
+            LivingEntity entity = ( LivingEntity ) Infinitum.getInstance().getServer().getEntity( uuid );
+
+            masks.add( new EntityMask( entity, CustomType.PLAYER,  level, skills, experience, attributes ) );
         }
     }
 
@@ -73,33 +77,33 @@ public class PlayerSaving {
 
         FileConfiguration config = new YamlConfiguration();
 
-        for (int i = 0; playerMasks.size() > i; i++)
+        for (int i = 0; masks.size() > i; i++)
         {
-            PlayerMask playerMask = playerMasks.get( i );
+            EntityMask entityMask = masks.get( i );
             List<String> skills = new ArrayList<>();
             List<String> experience = new ArrayList<>();
             List<String> attributes = new ArrayList<>();
 
-            for ( String skill : playerMask.getSkillTree().keySet() )
+            for ( String skill : entityMask.getSkillTree().keySet() )
             {
-                int value = playerMask.getSkillTree().get( skill );
+                int value = entityMask.getSkillTree().get( skill );
                 skills.add( skill + "/" + value );
             }
 
-            for ( ExperienceType experienceType : playerMask.getExperience().keySet() )
+            for ( ExperienceType experienceType : entityMask.getExperience().keySet() )
             {
-                int value = playerMask.getExperience().get( experienceType );
+                int value = entityMask.getExperience().get( experienceType );
                     experience.add( experienceType.name() + "/" + value );
             }
 
-            for ( Attribute attribute : playerMask.getAttributes().keySet() )
+            for ( Attribute attribute : entityMask.getMasked().keySet() )
             {
-                int value = playerMask.getAttributes().get( attribute );
+                int value = entityMask.getMasked().get( attribute );
                 experience.add( attribute.name() + "/" + value );
             }
 
-            config.set( "players." + i + ".uuid", playerMask.getUUID().toString() );
-            config.set( "players." + i + ".level", String.valueOf( playerMask.getLevel()  ) );
+            config.set( "players." + i + ".uuid", entityMask.getUuid().toString() );
+            config.set( "players." + i + ".level", String.valueOf( entityMask.getLevel()  ) );
             config.set( "players." + i + ".skills", skills );
             config.set( "players." + i + ".experience", experience );
             config.set( "players." + i + ".attributes", attributes );
@@ -132,7 +136,7 @@ public class PlayerSaving {
 
     public void addNew( UUID uuid )
     {
-        if ( playerMasks.stream().noneMatch(playerMask -> playerMask.getUUID().equals( uuid ) ) )
+        if ( masks.stream().noneMatch( playerMask -> playerMask.getUuid().equals( uuid ) ) )
         {
             HashMap<ExperienceType ,Integer> experience = new HashMap<>();
             experience.put( ExperienceType.BASE, 5 );
@@ -151,25 +155,12 @@ public class PlayerSaving {
             attributes.put( Attribute.CRITICAl_CHANCE, 25 );
             attributes.put( Attribute.CRITICAL_DAMAGE, 0 );
 
-            playerMasks.add( new PlayerMask( uuid, 0 , skillTree, experience, attributes ) );
+            LivingEntity entity = ( LivingEntity ) Infinitum.getInstance().getServer().getEntity( uuid );
+
+            masks.add( new EntityMask( entity, CustomType.PLAYER, 0 , skillTree, experience, attributes ) );
             save();
         }
     }
-
-    public void remove ( UUID uuid )
-    {
-        playerMasks.removeIf ( player -> player.getUUID().equals( uuid ) );
-        save();
-    }
-
-    public void update ( PlayerMask player )
-    {
-        int index = playerMasks.indexOf( get( player.getUUID() ) );
-        playerMasks.set( index, player );
-        save();
-    }
-
-    public PlayerMask get( UUID uuid ) { return playerMasks.stream().filter( record -> record.getUUID().equals( uuid ) ).findFirst().get(); }
 
     public static PlayerSaving get() {
         return Infinitum.getInstance().getPlayerConfig();

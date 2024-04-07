@@ -6,15 +6,17 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import xyz.sakubami.infinitum.functionality.Attribute;
 import xyz.sakubami.infinitum.utils.builder.mob.nbt.MobNBTApi;
-import xyz.sakubami.infinitum.world.entities.deprecated.MobConnector;
-import xyz.sakubami.infinitum.world.entities.deprecated.MobMask;
+import xyz.sakubami.infinitum.world.entities.control.CustomType;
+import xyz.sakubami.infinitum.world.entities.control.EntityConnector;
+import xyz.sakubami.infinitum.world.entities.control.EntityControl;
+import xyz.sakubami.infinitum.world.entities.control.EntityMask;
 
 
 import java.util.HashMap;
 
 public class MobBuilder {
 
-    private final MobConnector connector = MobConnector.get();
+    private final EntityConnector connector = EntityConnector.get();
     private final MobNBTApi NBT = new MobNBTApi();
     private final EntityType type;
     private final HashMap<Attribute, Integer> attributes = new HashMap<>();
@@ -52,11 +54,11 @@ public class MobBuilder {
 
     public MobBuilder name( String name )
     {
-        this.name = "§c" + name + "§a" + 50000 + "§f/§a" + 50000 + "§7hp";
+        this.name = "§c" + name + " §a" + 100 + "§f/§a" + 100 + "§7hp";
         return this;
     }
 
-    public MobMask build()
+    public EntityMask build()
     {
         LivingEntity entity = ( LivingEntity ) world.spawnEntity( location, type );
 
@@ -68,7 +70,7 @@ public class MobBuilder {
         entity.setCustomNameVisible( true );
         entity.getAttribute( org.bukkit.attribute.Attribute.GENERIC_KNOCKBACK_RESISTANCE ).setBaseValue( 1.0 );
 
-        MobMask mask = new MobMask( entity, attributes );
+        EntityMask mask = new EntityMask( entity, CustomType.MOB, 0, null, null, attributes );
         connector.add( mask );
         return mask;
     }

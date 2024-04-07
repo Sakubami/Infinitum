@@ -44,5 +44,10 @@ public class EntityConnector {
         return cache.get( entity.getUniqueId() );
     }
 
+    public EntityMask get( UUID uuid )
+    {
+        return cache.get( uuid );
+    }
+
     public static EntityConnector get() { return Infinitum.getInstance().getEntityConnector(); }
 }
