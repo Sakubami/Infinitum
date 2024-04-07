@@ -1,17 +1,21 @@
 package xyz.sakubami.infinitum.world.entities.mob;
 
+import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Location;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.functionality.Attribute;
+import xyz.sakubami.infinitum.utils.math.MathUtils;
 
 import java.util.HashMap;
 
 public class MobControl {
 
     private final MobMask mob;
+    private final MathUtils mathUtils = new MathUtils();
     private final MobConnector connector = MobConnector.get();
     private final HashMap<MobMask, Boolean> queue = new HashMap<>();
 
@@ -84,17 +88,18 @@ public class MobControl {
 
     public MobControl heal( int v )
     {
-        int math = mob.getMask().get( Attribute.HEALTH ) + v;
+        int healing = mob.getMask().get( Attribute.HEALTH ) + v;
         int max = mob.getMask().get( Attribute.MAX_HEALTH );
-        if ( math > max )
+
+        if ( healing > max )
         {
-            int finalMath = ( math - max ) - math;
-            updateHealthDisplay( finalMath );
-            mob.getMask().replace( Attribute.HEALTH, finalMath );
+            int finalMath = ( healing - max );
+            updateHealthDisplay( healing - finalMath );
+            mob.getMask().replace( Attribute.HEALTH, healing - finalMath );
         } else
         {
-            updateHealthDisplay( math );
-            mob.getMask().replace( Attribute.HEALTH, math );
+            updateHealthDisplay( healing );
+            mob.getMask().replace( Attribute.HEALTH, healing );
         }
         queue.put( mob, false );
         return this;
@@ -102,8 +107,19 @@ public class MobControl {
 
     private void updateHealthDisplay( int v )
     {
+        ChatColor color = ChatColor.of( "#18ff03" );
+
         int max = mob.getMask().get( Attribute.MAX_HEALTH );
-        mob.getEntity().setCustomName( "§c" + WordUtils.capitalizeFully( mob.getEntity().getType().name() ) + " §a" + v + "§f/§a" + max + "§7hp" );
+
+        int percent = mathUtils.percentageOf( v , 100 );
+
+        if ( percent <= 50 )
+            color = ChatColor.of( "#ffff03" );
+
+        Infinitum.getInstance().getServer().broadcastMessage(color + "abc: " + mathUtils.getPercentage( v, max ) );
+        Infinitum.getInstance().getServer().broadcastMessage(color + "abc: " + percent + " max: " + max + " value: " + v );
+
+        mob.getEntity().setCustomName( "§c" + WordUtils.capitalizeFully( mob.getEntity().getType().name() ) + color + " " + v + "§f/" +  ChatColor.of( "#18ff03" ) + max + "§7hp" );
     }
 
     public void queue()

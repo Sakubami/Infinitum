@@ -1,4 +1,4 @@
-package xyz.sakubami.infinitum.world.entities.player.interact.damaging;
+package xyz.sakubami.infinitum.functionality.damaging;
 
 import xyz.sakubami.infinitum.world.entities.player.PlayerControl;
 import xyz.sakubami.infinitum.world.entities.player.PlayerConnector;

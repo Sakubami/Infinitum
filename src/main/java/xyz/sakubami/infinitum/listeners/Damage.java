@@ -28,9 +28,8 @@ public class Damage implements Listener {
         LivingEntity entity = helper.rightClickCustomEntity( e );
         new MobControl( entity )
                 .attribute( Attribute.MAX_HEALTH, 100 )
-                .heal( 200 )
+                .heal( 45 )
                 .equip( new ItemStack( Material.DIAMOND_CHESTPLATE ), EquipmentSlot.CHEST )
-                .teleport( e.getPlayer().getLocation() )
                 .queue();
     }
 
@@ -40,10 +39,11 @@ public class Damage implements Listener {
         LivingEntity entity = ( LivingEntity ) e.getEntity();
         if ( nbt.hasNBT( entity ) )
         {
+            e.setDamage( 0 );
             Infinitum.getInstance().getServer().broadcastMessage( "this mob has some nbt data");
             Infinitum.getInstance().getServer().broadcastMessage( "" + nbt.getNBTTags( entity ) );
             new MobControl( entity )
-                    .damage( 50 )
+                    .damage( 10 )
                     .queue();
         } else
         {

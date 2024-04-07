@@ -168,7 +168,7 @@ public class PlayerConnector {
         save();
     }
 
-    public PlayerMask get(UUID uuid ) { return playerMasks.stream().filter(record -> record.getUUID().equals( uuid ) ).findFirst().get(); }
+    public PlayerMask get( UUID uuid ) { return playerMasks.stream().filter( record -> record.getUUID().equals( uuid ) ).findFirst().get(); }
 
     public static PlayerConnector get() {
         return Infinitum.getInstance().getPlayerConfig();
