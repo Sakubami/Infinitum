@@ -6,9 +6,9 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import xyz.sakubami.infinitum.functionality.Attribute;
 import xyz.sakubami.infinitum.utils.builder.mob.nbt.MobNBTApi;
-import xyz.sakubami.infinitum.world.entities.mob.MobConnector;
-import xyz.sakubami.infinitum.world.entities.mob.MobMask;
-import xyz.sakubami.infinitum.world.entities.mob.MobTemplate;
+import xyz.sakubami.infinitum.world.entities.deprecated.MobConnector;
+import xyz.sakubami.infinitum.world.entities.deprecated.MobMask;
+
 
 import java.util.HashMap;
 

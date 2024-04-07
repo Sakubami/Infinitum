@@ -1,7 +1,6 @@
 package xyz.sakubami.infinitum.listeners;
 
 import org.bukkit.Material;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,9 +12,7 @@ import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.functionality.Attribute;
 import xyz.sakubami.infinitum.utils.InteractHelper;
 import xyz.sakubami.infinitum.utils.builder.mob.nbt.MobNBTApi;
-import xyz.sakubami.infinitum.utils.builder.mob.nbt.MobNBTUtils;
-import xyz.sakubami.infinitum.world.entities.mob.MobConnector;
-import xyz.sakubami.infinitum.world.entities.mob.MobControl;
+import xyz.sakubami.infinitum.world.entities.deprecated.MobControl;
 
 public class Damage implements Listener {
 

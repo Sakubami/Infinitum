@@ -6,8 +6,10 @@ import xyz.sakubami.infinitum.functionality.crafting.Crafting;
 import xyz.sakubami.infinitum.functionality.crafting.RecipeConfig;
 import xyz.sakubami.infinitum.functionality.crafting.stations.LocationConfig;
 import xyz.sakubami.infinitum.listeners.*;
-import xyz.sakubami.infinitum.world.entities.mob.MobConnector;
-import xyz.sakubami.infinitum.world.entities.player.PlayerConnector;
+import xyz.sakubami.infinitum.world.entities.control.EntityConnector;
+import xyz.sakubami.infinitum.world.entities.control.EntityControl;
+import xyz.sakubami.infinitum.world.entities.deprecated.MobConnector;
+import xyz.sakubami.infinitum.world.entities.control.PlayerSaving;
 
 public class Infinitum extends JavaPlugin {
 
@@ -16,8 +18,8 @@ public class Infinitum extends JavaPlugin {
     private LocationConfig locationConfig;
     private RecipeConfig recipeConfig;
     private Crafting crafting;
-    private PlayerConnector playerConnector;
-    private MobConnector mobConnector;
+    private PlayerSaving playerSaving;
+    private EntityConnector entityConnector;
 
     public void onEnable() {
         instance = this;
@@ -33,8 +35,8 @@ public class Infinitum extends JavaPlugin {
         this.locationConfig = new LocationConfig();
         this.recipeConfig = new RecipeConfig();
         this.crafting = new Crafting();
-        this.playerConnector = new PlayerConnector();
-        this.mobConnector = new MobConnector();
+        this.playerSaving = new PlayerSaving();
+        this.entityConnector = new EntityConnector();
 
         instance.getServer().broadcastMessage("§dInfinitum §7wurde §aeingeschaltet!");
     }
@@ -54,7 +56,7 @@ public class Infinitum extends JavaPlugin {
 
     public Crafting getCrafting() { return crafting; }
 
-    public PlayerConnector getPlayerConfig() { return playerConnector; }
+    public PlayerSaving getPlayerConfig() { return playerSaving; }
 
-    public MobConnector getMobConnector() { return mobConnector; }
+    public EntityConnector getEntityConnector() { return entityConnector; }
 }

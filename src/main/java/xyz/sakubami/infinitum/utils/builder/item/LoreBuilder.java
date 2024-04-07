@@ -78,12 +78,23 @@ public class LoreBuilder {
 
             for ( Attribute attribute : attributes.keySet() )
             {
-                this.lore.add( "§7" + attribute.getTranslation() + "§c" + attributes.get( attribute ) );
-                temp += 1;
-                if ( temp >= 4 ) {
-                    this.lore.add( "§0" );
-                    temp = 0;
-                    break;
+                int v = attributes.get( attribute );
+                String component;
+                String color = "§c";
+
+                if ( v > 0 )
+                    component = "+" + v;
+                else component = "-" + v;
+
+                if ( v != 0 )
+                {
+                    this.lore.add( "§7" + attribute.getTranslation() + ": " + color + component );
+                    temp += 1;
+                    if ( temp >= 4 ) {
+                        this.lore.add( "§0" );
+                        color = "§a";
+                        temp = 0;
+                    }
                 }
             }
         } else

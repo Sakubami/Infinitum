@@ -37,7 +37,7 @@ public enum ItemTemplates
             ItemAttributes.NONE,
             ItemTier.O,
             "Rune der Macht",
-            "&7Stufe &6I"),
+            "das ist ein test string ich hoffe das das ich frage mich was passiert wenn ich einfach weiter schreibe sio lol sollte eigenltihch nicht viel passieren?? §c§lfunktioniert§7 so wie es soll §c§laber§7 ich habe ehrlich gesagt keine ahnung ob ja oder nein lolz\""),
 
     END_CRYSTAL(
             Material.END_CRYSTAL,

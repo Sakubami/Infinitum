@@ -1,22 +1,23 @@
 package xyz.sakubami.infinitum.functionality.damaging;
 
-import xyz.sakubami.infinitum.world.entities.player.PlayerControl;
-import xyz.sakubami.infinitum.world.entities.player.PlayerConnector;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
+import xyz.sakubami.infinitum.world.entities.deprecated.PlayerControl;
+import xyz.sakubami.infinitum.world.entities.control.PlayerSaving;
 
-import javax.swing.text.html.parser.Entity;
 
 public class DamageCalculator {
 
     private final int raw;
     private final boolean who;
     private final PlayerControl damager;
-    private final Entity receiver;
+    private final LivingEntity receiver;
 
-    private final PlayerConnector playerConnector = PlayerConnector.get();
+    private final PlayerSaving connector = PlayerSaving.get();
 
     // USAGE who = false == received, true == dealt
 
-    public DamageCalculator(int raw, PlayerControl damager, Entity receiver, boolean who )
+    public DamageCalculator( int raw, PlayerControl damager, LivingEntity receiver, boolean who )
     {
         this.raw = raw;
         this.damager = damager;
@@ -26,16 +27,13 @@ public class DamageCalculator {
 
     public int calculate()
     {
-        // make this compatible with custom entities that im gonna add later on
+        if ( receiver instanceof Player )
+        {
+            return 0;
+        }
 
-        /*
-        final int ahp = playerConnector;
-        final int aehp = ;
-        final int defense;
-        final int strength;
 
-         */
 
-        return raw;
+        return 0;
     }
 }

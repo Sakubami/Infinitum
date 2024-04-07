@@ -21,7 +21,7 @@ import xyz.sakubami.infinitum.utils.InteractHelper;
 import xyz.sakubami.infinitum.utils.builder.mob.MobBuilder;
 import xyz.sakubami.infinitum.utils.worldedit.InfinitumSchematic;
 import xyz.sakubami.infinitum.utils.worldedit.WorldEditHelper;
-import xyz.sakubami.infinitum.world.entities.mob.MobControl;
+import xyz.sakubami.infinitum.world.entities.deprecated.MobControl;
 
 public class Interact implements Listener {
 

@@ -1,10 +1,11 @@
-package xyz.sakubami.infinitum.world.entities.player;
+package xyz.sakubami.infinitum.world.entities.control;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.functionality.Attribute;
+import xyz.sakubami.infinitum.world.entities.deprecated.PlayerMask;
 import xyz.sakubami.infinitum.world.entities.player.skills.ExperienceType;
 
 import java.io.File;
@@ -14,13 +15,13 @@ import java.util.List;
 import java.util.UUID;
 
 
-public class PlayerConnector {
+public class PlayerSaving {
 
     private final String path = "plugins/Infinitum/PlayerControl/Players.yml";
 
     private ArrayList<PlayerMask> playerMasks;
 
-    public PlayerConnector()
+    public PlayerSaving()
     {
         playerMasks = new ArrayList<>();
         load();
@@ -170,7 +171,7 @@ public class PlayerConnector {
 
     public PlayerMask get( UUID uuid ) { return playerMasks.stream().filter( record -> record.getUUID().equals( uuid ) ).findFirst().get(); }
 
-    public static PlayerConnector get() {
+    public static PlayerSaving get() {
         return Infinitum.getInstance().getPlayerConfig();
     }
 }
