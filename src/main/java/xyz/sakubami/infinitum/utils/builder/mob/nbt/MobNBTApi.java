@@ -40,6 +40,10 @@ public class MobNBTApi {
         return entity.getPersistentDataContainer().get( key( key ), PersistentDataType.STRING );
     }
 
+    public boolean hasNBT( LivingEntity entity ) {
+        return !entity.getPersistentDataContainer().isEmpty();
+    }
+
     public HashMap<NamespacedKey, String> getNBTTags( LivingEntity entity )
     {
         HashMap<NamespacedKey, String> list = new HashMap<>();

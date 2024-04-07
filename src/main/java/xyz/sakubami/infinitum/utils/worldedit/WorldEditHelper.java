@@ -51,7 +51,7 @@ public class WorldEditHelper {
         }
     }
 
-    public static void pasteSchematic(Location location, File schematicFile )
+    public static void pasteSchematic( Location location, File schematicFile )
     {
         try ( EditSession session = createEditSession( location.getWorld() ) )
         {

@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import xyz.sakubami.infinitum.Infinitum;
+import xyz.sakubami.infinitum.functionality.Attribute;
 import xyz.sakubami.infinitum.world.entities.player.skills.ExperienceType;
 
 import java.io.File;
@@ -15,43 +16,19 @@ import java.util.UUID;
 
 public class PlayerConnector {
 
-    private static class PlayerRecord {
-
-        private final UUID uuid;
-        private int level;
-        private HashMap<ExperienceType, Integer> experience;
-        private HashMap<String, Integer> skillTree;
-
-        public PlayerRecord( UUID uuid, int level, HashMap<String, Integer> skillTree, HashMap<ExperienceType, Integer> experience ) {
-            this.uuid = uuid;
-            this.level = level;
-            this.skillTree = skillTree;
-            this.experience = experience;
-        }
-
-        public UUID getUUID() { return uuid; }
-        public int getLevel() { return level; }
-        public HashMap<String, Integer> getSkillTree() { return skillTree; }
-        public HashMap<ExperienceType, Integer> getExperience() { return experience; }
-
-        public void setLevel( int level ) { this.level = level; }
-        public void setSkillTree( HashMap<String, Integer> skillTree ) { this.skillTree = skillTree; }
-        public void setExperience ( HashMap<ExperienceType, Integer> experience ) { this.experience = experience; }
-    }
-
     private final String path = "plugins/Infinitum/PlayerControl/Players.yml";
 
-    private ArrayList<PlayerRecord> playerRecords;
+    private ArrayList<PlayerMask> playerMasks;
 
     public PlayerConnector()
     {
-        playerRecords = new ArrayList<>();
-        loadPlayers();
+        playerMasks = new ArrayList<>();
+        load();
     }
 
-    public void loadPlayers()
+    private void load()
     {
-        playerRecords = new ArrayList<>();
+        playerMasks = new ArrayList<>();
 
         FileConfiguration config = YamlConfiguration.loadConfiguration( new File( path ) );
 
@@ -61,15 +38,23 @@ public class PlayerConnector {
 
             HashMap<String, Integer> skills = new HashMap<>();
             HashMap<ExperienceType, Integer> experience = new HashMap<>();
+            HashMap<Attribute, Integer> attributes = new HashMap<>();
             UUID uuid = UUID.fromString( config.getString( "players." + i + ".uuid" ) );
             int level = Integer.parseInt( config.getString("players." +i+ ".level" ) );
             List<String> cfgSkills = config.getStringList("players." +i+ ".skills" );
             List<String> cfgExperience = config.getStringList( "players." +i+ ".experience" );
+            List<String> cfgAttributes = config.getStringList( "players." +i+ ".attributes" );
 
             for ( String line : cfgSkills )
             {
                 String[] split = line.split( "/" );
                 skills.put( split[0], Integer.parseInt( split[1] ) );
+            }
+
+            for ( String line : cfgAttributes )
+            {
+                String[] split = line.split( "/" );
+                attributes.put( Attribute.valueOf( split[0] ), Integer.parseInt( split[1] ) );
             }
 
             for ( String line : cfgExperience )
@@ -78,37 +63,45 @@ public class PlayerConnector {
                 experience.put( ExperienceType.valueOf( split[0] ), Integer.parseInt( split[1] ) );
             }
 
-            playerRecords.add( new PlayerRecord( uuid, level, skills, experience ) );
+            playerMasks.add( new PlayerMask( uuid, level, skills, experience, attributes ) );
         }
     }
 
-    public void savePlayers()
+    private void save()
     {
 
         FileConfiguration config = new YamlConfiguration();
 
-        for ( int i = 0; playerRecords.size() > i; i++)
+        for (int i = 0; playerMasks.size() > i; i++)
         {
-            PlayerRecord playerRecord = playerRecords.get( i );
+            PlayerMask playerMask = playerMasks.get( i );
             List<String> skills = new ArrayList<>();
             List<String> experience = new ArrayList<>();
+            List<String> attributes = new ArrayList<>();
 
-            for ( String skill : playerRecord.skillTree.keySet() )
+            for ( String skill : playerMask.getSkillTree().keySet() )
             {
-                int value = playerRecord.skillTree.get( skill );
+                int value = playerMask.getSkillTree().get( skill );
                 skills.add( skill + "/" + value );
             }
 
-            for ( ExperienceType experienceType : playerRecord.experience.keySet() )
+            for ( ExperienceType experienceType : playerMask.getExperience().keySet() )
             {
-                int value = playerRecord.experience.get( experienceType );
+                int value = playerMask.getExperience().get( experienceType );
                     experience.add( experienceType.name() + "/" + value );
             }
 
-            config.set( "players." + i + ".uuid", playerRecord.uuid.toString() );
-            config.set( "players." + i + ".level", String.valueOf( playerRecord.level  ) );
+            for ( Attribute attribute : playerMask.getAttributes().keySet() )
+            {
+                int value = playerMask.getAttributes().get( attribute );
+                experience.add( attribute.name() + "/" + value );
+            }
+
+            config.set( "players." + i + ".uuid", playerMask.getUUID().toString() );
+            config.set( "players." + i + ".level", String.valueOf( playerMask.getLevel()  ) );
             config.set( "players." + i + ".skills", skills );
             config.set( "players." + i + ".experience", experience );
+            config.set( "players." + i + ".attributes", attributes );
         } try
     {
         config.save( new File( path ) );
@@ -117,34 +110,28 @@ public class PlayerConnector {
 
     private boolean scheduled = false;
 
-    public void scheduleSave()
+    public void scheduleSave( long seconds)
     {
         scheduled = true;
-        scheduleSave( 45 );
+        schedule( seconds );
     }
 
-    public void scheduleSave( long seconds )
+    private void schedule( long seconds )
     {
         long math = seconds * 20;
         if ( !scheduled ) {
             Bukkit.getScheduler().scheduleSyncDelayedTask( Infinitum.getInstance(), () ->
             {
-                savePlayers();
+                save();
                 Infinitum.getInstance().getServer().broadcastMessage( " saving.." );
                 scheduled = false;
             }, math );
         }
     }
 
-    public void deletePlayer ( UUID uuid )
+    public void addNew( UUID uuid )
     {
-        playerRecords.removeIf ( recipe -> recipe.uuid.equals( uuid ) );
-        savePlayers();
-    }
-
-    public void addNewPlayer( UUID uuid )
-    {
-        if ( playerRecords.stream().noneMatch( playerRecord -> playerRecord.uuid.equals( uuid ) ) )
+        if ( playerMasks.stream().noneMatch(playerMask -> playerMask.getUUID().equals( uuid ) ) )
         {
             HashMap<ExperienceType ,Integer> experience = new HashMap<>();
             experience.put( ExperienceType.BASE, 5 );
@@ -153,44 +140,35 @@ public class PlayerConnector {
 
             HashMap<String, Integer> skillTree = new HashMap<>();
 
-            playerRecords.add( new PlayerRecord( uuid, 0 , skillTree, experience ) );
-            savePlayers();
+            HashMap<Attribute, Integer> attributes = new HashMap<>();
+            attributes.put( Attribute.HEALTH, 100 );
+            attributes.put( Attribute.MAX_HEALTH, 100 );
+            attributes.put( Attribute.DEFENSE, 0 );
+            attributes.put( Attribute.INTELLIGENCE, 100 );
+
+            attributes.put( Attribute.STRENGTH, 0 );
+            attributes.put( Attribute.CRITICAl_CHANCE, 25 );
+            attributes.put( Attribute.CRITICAL_DAMAGE, 0 );
+
+            playerMasks.add( new PlayerMask( uuid, 0 , skillTree, experience, attributes ) );
+            save();
         }
     }
 
-    private PlayerRecord findPLayer( UUID uuid ) { return playerRecords.stream().filter( record -> record.uuid.equals( uuid ) ).findFirst().get(); }
-
-    public void levelUp( UUID uuid )
+    public void remove ( UUID uuid )
     {
-        PlayerRecord record = playerRecords.stream().filter( rcd -> rcd.uuid.equals( uuid ) ).findFirst().get();
-        record.setLevel( record.getLevel() +1 );
+        playerMasks.removeIf ( player -> player.getUUID().equals( uuid ) );
+        save();
     }
 
-    public int getPlayerLevel( UUID uuid )
+    public void update ( PlayerMask player )
     {
-        return findPLayer( uuid ).level;
+        int index = playerMasks.indexOf( get( player.getUUID() ) );
+        playerMasks.set( index, player );
+        save();
     }
 
-    public HashMap<String, Integer> getPlayerSkillTree( UUID uuid )
-    {
-        return findPLayer( uuid ).skillTree;
-    }
-
-    public HashMap<ExperienceType, Integer> getPlayerExperience( UUID uuid )
-    {
-        return findPLayer( uuid ).experience;
-    }
-
-    public void addExperience( UUID uuid, ExperienceType type, int exp )
-    {
-        int experience = findPLayer( uuid ).experience.get( type );
-        findPLayer( uuid ).experience.replace( type, exp + experience );
-    }
-
-    public void setExperience( UUID uuid, ExperienceType type, int exp )
-    {
-        findPLayer( uuid ).experience.replace( type, exp );
-    }
+    public PlayerMask get(UUID uuid ) { return playerMasks.stream().filter(record -> record.getUUID().equals( uuid ) ).findFirst().get(); }
 
     public static PlayerConnector get() {
         return Infinitum.getInstance().getPlayerConfig();

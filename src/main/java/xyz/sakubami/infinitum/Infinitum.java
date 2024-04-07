@@ -27,6 +27,7 @@ public class Infinitum extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents( new Interact(), this );
         Bukkit.getPluginManager().registerEvents( new Combust(), this );
         Bukkit.getPluginManager().registerEvents( new PlayerInteractServer(), this );
+        Bukkit.getPluginManager().registerEvents( new Damage(), this );
 
         //load configs
         this.locationConfig = new LocationConfig();
@@ -55,5 +56,5 @@ public class Infinitum extends JavaPlugin {
 
     public PlayerConnector getPlayerConfig() { return playerConnector; }
 
-    public MobConnector getMobController() { return mobConnector; }
+    public MobConnector getMobConnector() { return mobConnector; }
 }

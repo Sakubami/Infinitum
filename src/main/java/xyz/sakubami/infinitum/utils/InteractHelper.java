@@ -1,15 +1,20 @@
 package xyz.sakubami.infinitum.utils;
 
 import org.bukkit.Material;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import xyz.sakubami.infinitum.utils.builder.item.nbt.ItemNBTUtils;
+import xyz.sakubami.infinitum.utils.builder.mob.nbt.MobNBTApi;
 
 public class InteractHelper {
 
-    private final ItemNBTUtils nbt = new ItemNBTUtils();
+    private final ItemNBTUtils itemNBT = new ItemNBTUtils();
+    private final MobNBTApi mobNBT = new MobNBTApi();
 
     public boolean rightClick( PlayerInteractEvent event )
     {
@@ -25,8 +30,8 @@ public class InteractHelper {
             if ( event.getHand().equals( EquipmentSlot.HAND ) )
                 if ( event.getAction().equals( Action.RIGHT_CLICK_AIR ) || event.getAction().equals( Action.RIGHT_CLICK_BLOCK ) )
                     if ( event.getItem() != null )
-                        if ( nbt.hasID( itemStack ) )
-                            return nbt.getID( itemStack ).equalsIgnoreCase( itemID );
+                        if ( itemNBT.hasID( itemStack ) )
+                            return itemNBT.getID( itemStack ).equalsIgnoreCase( itemID );
         return false;
     }
 
@@ -48,8 +53,13 @@ public class InteractHelper {
                     if (event.getClickedBlock() != null )
                         if ( event.getClickedBlock().getType().equals( material ) )
                             if ( event.getItem() != null )
-                                if ( nbt.hasID( itemStack ) )
-                                    return nbt.getID( itemStack ).equalsIgnoreCase( itemID );
+                                if ( itemNBT.hasID( itemStack ) )
+                                    return itemNBT.getID( itemStack ).equalsIgnoreCase( itemID );
         return false;
+    }
+
+    public LivingEntity rightClickCustomEntity( PlayerInteractEntityEvent event )
+    {
+        return ( LivingEntity ) event.getRightClicked();
     }
 }

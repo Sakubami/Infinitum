@@ -6,16 +6,22 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.ItemStack;
 import xyz.sakubami.infinitum.Infinitum;
+import xyz.sakubami.infinitum.functionality.Attribute;
 import xyz.sakubami.infinitum.functionality.crafting.Crafting;
 import xyz.sakubami.infinitum.functionality.crafting.stations.Primer;
 import xyz.sakubami.infinitum.utils.InteractHelper;
+import xyz.sakubami.infinitum.utils.builder.mob.MobBuilder;
 import xyz.sakubami.infinitum.utils.worldedit.InfinitumSchematic;
 import xyz.sakubami.infinitum.utils.worldedit.WorldEditHelper;
+import xyz.sakubami.infinitum.world.entities.mob.MobControl;
 
 public class Interact implements Listener {
 
@@ -52,9 +58,10 @@ public class Interact implements Listener {
                     WorldEditHelper.Paste( location , InfinitumSchematic.TABLE.getPath(), player ), 19 );
         }
 
-        if ( helper.rightClickBlockWithItem( e, Material.DIAMOND_BLOCK, e.getItem(), "FRAGMENT_OF_REALITY" ) )
+        if ( helper.rightClickBlock( e, Material.DIAMOND_BLOCK ) )
         {
             player.sendMessage( "testing" );
+            new MobControl( new MobBuilder( EntityType.ZOMBIE, player.getWorld() ).build() ).teleport( player.getLocation() ).attribute( Attribute.HEALTH, 50 ).equip( new ItemStack( Material.DIAMOND_HELMET ), EquipmentSlot.HEAD ).queue();
         }
 
         if ( helper.rightClickWithItem( e, e.getItem(), "INFINITA_SCIENTIA" ) )

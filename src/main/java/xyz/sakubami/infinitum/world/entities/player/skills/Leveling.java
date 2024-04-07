@@ -1,5 +1,6 @@
 package xyz.sakubami.infinitum.world.entities.player.skills;
 
+import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.world.entities.player.PlayerConnector;
 
 import java.util.UUID;
@@ -38,7 +39,7 @@ public class Leveling {
     public boolean checkLevelUp( UUID uuid, int experience )
     {
         int a = calculateLevel( experience );
-        int b = cache.getPlayerLevel( uuid );
+        int b = cache.get( uuid ).getLevel();
         return a > b;
     }
 
@@ -46,7 +47,10 @@ public class Leveling {
     {
         // list.iterate == action == xp
         // calculate bonuses and shit
-        cache.addExperience( uuid, type, amount );
-        cache.scheduleSave();
+        if ( checkLevelUp( uuid, amount ) )
+            Infinitum.getInstance().getServer().broadcastMessage("u leveled up lol");
+        int present = cache.get( uuid ).getExperience().get( type );
+        cache.get( uuid ).getExperience().replace( type, amount + present );
+        cache.scheduleSave( 45 );
     }
 }

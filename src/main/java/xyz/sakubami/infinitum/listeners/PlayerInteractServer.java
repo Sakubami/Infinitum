@@ -11,6 +11,6 @@ public class PlayerInteractServer implements Listener {
     public void onServerJoin( PlayerJoinEvent e )
     {
         PlayerConnector config = PlayerConnector.get();
-        config.addNewPlayer( e.getPlayer().getUniqueId() );
+        config.addNew( e.getPlayer().getUniqueId() );
     }
 }

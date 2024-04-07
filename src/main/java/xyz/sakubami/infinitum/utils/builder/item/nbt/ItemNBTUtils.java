@@ -56,7 +56,7 @@ public class ItemNBTUtils {
         return entity.getPersistentDataContainer().get( key( key ), PersistentDataType.STRING );
     }
 
-    private boolean hasData(Entity entity) {
+    private boolean hasData( Entity entity ) {
         return !entity.getPersistentDataContainer().isEmpty();
     }
 

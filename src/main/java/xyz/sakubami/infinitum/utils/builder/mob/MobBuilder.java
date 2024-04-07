@@ -6,20 +6,21 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import xyz.sakubami.infinitum.functionality.Attribute;
 import xyz.sakubami.infinitum.utils.builder.mob.nbt.MobNBTApi;
+import xyz.sakubami.infinitum.world.entities.mob.MobConnector;
 import xyz.sakubami.infinitum.world.entities.mob.MobMask;
+import xyz.sakubami.infinitum.world.entities.mob.MobTemplate;
 
 import java.util.HashMap;
-import java.util.UUID;
 
 public class MobBuilder {
 
+    private final MobConnector connector = MobConnector.get();
     private final MobNBTApi NBT = new MobNBTApi();
     private final EntityType type;
-    private final UUID uuid = UUID.randomUUID();
     private final HashMap<Attribute, Integer> attributes = new HashMap<>();
     private final World world;
     private final Location location;
-    private String name = "NULL";
+    private String name = "§c" + "DEFAULT " + "§a" + 100 + "§f/§a" + 100 + "§7hp";
 
     // spawn at default location but teleport to desired location afterwards
 
@@ -28,7 +29,19 @@ public class MobBuilder {
         this.world = world;
         this.type = type;
         this.location = new Location( world, 0, 2000, 0 );
+        this.NBT.addNBTTag( "CUSTOM", "true" );
     }
+
+    /*
+    public MobBuilder( MobTemplate template, World world )
+    {
+        this.world = world;
+        this.type = template.getType();
+        this.attributes = template.getAttributes();
+        this.location = new Location( world, 0, 2000, 0 );
+        this.NBT.addNBTTag( "CUSTOM", "true" );
+    }
+     */
 
     public MobBuilder attribute( Attribute attribute, int value )
     {
@@ -39,7 +52,7 @@ public class MobBuilder {
 
     public MobBuilder name( String name )
     {
-        this.name = name;
+        this.name = "§c" + name + "§a" + 50000 + "§f/§a" + 50000 + "§7hp";
         return this;
     }
 
@@ -47,12 +60,16 @@ public class MobBuilder {
     {
         LivingEntity entity = ( LivingEntity ) world.spawnEntity( location, type );
 
-        if ( !attributes.isEmpty() )
-            entity = NBT.parseAllNBTTags( entity );
+        entity.getEquipment().clear();
+
+        entity = NBT.parseAllNBTTags( entity );
 
         entity.setCustomName( name );
         entity.setCustomNameVisible( true );
+        entity.getAttribute( org.bukkit.attribute.Attribute.GENERIC_KNOCKBACK_RESISTANCE ).setBaseValue( 1.0 );
 
-        return new MobMask( entity, attributes );
+        MobMask mask = new MobMask( entity, attributes );
+        connector.add( mask );
+        return mask;
     }
 }

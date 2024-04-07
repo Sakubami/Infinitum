@@ -26,30 +26,36 @@ public class MobConnector implements Listener {
         this.cache = new HashMap<>();
     }
 
-    public void addMob( MobMask mask )
+    public void add(MobMask mask )
     {
-        UUID uuid = mask.getUuid();
-        cache.put( uuid, mask );
+        cache.put( mask.getUuid(), mask );
     }
 
-    public void removeMob( MobMask mask )
+    public void remove(MobMask mask )
     {
         UUID uuid = mask.getUuid();
         if ( cache.get( uuid ) != null )
         cache.remove( uuid );
     }
 
-    public void updateMob( MobMask mask )
+    public void update(MobMask mask )
     {
         UUID uuid = mask.getUuid();
         if ( cache.get( uuid ) != null )
             cache.replace( uuid, mask );
     }
 
-    public HashMap<UUID, MobMask> getCache()
+    public boolean contains( MobMask mask )
     {
-        return cache;
+        UUID uuid = mask.getUuid();
+        return ( cache.get( uuid ) != null );
     }
 
-    public static MobConnector get() { return Infinitum.getInstance().getMobController(); }
+    public MobMask get( LivingEntity entity )
+    {
+        UUID uuid = entity.getUniqueId();
+        return ( cache.get( uuid ) );
+    }
+
+    public static MobConnector get() { return Infinitum.getInstance().getMobConnector(); }
 }

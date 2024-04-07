@@ -9,12 +9,13 @@ import java.util.UUID;
 public class MobMask {
 
     private final LivingEntity entity;
-    private final UUID uuid = UUID.randomUUID();
+    private final UUID uuid;
     private final HashMap<Attribute, Integer> mask;
 
     public MobMask( LivingEntity entity, HashMap<Attribute, Integer> attributes )
     {
         this.entity = entity;
+        this.uuid = entity.getUniqueId();
         this.mask = attributes;
     }
 

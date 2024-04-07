@@ -38,7 +38,9 @@ public class ItemNBTApi {
     //
 
     public String getNBTValue( ItemStack item, String key ) {
-        return item.getItemMeta().getPersistentDataContainer().get(key(key), PersistentDataType.STRING);
+        if ( item.hasItemMeta() )
+            return item.getItemMeta().getPersistentDataContainer().get(key(key), PersistentDataType.STRING);
+        return null;
     }
 
     public HashMap<NamespacedKey, String> getNBTTags(ItemStack item) {

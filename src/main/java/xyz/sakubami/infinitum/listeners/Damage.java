@@ -1,0 +1,53 @@
+package xyz.sakubami.infinitum.listeners;
+
+import org.bukkit.Material;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.ItemStack;
+import xyz.sakubami.infinitum.Infinitum;
+import xyz.sakubami.infinitum.functionality.Attribute;
+import xyz.sakubami.infinitum.utils.InteractHelper;
+import xyz.sakubami.infinitum.utils.builder.mob.nbt.MobNBTApi;
+import xyz.sakubami.infinitum.utils.builder.mob.nbt.MobNBTUtils;
+import xyz.sakubami.infinitum.world.entities.mob.MobConnector;
+import xyz.sakubami.infinitum.world.entities.mob.MobControl;
+
+public class Damage implements Listener {
+
+    InteractHelper helper = new InteractHelper();
+    MobNBTApi nbt = new MobNBTApi();
+
+    @EventHandler
+    public void onDamage( PlayerInteractEntityEvent e )
+    {
+        LivingEntity entity = helper.rightClickCustomEntity( e );
+        new MobControl( entity )
+                .attribute( Attribute.MAX_HEALTH, 100 )
+                .heal( 200 )
+                .equip( new ItemStack( Material.DIAMOND_CHESTPLATE ), EquipmentSlot.CHEST )
+                .teleport( e.getPlayer().getLocation() )
+                .queue();
+    }
+
+    @EventHandler
+    public void onDamage( EntityDamageByEntityEvent e )
+    {
+        LivingEntity entity = ( LivingEntity ) e.getEntity();
+        if ( nbt.hasNBT( entity ) )
+        {
+            Infinitum.getInstance().getServer().broadcastMessage( "this mob has some nbt data");
+            Infinitum.getInstance().getServer().broadcastMessage( "" + nbt.getNBTTags( entity ) );
+            new MobControl( entity )
+                    .damage( 50 )
+                    .queue();
+        } else
+        {
+            Infinitum.getInstance().getServer().broadcastMessage( "this mob dont has nbt data");
+        }
+    }
+}

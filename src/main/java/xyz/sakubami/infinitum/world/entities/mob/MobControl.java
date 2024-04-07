@@ -1,24 +1,18 @@
 package xyz.sakubami.infinitum.world.entities.mob;
 
+import org.apache.commons.lang.WordUtils;
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import xyz.sakubami.infinitum.functionality.Attribute;
-import xyz.sakubami.infinitum.utils.builder.mob.nbt.MobNBTApi;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.UUID;
 
 public class MobControl {
 
-    private final MobNBTApi NBT = new MobNBTApi();
-    private MobMask mob;
-    private ArrayList<MobMask> crowd = new ArrayList<>();
+    private final MobMask mob;
     private final MobConnector connector = MobConnector.get();
-    private final HashMap<UUID, MobMask> cache = connector.getCache();
     private final HashMap<MobMask, Boolean> queue = new HashMap<>();
 
     public MobControl( MobMask mob )
@@ -26,35 +20,21 @@ public class MobControl {
         this.mob = mob;
     }
 
-    public MobControl( ArrayList<MobMask> crowd )
+    public MobControl( LivingEntity entity )
     {
-        this.crowd = crowd;
-    }
-
-    public MobControl spawnSingle( World world, Location location )
-    {
-        queue.put( mob, true );
-        return this;
-    }
-
-    public MobControl spawnCrowdAtLocations( World world, double spread )
-    {
-        if ( !crowd.isEmpty() )
-            for ( MobMask mob : crowd ) {
-                queue.put( mob, true );
-            }
-        return this;
+        this.mob = connector.get( entity );
     }
 
     public MobControl teleport( Location location )
     {
-        // do stuff
+        mob.getEntity().teleport( location );
         return this;
     }
 
-    public MobControl attribute( Attribute attribute, int amount )
+    public MobControl attribute( Attribute attribute, int v )
     {
-        NBT.addNBTTag( attribute.name(), String.valueOf( amount ) );
+        mob.getMask().put( attribute, v );
+        queue.put( mob, false );
         return this;
     }
 
@@ -73,43 +53,68 @@ public class MobControl {
             entity.getEquipment().setItemInMainHand( itemStack );
         if ( slot.equals( EquipmentSlot.OFF_HAND ) )
             entity.getEquipment().setItemInOffHand( itemStack );
-        entity.getEquipment().clear();
         return this;
     }
 
-    public MobControl damage( int amount )
+    public MobControl damage( int v )
     {
-        int math = mob.getMask().get( Attribute.HEALTH ) - amount;
+        int math = mob.getMask().get( Attribute.HEALTH ) - v;
         if ( math <= 0 )
         {
+            updateHealthDisplay( 0 );
             mob.getEntity().damage( 999999999 );
-            queue.put( mob, false );
+            queue.put( mob, true );
         }
         else
+        {
+            updateHealthDisplay( math );
             mob.getMask().replace( Attribute.HEALTH, math );
-            queue.put( mob, true );
+            queue.put( mob, false );
+        }
         return this;
     }
 
-    public MobControl heal( int amount )
+    public MobControl kill()
     {
-        int math = mob.getMask().get( Attribute.HEALTH ) + amount;
-        int max = mob.getMask().get( Attribute.MAX_HEALTH );
-        mob.getMask().replace( Attribute.HEALTH, Math.min( math, max ) );
+        updateHealthDisplay( 0 );
+        mob.getEntity().damage( 999999999 );
         queue.put( mob, true );
         return this;
     }
 
-    public MobControl update()
+    public MobControl heal( int v )
     {
-        for ( MobMask mask : queue.keySet() ) {
-            if ( cache.containsValue( mask ) )
-                connector.updateMob( mask );
-            else if ( queue.get( mask ) )
-                connector.addMob( mask );
-            else if ( cache.containsValue( mask ) )
-                connector.removeMob( mask );
+        int math = mob.getMask().get( Attribute.HEALTH ) + v;
+        int max = mob.getMask().get( Attribute.MAX_HEALTH );
+        if ( math > max )
+        {
+            int finalMath = ( math - max ) - math;
+            updateHealthDisplay( finalMath );
+            mob.getMask().replace( Attribute.HEALTH, finalMath );
+        } else
+        {
+            updateHealthDisplay( math );
+            mob.getMask().replace( Attribute.HEALTH, math );
         }
+        queue.put( mob, false );
         return this;
+    }
+
+    private void updateHealthDisplay( int v )
+    {
+        int max = mob.getMask().get( Attribute.MAX_HEALTH );
+        mob.getEntity().setCustomName( "§c" + WordUtils.capitalizeFully( mob.getEntity().getType().name() ) + " §a" + v + "§f/§a" + max + "§7hp" );
+    }
+
+    public void queue()
+    {
+        for ( MobMask mask : queue.keySet() )
+        {
+            if ( connector.contains( mask ) )
+                connector.update( mask );
+
+            if ( queue.get( mask ) )
+                connector.remove( mask );
+        }
     }
 }
