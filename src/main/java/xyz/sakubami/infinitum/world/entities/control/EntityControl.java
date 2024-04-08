@@ -67,10 +67,13 @@ public class EntityControl {
         return this;
     }
 
-    public EntityControl damage( int v )
+    public EntityControl damage( int raw )
     {
-        int math = attributes.get( Attribute.HEALTH ) - v;
-        if ( math <= 0 )
+        int finalDef = ( attributes.get( Attribute.DEFENSE ) / 100 ) +1;
+        int damagedEHP = ( attributes.get( Attribute.HEALTH ) * finalDef ) - raw ;
+        int damagedHP = damagedEHP / finalDef;
+
+        if ( damagedHP <= 0 )
         {
             updateHealthDisplay( 0 );
             entityMask.getEntity().damage( 999999999 );
@@ -81,8 +84,8 @@ public class EntityControl {
         }
         else
         {
-            updateHealthDisplay( math );
-            attributes.replace( Attribute.HEALTH, math );
+            updateHealthDisplay( damagedHP );
+            attributes.replace( Attribute.HEALTH, damagedHP );
             queue.put( entityMask, false );
         }
         return this;

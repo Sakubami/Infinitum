@@ -7,8 +7,6 @@ import xyz.sakubami.infinitum.functionality.crafting.RecipeConfig;
 import xyz.sakubami.infinitum.functionality.crafting.stations.LocationConfig;
 import xyz.sakubami.infinitum.listeners.*;
 import xyz.sakubami.infinitum.world.entities.control.EntityConnector;
-import xyz.sakubami.infinitum.world.entities.control.EntityControl;
-import xyz.sakubami.infinitum.world.entities.deprecated.MobConnector;
 import xyz.sakubami.infinitum.world.entities.control.PlayerSaving;
 
 public class Infinitum extends JavaPlugin {

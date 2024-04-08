@@ -2,6 +2,7 @@ package xyz.sakubami.infinitum.functionality.items;
 
 import xyz.sakubami.infinitum.functionality.Attribute;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public enum ItemAttributes
@@ -12,11 +13,19 @@ public enum ItemAttributes
             ItemClass.GENERIC, 300, -300,  4, 3, 2, 1, 2 );
 
     private final HashMap<Attribute, Integer> attributes = new HashMap<>();
+    private final ArrayList<String> loreAttributes = new ArrayList<>();
 
     private final ItemClass itemClass;
 
-    ItemAttributes ( ItemClass itemClass , int damage, int criticalChance, int criticalDamage, int intelligence, int strength, int defense, int health )
+    ItemAttributes ( ItemClass itemClass , int damage, int strength, int criticalChance, int criticalDamage, int health, int defense, int intelligence )
     {
+        loreAttributes.add( "DAMAGE" + "/" + damage );
+        loreAttributes.add( "STRENGTH" + "/" + strength );
+        loreAttributes.add( "CRITICAl_CHANCE" + "/" + criticalChance );
+        loreAttributes.add( "CRITICAL_DAMAGE" + "/" + damage );
+        loreAttributes.add( "HEALTH" + "/" + damage );
+        loreAttributes.add( "DEFENSE" + "/" + damage );
+        loreAttributes.add( "INTELLIGENCE" + "/" + damage );
         attributes.put( Attribute.DAMAGE, damage );
         attributes.put( Attribute.STRENGTH, strength );
         attributes.put( Attribute.CRITICAl_CHANCE, criticalChance );
@@ -24,6 +33,8 @@ public enum ItemAttributes
         attributes.put( Attribute.HEALTH, health );
         attributes.put( Attribute.DEFENSE, defense );
         attributes.put( Attribute.INTELLIGENCE, intelligence );
+        attributes.put( Attribute.ADDITIVE, defense );
+        attributes.put( Attribute.MULTIPLICATIVE, intelligence );
         this.itemClass = itemClass;
     }
 

@@ -2,19 +2,20 @@ package xyz.sakubami.infinitum.utils.builder.mob;
 
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import xyz.sakubami.infinitum.functionality.Attribute;
 import xyz.sakubami.infinitum.utils.builder.mob.nbt.MobNBTApi;
 import xyz.sakubami.infinitum.world.entities.control.CustomType;
 import xyz.sakubami.infinitum.world.entities.control.EntityConnector;
-import xyz.sakubami.infinitum.world.entities.control.EntityControl;
 import xyz.sakubami.infinitum.world.entities.control.EntityMask;
 
 
 import java.util.HashMap;
 
-public class MobBuilder {
+public class CustomEntityBuilder {
 
     private final EntityConnector connector = EntityConnector.get();
     private final MobNBTApi NBT = new MobNBTApi();
@@ -26,7 +27,7 @@ public class MobBuilder {
 
     // spawn at default location but teleport to desired location afterwards
 
-    public MobBuilder( EntityType type, World world )
+    public CustomEntityBuilder( EntityType type, World world )
     {
         this.world = world;
         this.type = type;
@@ -34,8 +35,18 @@ public class MobBuilder {
         this.NBT.addNBTTag( "CUSTOM", "true" );
     }
 
+    /**
+     * used to return a placeholder as an {@link ArmorStand} entity
+     */
+    public CustomEntityBuilder( World world, Location location  )
+    {
+        this.world = world;
+        this.type = EntityType.ARMOR_STAND;
+        this.location = location;
+    }
+
     /*
-    public MobBuilder( MobTemplate template, World world )
+    public CustomEntityBuilder( MobTemplate template, World world )
     {
         this.world = world;
         this.type = template.getType();
@@ -45,14 +56,14 @@ public class MobBuilder {
     }
      */
 
-    public MobBuilder attribute( Attribute attribute, int value )
+    public CustomEntityBuilder attribute(Attribute attribute, int value )
     {
         this.attributes.put( attribute, value );
         this.NBT.addNBTTag( attribute.name(), String.valueOf( value ) );
         return this;
     }
 
-    public MobBuilder name( String name )
+    public CustomEntityBuilder name(String name )
     {
         this.name = "§c" + name + " §a" + 100 + "§f/§a" + 100 + "§7hp";
         return this;
@@ -74,4 +85,15 @@ public class MobBuilder {
         connector.add( mask );
         return mask;
     }
+
+    public ArmorStand getPlaceHolder()
+    {
+        ArmorStand placeHolder = ( ArmorStand ) world.spawnEntity( location, EntityType.ARMOR_STAND );
+        placeHolder.setGravity( false );
+        placeHolder.setInvulnerable( true );
+        placeHolder.setVisible( false );
+
+        return placeHolder;
+    }
+
 }

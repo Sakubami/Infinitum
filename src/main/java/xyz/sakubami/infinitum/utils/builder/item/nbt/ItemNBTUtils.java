@@ -45,25 +45,4 @@ public class ItemNBTUtils {
     public String getRarity( ItemStack item ) {
         return NBT.getNBTValue( item, "rarity" );
     }
-
-
-    // vv ENTITIES vv
-
-    private NamespacedKey key( String key ) { return new NamespacedKey( Infinitum.getInstance(), key ); }
-
-    public String getNBTValue( Entity entity, String key )
-    {
-        return entity.getPersistentDataContainer().get( key( key ), PersistentDataType.STRING );
-    }
-
-    private boolean hasData( Entity entity ) {
-        return !entity.getPersistentDataContainer().isEmpty();
-    }
-
-    public int getHealth( Entity entity )
-    {
-        if ( hasData( entity ) )
-            return Integer.parseInt( getNBTValue( entity, "health" ) );
-        return -999 ;
-    }
 }

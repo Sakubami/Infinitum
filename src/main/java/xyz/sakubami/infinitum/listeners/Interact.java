@@ -18,7 +18,7 @@ import xyz.sakubami.infinitum.functionality.Attribute;
 import xyz.sakubami.infinitum.functionality.crafting.Crafting;
 import xyz.sakubami.infinitum.functionality.crafting.stations.Primer;
 import xyz.sakubami.infinitum.utils.InteractHelper;
-import xyz.sakubami.infinitum.utils.builder.mob.MobBuilder;
+import xyz.sakubami.infinitum.utils.builder.mob.CustomEntityBuilder;
 import xyz.sakubami.infinitum.utils.worldedit.InfinitumSchematic;
 import xyz.sakubami.infinitum.utils.worldedit.WorldEditHelper;
 import xyz.sakubami.infinitum.world.entities.control.EntityControl;
@@ -61,9 +61,7 @@ public class Interact implements Listener {
         if ( helper.rightClickBlock( e, Material.DIAMOND_BLOCK ) )
         {
             player.sendMessage( "testing" );
-            new EntityControl(
-                    new MobBuilder( EntityType.ZOMBIE, player.getWorld() )
-                            .build() )
+            new EntityControl( new CustomEntityBuilder( EntityType.ZOMBIE, player.getWorld() ).build() )
                     .teleport( player.getLocation() )
                     .attribute( Attribute.HEALTH, 50 )
                     .equip( new ItemStack( Material.DIAMOND_HELMET ), EquipmentSlot.HEAD )

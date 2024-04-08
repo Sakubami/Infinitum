@@ -127,7 +127,8 @@ public class ItemBuilder {
         return this;
     }
 
-    public ItemBuilder tier(String rarity) {
+    public ItemBuilder tier( String rarity )
+    {
         List<String> rarities = Arrays.asList("DIVINE", "MYTHIC", "LEGENDARY", "EPIC", "RARE", "UNCOMMON", "COMMON");
         if (rarities.contains(rarity.toUpperCase())) {
             nbt.addNBTTag(key("tier"), rarity);
@@ -170,8 +171,9 @@ public class ItemBuilder {
         return this;
     }
 
-    public ItemBuilder enchant(Enchantment enchant, int level) {
-        enchantments.put(enchant, level);
+    public ItemBuilder enchant( Enchantment enchant, int level )
+    {
+        enchantments.put( enchant, level );
         return this;
     }
 

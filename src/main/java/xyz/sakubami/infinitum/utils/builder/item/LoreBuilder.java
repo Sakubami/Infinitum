@@ -37,6 +37,8 @@ public class LoreBuilder {
         List<String> list = new ArrayList<>();
         String newDesc = description;
 
+        this.lore.add( "§0" );
+
         for ( int i = 0; true ; i++ )
         {
             if ( newDesc.length() > 38 )
@@ -70,21 +72,22 @@ public class LoreBuilder {
 
     public List<String> build()
     {
+
         if ( addAttributes )
         {
             int temp = 0;
 
             HashMap<Attribute, Integer> attributes = item.getAttributes();
 
+            String color = "§c";
+
             for ( Attribute attribute : attributes.keySet() )
             {
                 int v = attributes.get( attribute );
-                String component;
-                String color = "§c";
+                String component = "";
 
                 if ( v > 0 )
                     component = "+" + v;
-                else component = "-" + v;
 
                 if ( v != 0 )
                 {
@@ -97,13 +100,13 @@ public class LoreBuilder {
                     }
                 }
             }
-        } else
-        {
-            lore.add( "§0" );
         }
+        this.lore.add( "§0" );
 
         if ( !description.isEmpty() )
             lore.addAll( description );
+        else
+            this.lore.add( "§0" );
 
         // enchants idk
 
