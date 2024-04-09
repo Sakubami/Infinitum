@@ -33,7 +33,7 @@ public enum EnchantmentCategory {
 
 final ItemNBTUtils nbt = new ItemNBTUtils();
 
-    EnchantmentCategory() {}
+EnchantmentCategory() {}
 
 public abstract boolean canEnchant( ItemStack itemStack );
 }

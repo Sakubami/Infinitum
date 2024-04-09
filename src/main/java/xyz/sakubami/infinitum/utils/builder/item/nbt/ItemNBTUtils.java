@@ -3,9 +3,9 @@ package xyz.sakubami.infinitum.utils.builder.item.nbt;
 import org.bukkit.inventory.ItemStack;
 import xyz.sakubami.infinitum.world.functionality.items.components.ItemCategory;
 import xyz.sakubami.infinitum.world.functionality.items.components.ItemType;
+import xyz.sakubami.infinitum.world.functionality.items.enchanting.CustomEnchantment;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ItemNBTUtils {
 
@@ -18,14 +18,13 @@ public class ItemNBTUtils {
         return false;
     }
 
-    public List<String> getEnchantments( ItemStack item )
+    public ArrayList<CustomEnchantment> getEnchantments( ItemStack item )
     {
-        List<String> list = new ArrayList<>();
-
+        ArrayList<CustomEnchantment> list = new ArrayList<>();
         if ( NBT.getNBTValue( item, "ENCHANTED" ) != null ) {
-
+            for ( String value : NBT.getNBTTags( item ).values() )
+                list.add( CustomEnchantment.getByID( value ) );
         }
-
         return list;
     }
 
