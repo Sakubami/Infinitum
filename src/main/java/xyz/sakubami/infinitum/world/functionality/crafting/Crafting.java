@@ -1,12 +1,12 @@
-package xyz.sakubami.infinitum.functionality.crafting;
+package xyz.sakubami.infinitum.world.functionality.crafting;
 
 import org.bukkit.*;
 import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 import xyz.sakubami.infinitum.Infinitum;
-import xyz.sakubami.infinitum.functionality.crafting.stations.Primer;
-import xyz.sakubami.infinitum.functionality.items.ItemTemplates;
+import xyz.sakubami.infinitum.world.functionality.crafting.stations.Primer;
+import xyz.sakubami.infinitum.utils.builder.item.ItemTemplates;
 import xyz.sakubami.infinitum.utils.builder.item.ItemBuilder;
 import xyz.sakubami.infinitum.utils.Loc;
 

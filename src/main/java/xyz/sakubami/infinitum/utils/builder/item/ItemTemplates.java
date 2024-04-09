@@ -1,7 +1,11 @@
-package xyz.sakubami.infinitum.functionality.items;
+package xyz.sakubami.infinitum.utils.builder.item;
 
 import org.bukkit.Material;
-import xyz.sakubami.infinitum.functionality.Attribute;
+import xyz.sakubami.infinitum.world.functionality.Attribute;
+import xyz.sakubami.infinitum.world.functionality.items.components.ItemAttributes;
+import xyz.sakubami.infinitum.world.functionality.items.components.ItemCategory;
+import xyz.sakubami.infinitum.world.functionality.items.components.ItemClass;
+import xyz.sakubami.infinitum.world.functionality.items.components.ItemTier;
 
 import java.util.HashMap;
 

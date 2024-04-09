@@ -1,10 +1,8 @@
-package xyz.sakubami.infinitum.functionality.spells;
-
-import xyz.sakubami.infinitum.functionality.Attribute;
+package xyz.sakubami.infinitum.world.functionality.spells;
 
 public enum Spell {
-    NONE,
-    FIRE;
+    NONE( 1, 1 ),
+    FIRE( 2 , 1);
 
     private final int additive;
     private final int multiplicative;

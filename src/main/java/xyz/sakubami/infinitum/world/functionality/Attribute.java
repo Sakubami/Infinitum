@@ -1,4 +1,4 @@
-package xyz.sakubami.infinitum.functionality;
+package xyz.sakubami.infinitum.world.functionality;
 
 public enum Attribute
 {

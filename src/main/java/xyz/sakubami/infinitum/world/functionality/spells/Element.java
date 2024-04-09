@@ -1,4 +1,4 @@
-package xyz.sakubami.infinitum.functionality.spells;
+package xyz.sakubami.infinitum.world.functionality.spells;
 
 public enum Element {
     FIRE,

@@ -1,7 +1,7 @@
 package xyz.sakubami.infinitum.world.entities.control;
 
 import org.bukkit.entity.LivingEntity;
-import xyz.sakubami.infinitum.functionality.Attribute;
+import xyz.sakubami.infinitum.world.functionality.Attribute;
 import xyz.sakubami.infinitum.world.entities.player.skills.ExperienceType;
 
 import java.util.HashMap;

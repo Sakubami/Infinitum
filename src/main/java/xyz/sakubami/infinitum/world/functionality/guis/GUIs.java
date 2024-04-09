@@ -1,4 +1,4 @@
-package xyz.sakubami.infinitum.functionality.guis;
+package xyz.sakubami.infinitum.world.functionality.guis;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;

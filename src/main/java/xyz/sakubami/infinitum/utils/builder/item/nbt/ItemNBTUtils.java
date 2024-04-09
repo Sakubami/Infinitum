@@ -1,11 +1,8 @@
 package xyz.sakubami.infinitum.utils.builder.item.nbt;
 
-import org.bukkit.NamespacedKey;
-import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.persistence.PersistentDataType;
-import xyz.sakubami.infinitum.Infinitum;
-import xyz.sakubami.infinitum.utils.builder.item.nbt.ItemNBTApi;
+import xyz.sakubami.infinitum.world.functionality.items.components.ItemCategory;
+import xyz.sakubami.infinitum.world.functionality.items.components.ItemType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +13,8 @@ public class ItemNBTUtils {
 
     public boolean isProtected( ItemStack item )
     {
-        if ( NBT.getNBTValue( item, "protected" ) != null )
-            return Boolean.parseBoolean( NBT.getNBTValue( item, "protected" ) );
+        if ( NBT.getNBTValue( item, "PROTECTED" ) != null )
+            return Boolean.parseBoolean( NBT.getNBTValue( item, "PROTECTED" ) );
         return false;
     }
 
@@ -25,24 +22,18 @@ public class ItemNBTUtils {
     {
         List<String> list = new ArrayList<>();
 
-        if ( NBT.getNBTValue( item, "enchanted" ) != null ) {
+        if ( NBT.getNBTValue( item, "ENCHANTED" ) != null ) {
 
         }
 
         return list;
     }
 
-    public boolean hasID( ItemStack item ) { return NBT.getNBTValue( item, "id") != null; }
+    public boolean hasID( ItemStack item ) { return NBT.getNBTValue( item, "ID") != null; }
 
-    public String getID( ItemStack item ) {
-        return NBT.getNBTValue( item, "id" );
-    }
+    public String getID( ItemStack item ) { return NBT.getNBTValue( item, "ID" ); }
 
-    public String getAbility( ItemStack item ) {
-        return NBT.getNBTValue( item, "ability" );
-    }
+    public ItemCategory getCategory ( ItemStack itemStack ) { return ItemCategory.valueOf( NBT.getNBTValue( itemStack, "CATEGORY" ) ); }
 
-    public String getRarity( ItemStack item ) {
-        return NBT.getNBTValue( item, "rarity" );
-    }
+    public ItemType getType (ItemStack itemStack ) { return ItemType.valueOf( NBT.getNBTValue( itemStack, "TYPE" ) ); }
 }

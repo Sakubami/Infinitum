@@ -11,7 +11,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.MaterialData;
 import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.utils.builder.item.nbt.ItemNBTApi;
-import xyz.sakubami.infinitum.functionality.items.ItemTemplates;
 import xyz.sakubami.infinitum.utils.Chat;
 
 import java.util.*;
@@ -123,7 +122,7 @@ public class ItemBuilder {
     }
 
     public ItemBuilder setProtected(boolean value) {
-        nbt.addNBTTag(key("protected"), String.valueOf(value));
+        nbt.addNBTTag(key("PROTECTED"), String.valueOf(value));
         return this;
     }
 
@@ -230,7 +229,7 @@ public class ItemBuilder {
         }
         if ( isGlowing )
         {
-            meta.addEnchant(Enchantment.CHANNELING, 1, true);
+            meta.addEnchant( Enchantment.CHANNELING, 1, true );
             meta.addItemFlags( ItemFlag.HIDE_ENCHANTS );
             meta.addItemFlags( ItemFlag.HIDE_POTION_EFFECTS );
         }

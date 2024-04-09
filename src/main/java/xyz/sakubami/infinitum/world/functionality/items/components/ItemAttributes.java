@@ -1,6 +1,6 @@
-package xyz.sakubami.infinitum.functionality.items;
+package xyz.sakubami.infinitum.world.functionality.items.components;
 
-import xyz.sakubami.infinitum.functionality.Attribute;
+import xyz.sakubami.infinitum.world.functionality.Attribute;
 
 import java.util.ArrayList;
 import java.util.HashMap;

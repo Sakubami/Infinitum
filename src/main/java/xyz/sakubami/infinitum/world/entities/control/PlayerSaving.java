@@ -5,7 +5,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.LivingEntity;
 import xyz.sakubami.infinitum.Infinitum;
-import xyz.sakubami.infinitum.functionality.Attribute;
+import xyz.sakubami.infinitum.world.functionality.Attribute;
 import xyz.sakubami.infinitum.world.entities.player.skills.ExperienceType;
 
 import java.io.File;

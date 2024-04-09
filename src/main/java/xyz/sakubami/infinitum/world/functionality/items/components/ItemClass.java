@@ -1,4 +1,4 @@
-package xyz.sakubami.infinitum.functionality.items;
+package xyz.sakubami.infinitum.world.functionality.items.components;
 
 public enum ItemClass
 {

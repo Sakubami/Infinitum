@@ -1,21 +1,16 @@
-package xyz.sakubami.infinitum.functionality.damaging;
+package xyz.sakubami.infinitum.world.functionality.damaging;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
-import org.checkerframework.checker.units.qual.A;
-import xyz.sakubami.infinitum.Infinitum;
-import xyz.sakubami.infinitum.functionality.Attribute;
 import xyz.sakubami.infinitum.utils.builder.item.nbt.ItemNBTApi;
-import xyz.sakubami.infinitum.utils.builder.item.nbt.ItemNBTUtils;
 import xyz.sakubami.infinitum.utils.math.EntityMath;
 import xyz.sakubami.infinitum.world.entities.control.EntityConnector;
 import xyz.sakubami.infinitum.world.entities.control.EntityControl;
 import xyz.sakubami.infinitum.world.entities.control.EntityMask;
-import xyz.sakubami.infinitum.world.entities.control.PlayerSaving;
+import xyz.sakubami.infinitum.world.functionality.Attribute;
 
 import java.util.ArrayList;
 
@@ -99,10 +94,13 @@ public class Attack {
 
         int finalDamage = ( 5 + weaponDamage ) * ( 1+ ( strength / 100 ) ) * ( 1 + criticalDamage / 100 ) * additive * multiplicative;
 
-        for ( EntityMask receiver : receivers ) {
+        for ( EntityMask receiver : receivers )
+        {
             new EntityControl( receiver )
                     .damage( finalDamage )
                     .queue();
         }
+
+
     }
 }

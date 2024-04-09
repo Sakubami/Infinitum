@@ -9,7 +9,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import xyz.sakubami.infinitum.Infinitum;
-import xyz.sakubami.infinitum.functionality.Attribute;
+import xyz.sakubami.infinitum.world.functionality.Attribute;
 import xyz.sakubami.infinitum.utils.InteractHelper;
 import xyz.sakubami.infinitum.utils.builder.mob.nbt.MobNBTApi;
 import xyz.sakubami.infinitum.world.entities.control.EntityControl;

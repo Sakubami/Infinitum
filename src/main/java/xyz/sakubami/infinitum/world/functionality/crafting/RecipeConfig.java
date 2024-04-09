@@ -1,10 +1,10 @@
-package xyz.sakubami.infinitum.functionality.crafting;
+package xyz.sakubami.infinitum.world.functionality.crafting;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import xyz.sakubami.infinitum.Infinitum;
-import xyz.sakubami.infinitum.functionality.crafting.stations.Primer;
-import xyz.sakubami.infinitum.functionality.items.ItemTemplates;
+import xyz.sakubami.infinitum.world.functionality.crafting.stations.Primer;
+import xyz.sakubami.infinitum.utils.builder.item.ItemTemplates;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -3,7 +3,6 @@ package xyz.sakubami.infinitum.utils;
 import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
@@ -34,6 +33,8 @@ public class InteractHelper {
                             return itemNBT.getID( itemStack ).equalsIgnoreCase( itemID );
         return false;
     }
+
+
 
     public boolean rightClickBlock( PlayerInteractEvent event, Material material )
     {

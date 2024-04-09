@@ -1,4 +1,4 @@
-package xyz.sakubami.infinitum.functionality.crafting.stations;
+package xyz.sakubami.infinitum.world.functionality.crafting.stations;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

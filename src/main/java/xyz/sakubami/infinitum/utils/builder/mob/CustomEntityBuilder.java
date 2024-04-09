@@ -2,11 +2,10 @@ package xyz.sakubami.infinitum.utils.builder.mob;
 
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
-import xyz.sakubami.infinitum.functionality.Attribute;
+import xyz.sakubami.infinitum.world.functionality.Attribute;
 import xyz.sakubami.infinitum.utils.builder.mob.nbt.MobNBTApi;
 import xyz.sakubami.infinitum.world.entities.control.CustomType;
 import xyz.sakubami.infinitum.world.entities.control.EntityConnector;

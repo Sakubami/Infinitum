@@ -1,9 +1,8 @@
 package xyz.sakubami.infinitum.utils.builder.item;
 
-import xyz.sakubami.infinitum.functionality.Attribute;
+import xyz.sakubami.infinitum.world.functionality.Attribute;
 import xyz.sakubami.infinitum.utils.builder.item.nbt.ItemNBTUtils;
-import xyz.sakubami.infinitum.functionality.items.ItemTemplates;
-import xyz.sakubami.infinitum.functionality.items.ItemTier;
+import xyz.sakubami.infinitum.world.functionality.items.components.ItemTier;
 
 import java.util.ArrayList;
 import java.util.HashMap;

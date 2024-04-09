@@ -1,6 +1,6 @@
 package xyz.sakubami.infinitum.world.entities.mob.loot;
 
-import xyz.sakubami.infinitum.functionality.items.ItemTemplates;
+import xyz.sakubami.infinitum.utils.builder.item.ItemTemplates;
 
 public enum CustomLoot {
 
