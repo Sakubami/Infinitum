@@ -10,25 +10,25 @@ public enum EnchantmentCategory {
         public boolean canEnchant( ItemStack itemStack ) { return nbt.getCategory( itemStack ).equals( ItemCategory.ARMOR ) ; }
     },
     ARMOR_HEAD {
-        public boolean canEnchant( ItemStack itemStack ) { return nbt.getType( itemStack ).equals( ItemType.BOOTS ) ; }
+        public boolean canEnchant( ItemStack itemStack ) { return nbt.getType( itemStack ).equals( ItemType.HELMET ) ; }
     },
     ARMOR_CHEST {
-        public boolean canEnchant( ItemStack itemStack ) { return nbt.getType( itemStack ).equals( ItemType.BOOTS ) ; }
+        public boolean canEnchant( ItemStack itemStack ) { return nbt.getType( itemStack ).equals( ItemType.CHESTPLATE ) ; }
     },
     ARMOR_LEGGINGS {
-        public boolean canEnchant( ItemStack itemStack ) { return nbt.getType( itemStack ).equals( ItemType.BOOTS ) ; }
+        public boolean canEnchant( ItemStack itemStack ) { return nbt.getType( itemStack ).equals( ItemType.LEGGINGS ) ; }
     },
     ARMOR_FEET {
         public boolean canEnchant( ItemStack itemStack ) { return nbt.getType( itemStack ).equals( ItemType.BOOTS ) ; }
     },
     TOOL {
-        public boolean canEnchant( ItemStack itemStack ) { return nbt.getType( itemStack ).equals( ItemType.BOOTS ) ; }
+        public boolean canEnchant( ItemStack itemStack ) { return nbt.getCategory( itemStack ).equals( ItemCategory.TOOL ) ; }
     },
     WEAPON {
-        public boolean canEnchant( ItemStack itemStack ) { return nbt.getType( itemStack ).equals( ItemType.BOOTS ) ; }
+        public boolean canEnchant( ItemStack itemStack ) { return nbt.getCategory( itemStack ).equals( ItemCategory.WEAPON ) ; }
     },
     SHIELD {
-        public boolean canEnchant( ItemStack itemStack ) { return nbt.getType( itemStack ).equals( ItemType.BOOTS ) ; }
+        public boolean canEnchant( ItemStack itemStack ) { return nbt.getType( itemStack ).equals( ItemType.SHIELD ) ; }
     };
 
 final ItemNBTUtils nbt = new ItemNBTUtils();

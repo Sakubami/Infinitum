@@ -1,7 +1,6 @@
 package xyz.sakubami.infinitum.world.entities.control;
 
 import org.bukkit.entity.LivingEntity;
-import org.jetbrains.annotations.NotNull;
 import xyz.sakubami.infinitum.Infinitum;
 
 import java.util.HashMap;
@@ -21,7 +20,7 @@ public class EntityConnector {
         cache.put( mask.getUuid(), mask );
     }
 
-    public void remove(@NotNull EntityMask mask )
+    public void remove( EntityMask mask )
     {
         UUID uuid = mask.getUuid();
         if ( cache.get( uuid ) != null )

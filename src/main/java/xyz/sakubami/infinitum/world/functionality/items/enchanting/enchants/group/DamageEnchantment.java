@@ -22,12 +22,12 @@ public class DamageEnchantment extends CustomEnchantment {
         int value = 0;
         switch ( element )
         {
-            case ALL -> { value = 100; }
-            case FIRE -> { value = 200; }
-            case ICE -> { value = 300; }
-            case EARTH -> { value = 400; }
-            case UNDEAD -> { value = 500; }
-            case ARACHNID -> { value = 600; }
+            case ALL -> value = 100;
+            case FIRE -> value = 200;
+            case ICE -> value = 300;
+            case EARTH -> value = 400;
+            case UNDEAD -> value = 500;
+            case ARACHNID -> value = 600;
         }
         return value;
     }

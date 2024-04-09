@@ -48,14 +48,16 @@ public class InteractHelper {
 
     public boolean rightClickBlockWithItem( PlayerInteractEvent event, Material material, ItemStack itemStack, String itemID )
     {
-        if ( event.getHand() != null )
-            if ( event.getHand().equals( EquipmentSlot.HAND ) )
-                if ( event.getAction().equals( Action.RIGHT_CLICK_AIR ) || event.getAction().equals( Action.RIGHT_CLICK_BLOCK ) )
-                    if (event.getClickedBlock() != null )
-                        if ( event.getClickedBlock().getType().equals( material ) )
-                            if ( event.getItem() != null )
-                                if ( itemNBT.hasID( itemStack ) )
-                                    return itemNBT.getID( itemStack ).equalsIgnoreCase( itemID );
+        if ( event.getHand() == null )
+            return false;
+        if ( !event.getHand().equals( EquipmentSlot.HAND ) )
+            return false;
+        if ( event.getAction().equals( Action.RIGHT_CLICK_AIR ) || event.getAction().equals( Action.RIGHT_CLICK_BLOCK ) )
+            if (event.getClickedBlock() != null )
+                if ( event.getClickedBlock().getType().equals( material ) )
+                    if ( event.getItem() != null )
+                        if ( itemNBT.hasID( itemStack ) )
+                            return itemNBT.getID( itemStack ).equalsIgnoreCase( itemID );
         return false;
     }
 

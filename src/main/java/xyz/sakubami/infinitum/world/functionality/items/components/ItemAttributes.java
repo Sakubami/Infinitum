@@ -17,6 +17,9 @@ public enum ItemAttributes
 
     private final ItemClass itemClass;
 
+    /**
+     * TODO REPLACE WITH JSON FILES
+     */
     ItemAttributes ( ItemClass itemClass , int damage, int strength, int criticalChance, int criticalDamage, int health, int defense, int intelligence )
     {
         loreAttributes.add( "DAMAGE" + "/" + damage );

@@ -84,11 +84,11 @@ public class Attack {
         {
             if ( !nbt.getNBTTags( itemStack ).isEmpty() )
             {
-                weaponDamage = Integer.parseInt( nbt.getNBTValue( itemStack, "DAMAGE" ) );
-                additive = Integer.parseInt( nbt.getNBTValue( itemStack, "ADDITIVE" ) );
-                multiplicative = Integer.parseInt( nbt.getNBTValue( itemStack, "MULTIPLICATIVE" ) );
-                strength += weaponStrength = Integer.parseInt( nbt.getNBTValue( itemStack, "STRENGTH" ) );
-                criticalDamage += weaponCriticalDamage = Integer.parseInt( nbt.getNBTValue( itemStack, "DAMAGE" ) );
+                weaponDamage = Integer.parseInt( nbt.getNBTString( itemStack, "DAMAGE" ) );
+                additive = Integer.parseInt( nbt.getNBTString( itemStack, "ADDITIVE" ) );
+                multiplicative = Integer.parseInt( nbt.getNBTString( itemStack, "MULTIPLICATIVE" ) );
+                strength += weaponStrength = Integer.parseInt( nbt.getNBTString( itemStack, "STRENGTH" ) );
+                criticalDamage += weaponCriticalDamage = Integer.parseInt( nbt.getNBTString( itemStack, "DAMAGE" ) );
             }
         }
 

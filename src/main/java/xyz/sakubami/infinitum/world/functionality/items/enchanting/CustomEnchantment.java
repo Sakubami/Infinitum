@@ -1,5 +1,6 @@
 package xyz.sakubami.infinitum.world.functionality.items.enchanting;
 
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import xyz.sakubami.infinitum.world.functionality.Attribute;
 
@@ -11,7 +12,7 @@ public abstract class CustomEnchantment {
 
     private final ArrayList<EnchantmentCategory> categories = new ArrayList<>();
 
-    private static final HashMap<String, CustomEnchantment> enchants = new HashMap<>();
+    private static final HashMap<NamespacedKey, CustomEnchantment> enchants = new HashMap<>();
 
     protected CustomEnchantment( EnchantmentCategory category )
     {
@@ -23,7 +24,21 @@ public abstract class CustomEnchantment {
         this.categories.addAll( List.of( categories ) );
     }
 
-    public static CustomEnchantment getByID( String id ) { return enchants.get( id ); }
+    public static CustomEnchantment getByID( NamespacedKey id ) { return enchants.get( id ); }
+
+    public static NamespacedKey getID( CustomEnchantment enchantment )
+    {
+        for ( NamespacedKey key : enchants.keySet() )
+        {
+            return enchants.get( key ).equals( enchantment ) ? key : null ;
+        }
+        return null;
+    }
+
+    public static boolean contains( NamespacedKey id )
+    {
+        return enchants.get( id ) != null ;
+    }
 
     public void run() {}
 
@@ -35,9 +50,7 @@ public abstract class CustomEnchantment {
         return 1;
     }
 
-    public int getCost( int level ) {
-        return 1 + level * 10;
-    }
+    public int getCost( int level ) { return 1 + level * 10; }
 
     public int getAdditiveBonus( int level ) { return 0; }
 
@@ -47,7 +60,7 @@ public abstract class CustomEnchantment {
 
     public boolean canEnchant( ItemStack itemStack ) { return categories.stream().anyMatch( category -> category.canEnchant( itemStack ) ); }
 
-    public static void registerEnchantment( String id, CustomEnchantment customEnchantment ) {
+    public static void registerEnchantment( NamespacedKey id, CustomEnchantment customEnchantment ) {
         if ( !enchants.containsKey( id ) )
         {
             enchants.put( id, customEnchantment );
@@ -55,6 +68,4 @@ public abstract class CustomEnchantment {
             throw new IllegalArgumentException( "Cannot set already-set enchantment" );
         }
     }
-
-    public abstract int getAttributeBonus(int value);
 }

@@ -10,10 +10,16 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.MaterialData;
 import xyz.sakubami.infinitum.Infinitum;
-import xyz.sakubami.infinitum.utils.builder.item.nbt.ItemNBTApi;
 import xyz.sakubami.infinitum.utils.Chat;
+import xyz.sakubami.infinitum.utils.builder.item.nbt.ItemNBTApi;
+import xyz.sakubami.infinitum.utils.builder.item.nbt.ItemNBTUtils;
+import xyz.sakubami.infinitum.world.functionality.items.components.ItemTier;
+import xyz.sakubami.infinitum.world.functionality.items.enchanting.CustomEnchantment;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ItemBuilder {
 
@@ -23,7 +29,7 @@ public class ItemBuilder {
     private int amount = 1;
     private MaterialData data;
     private int customModelData;
-    private Map<Enchantment, Integer> enchantments = new HashMap<>();
+    private Map<CustomEnchantment, Integer> enchantments = new HashMap<>();
     private String displayName;
     private List<String> lore = new ArrayList<>();
     private List<ItemFlag> flags = new ArrayList<>();
@@ -32,6 +38,7 @@ public class ItemBuilder {
     private boolean isGlowing = false;
 
     private final ItemNBTApi nbt = new ItemNBTApi();
+    private final ItemNBTUtils nbtUtils = new ItemNBTUtils();
 
     private NamespacedKey key( String key ) {
         return new NamespacedKey( Infinitum.getInstance(), key );
@@ -76,7 +83,7 @@ public class ItemBuilder {
         } else this.meta = Bukkit.getItemFactory().getItemMeta( item.getType() );
         this.material = item.getType();
         this.amount = item.getAmount();
-        this.enchantments = item.getEnchantments();
+        this.enchantments = nbtUtils.getEnchantments( item );
     }
 
     public ItemBuilder( ItemTemplates item ) {
@@ -121,78 +128,75 @@ public class ItemBuilder {
         return this;
     }
 
-    public ItemBuilder setProtected(boolean value) {
+    public ItemBuilder setProtected( boolean value ) {
         nbt.addNBTTag(key("PROTECTED"), String.valueOf(value));
         return this;
     }
 
-    public ItemBuilder tier( String rarity )
+    public ItemBuilder tier( ItemTier tier )
     {
-        List<String> rarities = Arrays.asList("DIVINE", "MYTHIC", "LEGENDARY", "EPIC", "RARE", "UNCOMMON", "COMMON");
-        if (rarities.contains(rarity.toUpperCase())) {
-            nbt.addNBTTag(key("tier"), rarity);
-        } else nbt.addNBTTag(key("tier"), "COMMON");
+        nbt.addNBTTag( key( "TIER" ), tier.name() );
         return this;
     }
 
-    public ItemBuilder amount(int amount) {
+    public ItemBuilder amount( int amount ) {
         this.amount = amount;
         return this;
     }
 
-    public ItemBuilder amount(int amount, String displayName) {
+    public ItemBuilder amount( int amount, String displayName ) {
         this.amount = amount;
         return this;
     }
 
-    public ItemBuilder data(MaterialData data) {
+    public ItemBuilder data( MaterialData data ) {
         this.data = data;
         return this;
     }
 
-    public ItemBuilder id(String id) {
+    public ItemBuilder id( String id ) {
         this.localizedName = id;
         return this;
     }
 
-    public ItemBuilder material(Material material) {
+    public ItemBuilder material( Material material ) {
         this.material = material;
         return this;
     }
 
-    public ItemBuilder customModelData(int customModelData) {
+    public ItemBuilder customModelData( int customModelData ) {
         this.customModelData = customModelData;
         return this;
     }
 
-    public ItemBuilder meta(ItemMeta meta) {
+    public ItemBuilder meta( ItemMeta meta ) {
         this.meta = meta;
         return this;
     }
 
-    public ItemBuilder enchant( Enchantment enchant, int level )
+    public ItemBuilder enchant( CustomEnchantment enchantment, int level )
     {
-        enchantments.put( enchant, level );
+        this.enchantments.put( enchantment, level );
         return this;
     }
 
-    public ItemBuilder enchant(Map<Enchantment, Integer> enchantments) {
+    public ItemBuilder enchant( Map<CustomEnchantment, Integer> enchantments ) {
         this.enchantments = enchantments;
         return this;
     }
 
-    public ItemBuilder displayname(String displayname) {
-        this.displayName = Chat.translate(displayname);
+    public ItemBuilder displayname( String displayname ) {
+        this.displayName = Chat.translate( displayname );
         return this;
     }
 
-    public ItemBuilder setLore(List<String> lore) {
-        this.lore = Chat.translate(lore);
+    public ItemBuilder setLore( List<String> lore ) {
+        this.lore = Chat.translate( lore );
         return this;
     }
 
-    public ItemBuilder addToLore(String lore) {
-        this.lore.add(Chat.translate(lore));
+    public ItemBuilder addToLore( String lore ) {
+        this.lore.add( Chat.translate( lore ) );
         return this;
     }
 
@@ -213,7 +217,11 @@ public class ItemBuilder {
         if ( data != null )
             item.setData( data );
         if ( !enchantments.isEmpty() )
-            item.addUnsafeEnchantments( enchantments );
+            for ( CustomEnchantment enchantment : enchantments.keySet() )
+            {
+                nbt.addNBTTag( key( "ENCHANTED" ), "true" );
+                nbt.addNBTTag( CustomEnchantment.getID( enchantment ), enchantments.get( enchantment ) );
+            }
         if ( displayName != null )
             meta.setDisplayName( Chat.translate( displayName) );
         if ( !lore.isEmpty() )
