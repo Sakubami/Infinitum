@@ -1,4 +1,6 @@
 package xyz.sakubami.infinitum.world.functionality.items.enchanting.enchants.vanilla;
 
-public class DepthStriderEnchantment {
+import xyz.sakubami.infinitum.world.functionality.items.enchanting.CustomEnchantment;
+
+public class DepthStriderEnchantment extends CustomEnchantment {
 }

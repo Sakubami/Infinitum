@@ -1,4 +1,6 @@
 package xyz.sakubami.infinitum.world.functionality.items.enchanting.enchants.group;
 
-public class ProtectionEnchantment {
+import xyz.sakubami.infinitum.world.functionality.items.enchanting.CustomEnchantment;
+
+public class ProtectionEnchantment extends CustomEnchantment {
 }

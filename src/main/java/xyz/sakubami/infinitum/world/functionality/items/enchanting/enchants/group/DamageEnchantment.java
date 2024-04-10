@@ -31,4 +31,10 @@ public class DamageEnchantment extends CustomEnchantment {
         }
         return value;
     }
+
+    @Override
+    public void run()
+    {
+
+    }
 }

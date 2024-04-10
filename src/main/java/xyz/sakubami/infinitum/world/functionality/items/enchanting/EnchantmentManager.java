@@ -5,21 +5,18 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.utils.builder.item.nbt.ItemNBTUtils;
-import xyz.sakubami.infinitum.world.functionality.items.enchanting.enchants.group.DamageEnchantment;
-import xyz.sakubami.infinitum.world.functionality.spells.Element;
 
 public class EnchantmentManager {
 
     private static NamespacedKey key( String key ) { return new NamespacedKey( Infinitum.getInstance(), key ); }
 
-    public static void registerAll() {
-        register( "SHARPNESS", new DamageEnchantment( Element.ALL ) );
-        register( "SMITE", new DamageEnchantment( Element.UNDEAD ) );
-        register( "BANE_OF_ARTHROPODS", new DamageEnchantment( Element.ARACHNID ) );
+    private static void registerPrivate( String id, CustomEnchantment customEnchantment ) {
+        CustomEnchantment.registerEnchantment( key( id ), customEnchantment );
     }
 
-    private static void register( String id, CustomEnchantment customEnchantment ) {
+    public static CustomEnchantment register( String id, CustomEnchantment customEnchantment ) {
         CustomEnchantment.registerEnchantment( key( id ), customEnchantment );
+        return customEnchantment;
     }
 
     private final ItemNBTUtils nbt = new ItemNBTUtils();

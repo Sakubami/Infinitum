@@ -8,7 +8,6 @@ import xyz.sakubami.infinitum.world.entities.control.PlayerSaving;
 import xyz.sakubami.infinitum.world.functionality.crafting.Crafting;
 import xyz.sakubami.infinitum.world.functionality.crafting.RecipeConfig;
 import xyz.sakubami.infinitum.world.functionality.crafting.stations.LocationConfig;
-import xyz.sakubami.infinitum.world.functionality.items.enchanting.EnchantmentManager;
 
 public class Infinitum extends JavaPlugin {
 
@@ -38,7 +37,6 @@ public class Infinitum extends JavaPlugin {
         this.entityConnector = new EntityConnector();
 
         // register stuff
-        EnchantmentManager.registerAll();
 
         instance.getServer().broadcastMessage("§dInfinitum §7wurde §aeingeschaltet!");
     }
