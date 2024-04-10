@@ -11,16 +11,16 @@ import org.bukkit.inventory.ItemStack;
 import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.world.functionality.Attribute;
 import xyz.sakubami.infinitum.utils.InteractHelper;
-import xyz.sakubami.infinitum.utils.builder.mob.nbt.MobNBTApi;
+import xyz.sakubami.infinitum.utils.builder.mob.nbt.MobNBT;
 import xyz.sakubami.infinitum.world.entities.control.EntityControl;
 
 public class Damage implements Listener {
 
     InteractHelper helper = new InteractHelper();
-    MobNBTApi nbt = new MobNBTApi();
+    MobNBT nbt = new MobNBT();
 
     @EventHandler
-    public void onDamage( PlayerInteractEntityEvent e )
+    public void onInteract( PlayerInteractEntityEvent e )
     {
         LivingEntity entity = helper.rightClickCustomEntity( e );
         new EntityControl( entity )

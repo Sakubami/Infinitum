@@ -1,7 +1,7 @@
 package xyz.sakubami.infinitum.utils.builder.item;
 
-import xyz.sakubami.infinitum.world.functionality.Attribute;
 import xyz.sakubami.infinitum.utils.builder.item.nbt.ItemNBTUtils;
+import xyz.sakubami.infinitum.world.functionality.Attribute;
 import xyz.sakubami.infinitum.world.functionality.items.components.ItemTier;
 
 import java.util.ArrayList;
@@ -67,7 +67,10 @@ public class LoreBuilder {
         return this;
     }
 
-
+    public LoreBuilder update()
+    {
+        return this;
+    }
 
     public List<String> build()
     {

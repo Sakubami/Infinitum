@@ -11,8 +11,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.MaterialData;
 import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.utils.Chat;
-import xyz.sakubami.infinitum.utils.builder.item.nbt.ItemNBTApi;
+import xyz.sakubami.infinitum.utils.builder.item.nbt.ItemNBT;
 import xyz.sakubami.infinitum.utils.builder.item.nbt.ItemNBTUtils;
+import xyz.sakubami.infinitum.world.functionality.Attribute;
 import xyz.sakubami.infinitum.world.functionality.items.components.ItemTier;
 import xyz.sakubami.infinitum.world.functionality.items.enchanting.CustomEnchantment;
 
@@ -37,7 +38,7 @@ public class ItemBuilder {
     private ItemMeta NBTMeta;
     private boolean isGlowing = false;
 
-    private final ItemNBTApi nbt = new ItemNBTApi();
+    private final ItemNBT nbt = new ItemNBT();
     private final ItemNBTUtils nbtUtils = new ItemNBTUtils();
 
     private NamespacedKey key( String key ) {
@@ -106,7 +107,7 @@ public class ItemBuilder {
          */
     }
 
-    public ItemBuilder(FileConfiguration cfg, String path) {
+    public ItemBuilder( FileConfiguration cfg, String path) {
         this( cfg.getItemStack( path ) );
     }
 
@@ -119,23 +120,29 @@ public class ItemBuilder {
         return this;
     }
 
-    public ItemBuilder addNBTTagList(HashMap<String, String> value) {
-        HashMap <NamespacedKey, String> list = new HashMap<>();
-        for (String str: value.keySet()) {
-            list.put(key(str), value.get(str));
+    public ItemBuilder addNBTTagList( HashMap< String, String > value ) {
+        HashMap < NamespacedKey, String > list = new HashMap<>();
+        for ( String str: value.keySet() ) {
+            list.put( key( str ), value.get( str ) );
         }
         nbt.addAllNBTTagList(list);
         return this;
     }
 
     public ItemBuilder setProtected( boolean value ) {
-        nbt.addNBTTag(key("PROTECTED"), String.valueOf(value));
+        nbt.addNBTTag( key( "PROTECTED" ), String.valueOf( value ) );
         return this;
     }
 
     public ItemBuilder tier( ItemTier tier )
     {
         nbt.addNBTTag( key( "TIER" ), tier.name() );
+        return this;
+    }
+
+    public ItemBuilder attribute( Attribute attribute, int value )
+    {
+        nbt.addNBTTag( key( "ATTRIBUTE_" + attribute.name() ), value );
         return this;
     }
 

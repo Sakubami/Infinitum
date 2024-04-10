@@ -5,7 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
-import xyz.sakubami.infinitum.utils.builder.item.nbt.ItemNBTApi;
+import xyz.sakubami.infinitum.utils.builder.item.nbt.ItemNBT;
 import xyz.sakubami.infinitum.utils.math.EntityMath;
 import xyz.sakubami.infinitum.world.entities.control.EntityConnector;
 import xyz.sakubami.infinitum.world.entities.control.EntityControl;
@@ -23,7 +23,7 @@ public class Attack {
 
     private final EntityMath entityMath = new EntityMath();
     private final EntityConnector connector = EntityConnector.get();
-    private final ItemNBTApi nbt = new ItemNBTApi();
+    private final ItemNBT nbt = new ItemNBT();
 
     // USAGE who = false == received, true == dealt
 

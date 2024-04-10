@@ -1,6 +1,7 @@
 package xyz.sakubami.infinitum.world.functionality.items.enchanting;
 
 import org.bukkit.NamespacedKey;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.utils.builder.item.nbt.ItemNBTUtils;
@@ -14,6 +15,7 @@ public class EnchantmentManager {
     public static void registerAll() {
         register( "SHARPNESS", new DamageEnchantment( Element.ALL ) );
         register( "SMITE", new DamageEnchantment( Element.UNDEAD ) );
+        register( "BANE_OF_ARTHROPODS", new DamageEnchantment( Element.ARACHNID ) );
     }
 
     private static void register( String id, CustomEnchantment customEnchantment ) {
@@ -26,6 +28,7 @@ public class EnchantmentManager {
     {
         for ( CustomEnchantment enchantment : nbt.getEnchantments( itemStack ).keySet() )
             enchantment.run();
+        Enchantment a = Enchantment.DURABILITY;
     }
 
     public int getAdditiveBonuses( ItemStack itemStack )

@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public class EntityConnector {
 
-    private final HashMap<UUID, EntityMask> cache;
+    private final HashMap< UUID, EntityMask > cache;
 
     public EntityConnector()
     {

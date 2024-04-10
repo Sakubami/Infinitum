@@ -8,7 +8,7 @@ import xyz.sakubami.infinitum.Infinitum;
 
 import java.util.HashMap;
 
-public class ItemNBTApi {
+public class ItemNBT {
 
     private final HashMap<NamespacedKey, String> list = new HashMap<>();
 
@@ -32,13 +32,9 @@ public class ItemNBTApi {
         this.list.put( key( key ), String.valueOf( value ) );
     }
 
-    public void addNBTTag( NamespacedKey key, String value ) {
-        this.list.put( key, value);
-    }
+    public void addNBTTag( NamespacedKey key, String value ) { this.list.put( key, value); }
 
-    public void addNBTTag( NamespacedKey key, int value ) {
-        this.list.put( key, String.valueOf( value ) );
-    }
+    public void addNBTTag( NamespacedKey key, int value ) { this.list.put( key, String.valueOf( value ) ); }
 
     public ItemMeta parseAllNBTTags(ItemMeta meta) {
         for ( NamespacedKey key : this.list.keySet() ) {
@@ -46,8 +42,6 @@ public class ItemNBTApi {
         }
         return meta;
     }
-
-    //
 
     public String getNBTString( ItemStack item, String key )
     {

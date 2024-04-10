@@ -6,7 +6,7 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import xyz.sakubami.infinitum.world.functionality.Attribute;
-import xyz.sakubami.infinitum.utils.builder.mob.nbt.MobNBTApi;
+import xyz.sakubami.infinitum.utils.builder.mob.nbt.MobNBT;
 import xyz.sakubami.infinitum.world.entities.control.CustomType;
 import xyz.sakubami.infinitum.world.entities.control.EntityConnector;
 import xyz.sakubami.infinitum.world.entities.control.EntityMask;
@@ -17,7 +17,7 @@ import java.util.HashMap;
 public class CustomEntityBuilder {
 
     private final EntityConnector connector = EntityConnector.get();
-    private final MobNBTApi NBT = new MobNBTApi();
+    private final MobNBT NBT = new MobNBT();
     private final EntityType type;
     private final HashMap<Attribute, Integer> attributes = new HashMap<>();
     private final World world;
@@ -42,6 +42,7 @@ public class CustomEntityBuilder {
         this.world = world;
         this.type = EntityType.ARMOR_STAND;
         this.location = location;
+        this.NBT.addNBTTag( "CUSTOM", "true" );
     }
 
     /*
@@ -55,10 +56,10 @@ public class CustomEntityBuilder {
     }
      */
 
-    public CustomEntityBuilder attribute(Attribute attribute, int value )
+    public CustomEntityBuilder attribute( Attribute attribute, int value )
     {
         this.attributes.put( attribute, value );
-        this.NBT.addNBTTag( attribute.name(), String.valueOf( value ) );
+        this.NBT.addNBTTag( "ATTRIBUTE_" + attribute.name(), value );
         return this;
     }
 

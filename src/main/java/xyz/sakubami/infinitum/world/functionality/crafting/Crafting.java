@@ -35,7 +35,7 @@ public class Crafting {
         public void setItems( List<String> items ) { this.items = items; }
     }
 
-    private final ArrayList<CraftingQueue> queue;
+    private final ArrayList< CraftingQueue > queue;
 
     public Crafting()
     {

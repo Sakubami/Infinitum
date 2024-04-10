@@ -126,16 +126,14 @@ public class EntityControl {
 
         int max = attributes.get( Attribute.MAX_HEALTH );
 
-        int percent = mathUtils.percentageOf( v , 100 );
-
-        if ( percent <= 50 )
+        if ( mathUtils.percentageOf( v , 50 ) <= 50 )
             color = ChatColor.of( "#ffff03" );
 
         if ( customType.equals( CustomType.MOB ) )
             entityMask.getEntity().setCustomName( "§c" + WordUtils.capitalizeFully( entityMask.getEntity().getType().name() ) + color + " " + v + "§f/" +  ChatColor.of( "#18ff03" ) + max + "§7hp" );
         else
         {
-            Infinitum.getInstance().getServer().broadcastMessage(color + "abc: " + percent + " max: " + max + " value: " + v );
+            Infinitum.getInstance().getServer().broadcastMessage("a" );
         }
     }
 

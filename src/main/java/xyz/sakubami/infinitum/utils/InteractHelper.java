@@ -8,12 +8,12 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import xyz.sakubami.infinitum.utils.builder.item.nbt.ItemNBTUtils;
-import xyz.sakubami.infinitum.utils.builder.mob.nbt.MobNBTApi;
+import xyz.sakubami.infinitum.utils.builder.mob.nbt.MobNBT;
 
 public class InteractHelper {
 
     private final ItemNBTUtils itemNBT = new ItemNBTUtils();
-    private final MobNBTApi mobNBT = new MobNBTApi();
+    private final MobNBT mobNBT = new MobNBT();
 
     public boolean rightClick( PlayerInteractEvent event )
     {

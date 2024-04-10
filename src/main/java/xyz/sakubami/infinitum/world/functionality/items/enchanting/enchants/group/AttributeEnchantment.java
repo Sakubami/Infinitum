@@ -18,4 +18,10 @@ public class AttributeEnchantment extends CustomEnchantment {
     {
         return value * 15;
     }
+
+    @Override
+    public void run()
+    {
+
+    }
 }
