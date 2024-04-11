@@ -15,4 +15,5 @@ public enum Spell {
 
     public int getAdditive() { return additive; }
     public int getMultiplicative() { return multiplicative; }
+
 }
