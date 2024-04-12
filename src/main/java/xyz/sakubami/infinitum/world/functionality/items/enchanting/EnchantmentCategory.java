@@ -1,37 +1,37 @@
 package xyz.sakubami.infinitum.world.functionality.items.enchanting;
 
 import org.bukkit.inventory.ItemStack;
-import xyz.sakubami.infinitum.utils.builder.item.nbt.ItemNBTUtils;
+import xyz.sakubami.infinitum.utils.NBTUtils;
 import xyz.sakubami.infinitum.world.functionality.items.components.ItemCategory;
 import xyz.sakubami.infinitum.world.functionality.items.components.ItemType;
 
 public enum EnchantmentCategory {
     ARMOR {
-        public boolean canEnchant( ItemStack itemStack ) { return nbt.getCategory( itemStack ).equals( ItemCategory.ARMOR ) ; }
+        public boolean canEnchant( ItemStack itemStack ) { return nbt.getItemCategory( itemStack ).equals( ItemCategory.ARMOR ) ; }
     },
     ARMOR_HEAD {
-        public boolean canEnchant( ItemStack itemStack ) { return nbt.getType( itemStack ).equals( ItemType.HELMET ) ; }
+        public boolean canEnchant( ItemStack itemStack ) { return nbt.getItemType( itemStack ).equals( ItemType.HELMET ) ; }
     },
     ARMOR_CHEST {
-        public boolean canEnchant( ItemStack itemStack ) { return nbt.getType( itemStack ).equals( ItemType.CHESTPLATE ) ; }
+        public boolean canEnchant( ItemStack itemStack ) { return nbt.getItemType( itemStack ).equals( ItemType.CHESTPLATE ) ; }
     },
     ARMOR_LEGGINGS {
-        public boolean canEnchant( ItemStack itemStack ) { return nbt.getType( itemStack ).equals( ItemType.LEGGINGS ) ; }
+        public boolean canEnchant( ItemStack itemStack ) { return nbt.getItemType( itemStack ).equals( ItemType.LEGGINGS ) ; }
     },
     ARMOR_FEET {
-        public boolean canEnchant( ItemStack itemStack ) { return nbt.getType( itemStack ).equals( ItemType.BOOTS ) ; }
+        public boolean canEnchant( ItemStack itemStack ) { return nbt.getItemType( itemStack ).equals( ItemType.BOOTS ) ; }
     },
     TOOL {
-        public boolean canEnchant( ItemStack itemStack ) { return nbt.getCategory( itemStack ).equals( ItemCategory.TOOL ) ; }
+        public boolean canEnchant( ItemStack itemStack ) { return nbt.getItemCategory( itemStack ).equals( ItemCategory.TOOL ) ; }
     },
     WEAPON {
-        public boolean canEnchant( ItemStack itemStack ) { return nbt.getCategory( itemStack ).equals( ItemCategory.WEAPON ) ; }
+        public boolean canEnchant( ItemStack itemStack ) { return nbt.getItemCategory( itemStack ).equals( ItemCategory.WEAPON ) ; }
     },
     SHIELD {
-        public boolean canEnchant( ItemStack itemStack ) { return nbt.getType( itemStack ).equals( ItemType.SHIELD ) ; }
+        public boolean canEnchant( ItemStack itemStack ) { return nbt.getItemType( itemStack ).equals( ItemType.SHIELD ) ; }
     };
 
-final ItemNBTUtils nbt = new ItemNBTUtils();
+final NBTUtils nbt = new NBTUtils();
 
 EnchantmentCategory() {}
 

@@ -7,13 +7,10 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
-import xyz.sakubami.infinitum.utils.builder.item.nbt.ItemNBTUtils;
-import xyz.sakubami.infinitum.utils.builder.mob.nbt.MobNBT;
 
 public class InteractHelper {
 
-    private final ItemNBTUtils itemNBT = new ItemNBTUtils();
-    private final MobNBT mobNBT = new MobNBT();
+    private final NBTUtils nbt = new NBTUtils();
 
     public boolean rightClick( PlayerInteractEvent event )
     {
@@ -29,8 +26,8 @@ public class InteractHelper {
             if ( event.getHand().equals( EquipmentSlot.HAND ) )
                 if ( event.getAction().equals( Action.RIGHT_CLICK_AIR ) || event.getAction().equals( Action.RIGHT_CLICK_BLOCK ) )
                     if ( event.getItem() != null )
-                        if ( itemNBT.hasID( itemStack ) )
-                            return itemNBT.getID( itemStack ).equalsIgnoreCase( itemID );
+                        if ( nbt.checkForItemID( itemStack ) )
+                            return nbt.getItemID( itemStack ).equalsIgnoreCase( itemID );
         return false;
     }
 
@@ -56,8 +53,8 @@ public class InteractHelper {
             if (event.getClickedBlock() != null )
                 if ( event.getClickedBlock().getType().equals( material ) )
                     if ( event.getItem() != null )
-                        if ( itemNBT.hasID( itemStack ) )
-                            return itemNBT.getID( itemStack ).equalsIgnoreCase( itemID );
+                        if ( nbt.checkForItemID( itemStack ) )
+                            return nbt.getItemID( itemStack ).equalsIgnoreCase( itemID );
         return false;
     }
 

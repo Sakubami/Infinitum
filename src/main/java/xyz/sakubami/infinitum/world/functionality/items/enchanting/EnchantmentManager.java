@@ -4,7 +4,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import xyz.sakubami.infinitum.Infinitum;
-import xyz.sakubami.infinitum.utils.builder.item.nbt.ItemNBTUtils;
+import xyz.sakubami.infinitum.utils.NBTUtils;
 
 public class EnchantmentManager {
 
@@ -19,11 +19,11 @@ public class EnchantmentManager {
         return customEnchantment;
     }
 
-    private final ItemNBTUtils nbt = new ItemNBTUtils();
+    private final NBTUtils nbt = new NBTUtils();
 
     public void runEnchants( ItemStack itemStack )
     {
-        for ( CustomEnchantment enchantment : nbt.getEnchantments( itemStack ).keySet() )
+        for ( CustomEnchantment enchantment : nbt.getItemEnchantments( itemStack ).keySet() )
             enchantment.run();
         Enchantment a = Enchantment.DURABILITY;
     }
@@ -31,7 +31,7 @@ public class EnchantmentManager {
     public int getAdditiveBonuses( ItemStack itemStack )
     {
         int value = 0;
-        for ( CustomEnchantment enchantment : nbt.getEnchantments( itemStack ).keySet() )
+        for ( CustomEnchantment enchantment : nbt.getItemEnchantments( itemStack ).keySet() )
             value += enchantment.getAdditiveBonus( 1 );
         return value;
     }

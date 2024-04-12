@@ -11,8 +11,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.MaterialData;
 import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.utils.Chat;
-import xyz.sakubami.infinitum.utils.builder.item.nbt.ItemNBT;
-import xyz.sakubami.infinitum.utils.builder.item.nbt.ItemNBTUtils;
+import xyz.sakubami.infinitum.utils.NBTUtils;
 import xyz.sakubami.infinitum.world.functionality.Attribute;
 import xyz.sakubami.infinitum.world.functionality.items.components.ItemTier;
 import xyz.sakubami.infinitum.world.functionality.items.enchanting.CustomEnchantment;
@@ -30,7 +29,7 @@ public class ItemBuilder {
     private int amount = 1;
     private MaterialData data;
     private int customModelData;
-    private Map<CustomEnchantment, Integer> enchantments = new HashMap<>();
+    private Map< CustomEnchantment, Integer > enchantments = new HashMap<>();
     private String displayName;
     private List<String> lore = new ArrayList<>();
     private List<ItemFlag> flags = new ArrayList<>();
@@ -38,8 +37,7 @@ public class ItemBuilder {
     private ItemMeta NBTMeta;
     private boolean isGlowing = false;
 
-    private final ItemNBT nbt = new ItemNBT();
-    private final ItemNBTUtils nbtUtils = new ItemNBTUtils();
+    private final NBTUtils nbt = new NBTUtils();
 
     private NamespacedKey key( String key ) {
         return new NamespacedKey( Infinitum.getInstance(), key );
@@ -80,11 +78,11 @@ public class ItemBuilder {
             this.displayName = meta.getDisplayName();
             this.lore = meta.hasLore() && meta.getLore() != null ? meta.getLore() : new ArrayList<>();
             this.flags.addAll( item.getItemMeta().getItemFlags() );
-            nbt.extractNBTData( meta );
+            nbt.extractItemNBTData( meta );
         } else this.meta = Bukkit.getItemFactory().getItemMeta( item.getType() );
         this.material = item.getType();
         this.amount = item.getAmount();
-        this.enchantments = nbtUtils.getEnchantments( item );
+        this.enchantments = nbt.getItemEnchantments( item );
     }
 
     public ItemBuilder( ItemTemplates item ) {
@@ -249,7 +247,7 @@ public class ItemBuilder {
             meta.addItemFlags( ItemFlag.HIDE_POTION_EFFECTS );
         }
         meta.setLocalizedName( localizedName );
-        meta = nbt.parseAllNBTTags( meta );
+        meta = nbt.parseAllItemNBTTags( meta );
         item.setItemMeta( meta );
         return item;
     }

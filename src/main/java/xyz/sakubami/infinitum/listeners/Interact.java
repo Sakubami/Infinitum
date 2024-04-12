@@ -63,7 +63,8 @@ public class Interact implements Listener {
             player.sendMessage( "testing" );
             new EntityControl( new CustomEntityBuilder( EntityType.ZOMBIE, player.getWorld() ).build() )
                     .teleport( player.getLocation() )
-                    .attribute( Attribute.HEALTH, 50 )
+                    .attribute( Attribute.HEALTH, 500 )
+                    .attribute( Attribute.MAX_HEALTH, 500 )
                     .equip( new ItemStack( Material.DIAMOND_HELMET ), EquipmentSlot.HEAD )
                     .queue();
         }

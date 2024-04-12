@@ -5,8 +5,8 @@ import org.bukkit.World;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
+import xyz.sakubami.infinitum.utils.NBTUtils;
 import xyz.sakubami.infinitum.world.functionality.Attribute;
-import xyz.sakubami.infinitum.utils.builder.mob.nbt.MobNBT;
 import xyz.sakubami.infinitum.world.entities.control.CustomType;
 import xyz.sakubami.infinitum.world.entities.control.EntityConnector;
 import xyz.sakubami.infinitum.world.entities.control.EntityMask;
@@ -17,7 +17,7 @@ import java.util.HashMap;
 public class CustomEntityBuilder {
 
     private final EntityConnector connector = EntityConnector.get();
-    private final MobNBT NBT = new MobNBT();
+    private final NBTUtils nbt = new NBTUtils();
     private final EntityType type;
     private final HashMap<Attribute, Integer> attributes = new HashMap<>();
     private final World world;
@@ -31,7 +31,7 @@ public class CustomEntityBuilder {
         this.world = world;
         this.type = type;
         this.location = new Location( world, 0, 2000, 0 );
-        this.NBT.addNBTTag( "CUSTOM", "true" );
+        this.nbt.addNBTTag( "CUSTOM", "true" );
     }
 
     /**
@@ -42,7 +42,7 @@ public class CustomEntityBuilder {
         this.world = world;
         this.type = EntityType.ARMOR_STAND;
         this.location = location;
-        this.NBT.addNBTTag( "CUSTOM", "true" );
+        this.nbt.addNBTTag( "CUSTOM", "true" );
     }
 
     /*
@@ -59,11 +59,11 @@ public class CustomEntityBuilder {
     public CustomEntityBuilder attribute( Attribute attribute, int value )
     {
         this.attributes.put( attribute, value );
-        this.NBT.addNBTTag( "ATTRIBUTE_" + attribute.name(), value );
+        this.nbt.addNBTTag( "ATTRIBUTE_" + attribute.name(), value );
         return this;
     }
 
-    public CustomEntityBuilder name(String name )
+    public CustomEntityBuilder name( String name )
     {
         this.name = "§c" + name + " §a" + 100 + "§f/§a" + 100 + "§7hp";
         return this;
@@ -75,7 +75,8 @@ public class CustomEntityBuilder {
 
         entity.getEquipment().clear();
 
-        entity = NBT.parseAllNBTTags( entity );
+        nbt.addNBTTag( "ID", "true");
+        entity = nbt.parseAllEntityNBTTags( entity );
 
         entity.setCustomName( name );
         entity.setCustomNameVisible( true );

@@ -7,6 +7,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.world.functionality.Attribute;
+import xyz.sakubami.infinitum.world.functionality.items.components.ItemCategory;
+import xyz.sakubami.infinitum.world.functionality.items.components.ItemType;
 import xyz.sakubami.infinitum.world.functionality.items.enchanting.CustomEnchantment;
 
 import java.util.HashMap;
@@ -50,70 +52,63 @@ public class NBTUtils {
 
     public void addNBTTag( NamespacedKey key, int value ) { this.list.put( key, String.valueOf( value ) ); }
 
-    //TODO REPLACE WITH JAVA OBJECT CLASS AND CHECK FOR INSTANCES
-    // !!!!!!!!!!!!!!
-    // !!!!!!!!!!!!!!
-    // !!!!!!!!!!!!!!// !!!!!!!!!!!!!!// !!!!!!!!!!!!!!
-    // !!!!!!!!!!!!!!
-    // !!!!!!!!!!!!!!// !!!!!!!!!!!!!!// !!!!!!!!!!!!!!// !!!!!!!!!!!!!!// !!!!!!!!!!!!!!// !!!!!!!!!!!!!!//
-
-    public ItemMeta parseAllNBTTags( ItemMeta meta ) {
+    public ItemMeta parseAllItemNBTTags( ItemMeta meta ) {
         for ( NamespacedKey key : this.list.keySet() ) {
             meta.getPersistentDataContainer().set( key, PersistentDataType.STRING, this.list.get(key));
         }
         return meta;
     }
 
-    public LivingEntity parseAllNBTTags( LivingEntity entity ) {
+    public LivingEntity parseAllEntityNBTTags( LivingEntity entity ) {
         for ( NamespacedKey key : this.list.keySet() ) {
             entity.getPersistentDataContainer().set( key, PersistentDataType.STRING, this.list.get(key));
         }
         return entity;
     }
 
-    public String getNBTString( ItemStack item, String key )
+    public String getItemNBTString( ItemStack item, String key )
     {
         if ( item.hasItemMeta() )
             return item.getItemMeta().getPersistentDataContainer().get( key( key ), PersistentDataType.STRING );
         return null;
     }
 
-    public String getNBTString( ItemStack item, NamespacedKey key )
+    public String getItemNBTString( ItemStack item, NamespacedKey key )
     {
         if ( item.hasItemMeta() )
             return null;
         return item.getItemMeta().getPersistentDataContainer().get( key, PersistentDataType.STRING );
     }
 
-    public int getNBTInt( ItemStack item, NamespacedKey key )
+    public int getItemNBTInt( ItemStack item, NamespacedKey key )
     {
         if ( !item.hasItemMeta() )
             return 0;
         return Integer.parseInt( item.getItemMeta().getPersistentDataContainer().get( key, PersistentDataType.STRING ) );
     }
 
-    public String getNBTString( LivingEntity entity, String key )
+    public String getEntityNBTString( LivingEntity entity, String key )
     {
         if ( entity.getPersistentDataContainer().isEmpty() )
             return null;
         return entity.getPersistentDataContainer().get( key( key ), PersistentDataType.STRING );
     }
 
-    public String getNBTString( LivingEntity entity, NamespacedKey key )
+    public String getEntityNBTString( LivingEntity entity, NamespacedKey key )
     {
         if ( entity.getPersistentDataContainer().isEmpty() )
             return null;
         return entity.getPersistentDataContainer().get( key, PersistentDataType.STRING );
     }
 
-    public int getNBTInt( LivingEntity entity, NamespacedKey key )
+    public int getEntityNBTInt( LivingEntity entity, NamespacedKey key )
     {
         if ( entity.getPersistentDataContainer().isEmpty() )
             return 0;
         return Integer.parseInt( entity.getPersistentDataContainer().get( key, PersistentDataType.STRING ) );
     }
 
-    public Map< NamespacedKey, String > getNBTTags( ItemStack item )
+    public Map< NamespacedKey, String > getItemNBTTags( ItemStack item )
     {
         Map< NamespacedKey, String > list = new HashMap<>();
         for ( NamespacedKey keySet: item.getItemMeta().getPersistentDataContainer().getKeys() )
@@ -123,7 +118,7 @@ public class NBTUtils {
         return list;
     }
 
-    public Map< NamespacedKey, String > getNBTTags( LivingEntity entity )
+    public Map< NamespacedKey, String > getEntityNBTTags( LivingEntity entity )
     {
         Map< NamespacedKey, String > list = new HashMap<>();
         for ( NamespacedKey keySet: entity.getPersistentDataContainer().getKeys() )
@@ -133,44 +128,62 @@ public class NBTUtils {
         return list;
     }
 
-    public Map<CustomEnchantment, Integer > getEnchantments( ItemStack item )
+    public Map<CustomEnchantment, Integer > getItemEnchantments( ItemStack item )
     {
         Map< CustomEnchantment, Integer > enchants = new HashMap<>();
-        if ( getNBTString( item, "ENCHANTED" ) == null )
+        if ( getItemNBTString( item, "ENCHANTED" ) == null )
             return null;
-        for ( NamespacedKey key : getNBTTags( item ).keySet() )
+        for ( NamespacedKey key : getItemNBTTags( item ).keySet() )
         {
             if ( CustomEnchantment.contains( key ) )
                 return null;
-            int level = getNBTInt( item, key );
+            int level = getItemNBTInt( item, key );
             enchants.put( CustomEnchantment.getByID( key ), level );
         }
         return enchants;
     }
 
-    public Map<Attribute, Integer > getAttributes( ItemStack item )
+    public Map< Attribute, Integer > getItemAttributes( ItemStack item )
     {
         Map< Attribute, Integer > attributes = new HashMap<>();
-        for ( NamespacedKey key : getNBTTags( item ).keySet() )
+        for ( NamespacedKey key : getItemNBTTags( item ).keySet() )
         {
-            if ( !getNBTString( item, key ).contains( "ATTRIBUTE") )
+            if ( !getItemNBTString( item, key ).contains( "ATTRIBUTE") )
                 return null;
-            int level = getNBTInt( item, key );
+            int level = getItemNBTInt( item, key );
             attributes.put( Attribute.valueOf( key.getKey().replace( "ATTRIBUTE_", "" ) ), level );
         }
         return attributes;
     }
 
-    public Map<Attribute, Integer > getAttributes( Object entity )
+    public Map< Attribute, Integer > getEntityAttributes( LivingEntity entity )
     {
         Map< Attribute, Integer > attributes = new HashMap<>();
-        for ( NamespacedKey key : getNBTTags( entity ).keySet() )
+        for ( NamespacedKey key : getEntityNBTTags( entity ).keySet() )
         {
-            if ( !getNBTString( entity, key ).contains( "ATTRIBUTE") )
+            if ( !getEntityNBTString( entity, key ).contains( "ATTRIBUTE") )
                 return null;
-            int level = getNBTInt( entity, key );
+            int level = getEntityNBTInt( entity, key );
             attributes.put( Attribute.valueOf( key.getKey().replace( "ATTRIBUTE_", "" ) ), level );
         }
         return attributes;
     }
+
+    public boolean checkForEntityNBTData( LivingEntity entity ) { return !entity.getPersistentDataContainer().isEmpty(); }
+
+    public boolean checkForItemID( ItemStack item ) { return getItemNBTString( item, "ID") != null; }
+
+    public boolean isCustomEntity( LivingEntity entity ) { return getEntityNBTString( entity, "ID") != null; }
+
+    public boolean isCustomItem( ItemStack item ) { return getItemNBTString( item, "ID") != null; }
+
+    public String getItemID( ItemStack item ) { return getItemNBTString( item, "ID" ); }
+
+    public ItemCategory getItemCategory ( ItemStack itemStack ) { return ItemCategory.valueOf( getItemNBTString( itemStack, "CATEGORY" ) ); }
+
+    public ItemType getItemType ( ItemStack itemStack ) { return ItemType.valueOf( getItemNBTString( itemStack, "TYPE" ) ); }
+
+    public int getItemEnchantmentValue ( ItemStack itemStack, CustomEnchantment enchantment ) { return getItemNBTInt( itemStack, CustomEnchantment.getID( enchantment ) ); }
+
+    public boolean isItemProtected( ItemStack item ) { return Boolean.parseBoolean( getItemNBTString( item, "PROTECTED" ) ); }
 }

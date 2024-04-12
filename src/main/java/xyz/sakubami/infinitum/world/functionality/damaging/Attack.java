@@ -5,7 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
-import xyz.sakubami.infinitum.utils.builder.item.nbt.ItemNBT;
+import xyz.sakubami.infinitum.utils.NBTUtils;
 import xyz.sakubami.infinitum.utils.math.EntityMath;
 import xyz.sakubami.infinitum.world.entities.control.EntityConnector;
 import xyz.sakubami.infinitum.world.entities.control.EntityControl;
@@ -23,7 +23,7 @@ public class Attack {
 
     private final EntityMath entityMath = new EntityMath();
     private final EntityConnector connector = EntityConnector.get();
-    private final ItemNBT nbt = new ItemNBT();
+    private final NBTUtils nbt = new NBTUtils();
 
     // USAGE who = false == received, true == dealt
 
@@ -82,13 +82,13 @@ public class Attack {
 
         if ( !itemStack.getType().equals( Material.AIR ) )
         {
-            if ( !nbt.getNBTTags( itemStack ).isEmpty() )
+            if ( !nbt.getItemNBTTags( itemStack ).isEmpty() )
             {
-                weaponDamage = Integer.parseInt( nbt.getNBTString( itemStack, "DAMAGE" ) );
-                additive = Integer.parseInt( nbt.getNBTString( itemStack, "ADDITIVE" ) );
-                multiplicative = Integer.parseInt( nbt.getNBTString( itemStack, "MULTIPLICATIVE" ) );
-                strength += weaponStrength = Integer.parseInt( nbt.getNBTString( itemStack, "STRENGTH" ) );
-                criticalDamage += weaponCriticalDamage = Integer.parseInt( nbt.getNBTString( itemStack, "DAMAGE" ) );
+                weaponDamage = Integer.parseInt( nbt.getItemNBTString( itemStack, "DAMAGE" ) );
+                additive = Integer.parseInt( nbt.getItemNBTString( itemStack, "ADDITIVE" ) );
+                multiplicative = Integer.parseInt( nbt.getItemNBTString( itemStack, "MULTIPLICATIVE" ) );
+                strength += weaponStrength = Integer.parseInt( nbt.getItemNBTString( itemStack, "STRENGTH" ) );
+                criticalDamage += weaponCriticalDamage = Integer.parseInt( nbt.getItemNBTString( itemStack, "DAMAGE" ) );
             }
         }
 
