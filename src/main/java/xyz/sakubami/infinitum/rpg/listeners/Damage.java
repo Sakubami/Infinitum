@@ -2,7 +2,6 @@ package xyz.sakubami.infinitum.rpg.listeners;
 
 import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -28,7 +27,12 @@ public class Damage implements Listener {
 
         if ( helper.rightClickCustomEntity( e ) )
         {
+            EntityConnector connector = EntityConnector.get();
             LivingEntity entity = ( LivingEntity) e.getRightClicked();
+
+            new Attack( 500, connector.get( entity ) )
+                    .setAOE( 5, entity.getLocation() )
+                    .attack();
 
             new EntityControl( entity )
                     .equip( new ItemStack( Material.DIAMOND_CHESTPLATE ), EquipmentSlot.CHEST )
@@ -42,7 +46,7 @@ public class Damage implements Listener {
         EntityConnector connector = EntityConnector.get();
         LivingEntity entity = ( LivingEntity ) e.getEntity();
 
-        if ( nbt.checkForEntityNBTData( entity ) || entity instanceof Player )
+        if ( nbt.checkForEntityNBTData( entity ) )
         {
             // more checks
             e.setDamage( 0 );

@@ -4,6 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import xyz.sakubami.infinitum.Infinitum;
@@ -22,7 +23,7 @@ public class Attack {
 
     private int raw;
     private EntityMask damager;
-    private ArrayList<EntityMask> receivers = new ArrayList<>();
+    private final ArrayList< EntityMask > receivers = new ArrayList<>();
 
     private final EntityMath entityMath = new EntityMath();
     private final EntityConnector connector = EntityConnector.get();
@@ -66,7 +67,13 @@ public class Attack {
     {
         for ( Entity entity : entityMath.getRadius( location, radius ) )
         {
+            if ( ! ( entity instanceof LivingEntity ) )
+                continue;
+
             if ( entity.getUniqueId().equals( damager.getUuid() ) )
+                continue;
+
+            if ( receivers.contains( connector.get( entity.getUniqueId() ) ) )
                 continue;
 
             if ( entity.getType().equals( EntityType.ARMOR_STAND ) )

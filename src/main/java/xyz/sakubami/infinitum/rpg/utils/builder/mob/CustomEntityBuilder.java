@@ -129,7 +129,7 @@ public class CustomEntityBuilder {
         entity = nbt.parseAllEntityNBTTags( entity );
 
         entity.getEquipment().clear();
-        entity.setCustomName( "§c" + nameReplacement + ChatColor.of( "#18ff03" ) + " " + health + "§f/" +  ChatColor.of( "#18ff03" ) + max_health + "§7hp" );
+        entity.setCustomName( "§c" + nameReplacement + ChatColor.of( "#18ff03" ) + " " + health + "§f/" +  ChatColor.of( "#18ff03" ) + max_health + " §c❤" );
         entity.setCustomNameVisible( true );
 
         EntityMask mask = new EntityMask( nameReplacement, entity, CustomType.MOB, 0, null, null, attributes );

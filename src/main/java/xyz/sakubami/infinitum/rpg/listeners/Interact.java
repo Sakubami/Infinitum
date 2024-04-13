@@ -14,6 +14,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import xyz.sakubami.infinitum.Infinitum;
+import xyz.sakubami.infinitum.external.chat.ChatAdapter;
 import xyz.sakubami.infinitum.rpg.utils.InteractHelper;
 import xyz.sakubami.infinitum.rpg.utils.builder.mob.CustomEntityBuilder;
 import xyz.sakubami.infinitum.rpg.utils.worldedit.InfinitumSchematic;
@@ -61,12 +62,16 @@ public class Interact implements Listener {
         {
             player.sendMessage( "testing" );
             new EntityControl( new CustomEntityBuilder( EntityType.ZOMBIE, player.getWorld(), player.getLocation() )
-                        .health( 500000 )
-                        .maxHealth( 1000000 )
-                        .name( "HEHE I SAWPPENDNEF THIS ")
+                        .health( 45000 )
+                        .maxHealth( 45000 )
+                        .name( "§6Golden Ghoul")
                         .build() )
-                    .equip( new ItemStack( Material.DIAMOND_HELMET ), EquipmentSlot.HEAD )
+                    .equip( new ItemStack( Material.GOLDEN_CHESTPLATE ), EquipmentSlot.CHEST )
+                    .equip( new ItemStack( Material.GOLDEN_LEGGINGS ), EquipmentSlot.LEGS )
+                    .equip( new ItemStack( Material.GOLDEN_BOOTS ), EquipmentSlot.FEET )
+                    .equip( new ItemStack( Material.GOLDEN_SWORD ), EquipmentSlot.HAND )
                     .queue();
+            Infinitum.getInstance().getServer().broadcastMessage( ChatAdapter.convert(  "test" ) );
         }
 
         if ( helper.rightClickWithItem( e, e.getItem(), "INFINITA_SCIENTIA" ) )

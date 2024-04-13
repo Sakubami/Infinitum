@@ -132,7 +132,7 @@ public class EntityControl {
             color = ChatColor.of( "#ffff03" );
 
         if ( customType.equals( CustomType.MOB ) )
-            entityMask.getEntity().setCustomName( "§c" + entityMask.getName() + color + " " + v + "§f/" +  ChatColor.of( "#18ff03" ) + max + "§7hp" );
+            entityMask.getEntity().setCustomName( "§c" + entityMask.getName() + color + " " + v + "§f/" +  ChatColor.of( "#18ff03" ) + max + " §c❤" );
         else
         {
             // do title shit and shit and sujnosdahuoasdbuiasdbuiasdui im so high rn im tripping balls
