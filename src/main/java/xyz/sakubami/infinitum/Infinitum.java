@@ -4,7 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.sakubami.infinitum.listeners.*;
 import xyz.sakubami.infinitum.world.entities.control.EntityConnector;
-import xyz.sakubami.infinitum.world.entities.control.PlayerSaving;
 import xyz.sakubami.infinitum.world.functionality.crafting.Crafting;
 import xyz.sakubami.infinitum.world.functionality.crafting.RecipeConfig;
 import xyz.sakubami.infinitum.world.functionality.crafting.stations.LocationConfig;
@@ -16,7 +15,6 @@ public class Infinitum extends JavaPlugin {
     private LocationConfig locationConfig;
     private RecipeConfig recipeConfig;
     private Crafting crafting;
-    private PlayerSaving playerSaving;
     private EntityConnector entityConnector;
 
     public void onEnable() {
@@ -33,7 +31,6 @@ public class Infinitum extends JavaPlugin {
         this.locationConfig = new LocationConfig();
         this.recipeConfig = new RecipeConfig();
         this.crafting = new Crafting();
-        this.playerSaving = new PlayerSaving();
         this.entityConnector = new EntityConnector();
 
         // register stuff
@@ -55,8 +52,6 @@ public class Infinitum extends JavaPlugin {
     public RecipeConfig getRecipeConfig() { return recipeConfig; }
 
     public Crafting getCrafting() { return crafting; }
-
-    public PlayerSaving getPlayerConfig() { return playerSaving; }
 
     public EntityConnector getEntityConnector() { return entityConnector; }
 }

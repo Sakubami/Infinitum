@@ -5,6 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
+import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.utils.NBTUtils;
 import xyz.sakubami.infinitum.utils.math.EntityMath;
 import xyz.sakubami.infinitum.world.entities.control.EntityConnector;
@@ -13,11 +14,12 @@ import xyz.sakubami.infinitum.world.entities.control.EntityMask;
 import xyz.sakubami.infinitum.world.functionality.Attribute;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 
 public class Attack {
 
-    private final int raw;
+    private int raw;
     private EntityMask damager;
     private ArrayList<EntityMask> receivers = new ArrayList<>();
 
@@ -63,6 +65,9 @@ public class Attack {
     {
         for ( Entity entity : entityMath.getRadius( location, radius ) )
         {
+            if ( entity.getUniqueId().equals( damager.getUuid() ) )
+                continue;
+
             receivers.add( connector.get( entity.getUniqueId() ) );
         }
         return this;
@@ -71,6 +76,7 @@ public class Attack {
     public void attack()
     {
         int weaponDamage = 0;
+        int criticalChance = damager.getMasked().get( Attribute.CRITICAL_CHANCE);
         int weaponStrength = 0;
         int weaponCriticalDamage= 0;
         int strength = damager.getMasked().get( Attribute.STRENGTH );
@@ -84,23 +90,32 @@ public class Attack {
         {
             if ( !nbt.getItemNBTTags( itemStack ).isEmpty() )
             {
-                weaponDamage = Integer.parseInt( nbt.getItemNBTString( itemStack, "DAMAGE" ) );
-                additive = Integer.parseInt( nbt.getItemNBTString( itemStack, "ADDITIVE" ) );
-                multiplicative = Integer.parseInt( nbt.getItemNBTString( itemStack, "MULTIPLICATIVE" ) );
-                strength += weaponStrength = Integer.parseInt( nbt.getItemNBTString( itemStack, "STRENGTH" ) );
-                criticalDamage += weaponCriticalDamage = Integer.parseInt( nbt.getItemNBTString( itemStack, "DAMAGE" ) );
+                raw += weaponDamage = Integer.parseInt( nbt.getItemNBTString( itemStack, "ATTRIBUTE_DAMAGE" ) + 5 );
+                additive = Integer.parseInt( nbt.getItemNBTString( itemStack, "ATTRIBUTE_ADDITIVE" ) );
+                multiplicative = Integer.parseInt( nbt.getItemNBTString( itemStack, "ATTRIBUTE_MULTIPLICATIVE" ) );
+                strength += weaponStrength = Integer.parseInt( nbt.getItemNBTString( itemStack, "ATTRIBUTE_STRENGTH" ) );
+                criticalDamage += weaponCriticalDamage = Integer.parseInt( nbt.getItemNBTString( itemStack, "ATTRIBUTE_CRITICAL_DAMAGE" ) );
+                criticalChance += criticalChance = Integer.parseInt( nbt.getItemNBTString( itemStack, "ATTRIBUTE_CRITICAL_CHANCE" ) );
             }
         }
 
-        int finalDamage = ( 5 + weaponDamage ) * ( 1+ ( strength / 100 ) ) * ( 1 + criticalDamage / 100 ) * additive * multiplicative;
+        Random random = new Random();
+        if ( criticalChance < random.nextInt( 100 ) )
+        {
+            criticalChance = 0;
+            Infinitum.getInstance().getServer().broadcastMessage(" not a crit ");
+        } else
+            Infinitum.getInstance().getServer().broadcastMessage(" crit lol ");
+
+
+        int finalDamage = ( raw ) * ( 1+ ( strength / 100 ) ) * ( 1 + criticalDamage / 100 ) * ( 1 + additive ) * ( 1 + multiplicative );
 
         for ( EntityMask receiver : receivers )
         {
             new EntityControl( receiver )
                     .damage( finalDamage )
                     .queue();
+            Infinitum.getInstance().getServer().broadcastMessage( "damage done= " + finalDamage );
         }
-
-
     }
 }

@@ -1,4 +1,4 @@
-package xyz.sakubami.infinitum.world.entities.mob.loot;
+package xyz.sakubami.infinitum.world.entities.loot;
 
 import xyz.sakubami.infinitum.utils.builder.item.ItemTemplates;
 

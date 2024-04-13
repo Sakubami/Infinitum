@@ -6,8 +6,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
-import xyz.sakubami.infinitum.world.entities.mob.loot.CustomLootTable;
-import xyz.sakubami.infinitum.world.entities.mob.loot.LootController;
+import xyz.sakubami.infinitum.world.entities.loot.CustomLootTable;
+import xyz.sakubami.infinitum.world.entities.loot.LootController;
 import xyz.sakubami.infinitum.world.entities.player.skills.combat.CombatExperience;
 
 public class EntityKill implements Listener {

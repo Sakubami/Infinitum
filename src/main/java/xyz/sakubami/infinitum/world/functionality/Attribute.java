@@ -7,7 +7,7 @@ public enum Attribute
     HEALTH("Vitalität" ),
     DEFENSE("Rüstung" ),
     INTELLIGENCE("Intelligenz" ),
-    CRITICAl_CHANCE("Krit. Chance" ),
+    CRITICAL_CHANCE("Krit. Chance" ),
     CRITICAL_DAMAGE("Krit. Schaden" ),
     STRENGTH( "Stärke" ),
     MULTIPLICATIVE( "" ),

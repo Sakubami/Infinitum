@@ -58,8 +58,10 @@ public class InteractHelper {
         return false;
     }
 
-    public LivingEntity rightClickCustomEntity( PlayerInteractEntityEvent event )
+    public boolean rightClickCustomEntity( PlayerInteractEntityEvent event )
     {
-        return ( LivingEntity ) event.getRightClicked();
+        if ( event.getHand().equals( EquipmentSlot.HAND ) )
+            return ( nbt.isCustomEntity( ( LivingEntity ) event.getRightClicked() ) );
+        return false;
     }
 }

@@ -31,7 +31,7 @@ public enum ItemAttributes
         loreAttributes.add( "INTELLIGENCE" + "/" + damage );
         attributes.put( Attribute.DAMAGE, damage );
         attributes.put( Attribute.STRENGTH, strength );
-        attributes.put( Attribute.CRITICAl_CHANCE, criticalChance );
+        attributes.put( Attribute.CRITICAL_CHANCE, criticalChance );
         attributes.put( Attribute.CRITICAL_DAMAGE, criticalDamage );
         attributes.put( Attribute.HEALTH, health );
         attributes.put( Attribute.DEFENSE, defense );

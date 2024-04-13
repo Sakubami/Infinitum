@@ -1,15 +1,14 @@
 package xyz.sakubami.infinitum.world.entities.control;
 
 import net.md_5.bungee.api.ChatColor;
-import org.apache.commons.lang.WordUtils;
 import org.bukkit.Location;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import xyz.sakubami.infinitum.Infinitum;
-import xyz.sakubami.infinitum.world.functionality.Attribute;
 import xyz.sakubami.infinitum.utils.math.MathUtils;
 import xyz.sakubami.infinitum.world.entities.player.skills.ExperienceType;
+import xyz.sakubami.infinitum.world.functionality.Attribute;
 
 import java.util.HashMap;
 
@@ -36,16 +35,16 @@ public class EntityControl {
         this.attributes = entityMask.getMasked();
     }
 
-    public EntityControl teleport(Location location )
+    public EntityControl teleport( Location location )
     {
         entityMask.getEntity().teleport( location );
         return this;
     }
 
-    public EntityControl attribute(Attribute attribute, int v )
+    public EntityControl attribute( Attribute attribute, int v )
     {
         entityMask.getMasked().put( attribute, v );
-        queue.put(entityMask, false );
+        queue.put( entityMask, false );
         return this;
     }
 
@@ -84,8 +83,9 @@ public class EntityControl {
         }
         else
         {
+            entityMask.getEntity().damage( 0 );
             updateHealthDisplay( damagedHP );
-            attributes.replace( Attribute.HEALTH, damagedHP );
+            entityMask.getMasked().replace( Attribute.HEALTH, damagedHP );
             queue.put( entityMask, false );
         }
         return this;
@@ -97,6 +97,8 @@ public class EntityControl {
         entityMask.getEntity().damage( 999999999 );
         if ( customType.equals( CustomType.MOB ) )
             queue.put( entityMask, true );
+        else
+            queue.put( entityMask, false );
         return this;
     }
 
@@ -109,11 +111,11 @@ public class EntityControl {
         {
             int finalMath = ( healing - max );
             updateHealthDisplay( healing - finalMath );
-            attributes.replace( Attribute.HEALTH, healing - finalMath );
+            entityMask.getMasked().replace( Attribute.HEALTH, healing - finalMath );
         } else
         {
             updateHealthDisplay( healing );
-            attributes.replace( Attribute.HEALTH, healing );
+            entityMask.getMasked().replace( Attribute.HEALTH, healing );
         }
 
         queue.put( entityMask, false );
@@ -126,13 +128,14 @@ public class EntityControl {
 
         int max = attributes.get( Attribute.MAX_HEALTH );
 
-        if ( mathUtils.percentageOf( v , 50 ) <= 50 )
+        if ( mathUtils.percentageOf( v , 50 ) <= ( max / 2 ) )
             color = ChatColor.of( "#ffff03" );
 
         if ( customType.equals( CustomType.MOB ) )
-            entityMask.getEntity().setCustomName( "§c" + WordUtils.capitalizeFully( entityMask.getEntity().getType().name() ) + color + " " + v + "§f/" +  ChatColor.of( "#18ff03" ) + max + "§7hp" );
+            entityMask.getEntity().setCustomName( "§c" + entityMask.getName() + color + " " + v + "§f/" +  ChatColor.of( "#18ff03" ) + max + "§7hp" );
         else
         {
+            // do title shit and shit and sujnosdahuoasdbuiasdbuiasdui im so high rn im tripping balls
             Infinitum.getInstance().getServer().broadcastMessage("a" );
         }
     }

@@ -87,6 +87,13 @@ public class NBTUtils {
         return Integer.parseInt( item.getItemMeta().getPersistentDataContainer().get( key, PersistentDataType.STRING ) );
     }
 
+    public int getItemNBTInt( ItemStack item, String key )
+    {
+        if ( !item.hasItemMeta() )
+            return 0;
+        return Integer.parseInt( item.getItemMeta().getPersistentDataContainer().get( key( key ), PersistentDataType.STRING ) );
+    }
+
     public String getEntityNBTString( LivingEntity entity, String key )
     {
         if ( entity.getPersistentDataContainer().isEmpty() )
@@ -106,6 +113,13 @@ public class NBTUtils {
         if ( entity.getPersistentDataContainer().isEmpty() )
             return 0;
         return Integer.parseInt( entity.getPersistentDataContainer().get( key, PersistentDataType.STRING ) );
+    }
+
+    public int getEntityNBTInt( LivingEntity entity, String key )
+    {
+        if ( entity.getPersistentDataContainer().isEmpty() )
+            return 0;
+        return Integer.parseInt( entity.getPersistentDataContainer().get( key( key ), PersistentDataType.STRING ) );
     }
 
     public Map< NamespacedKey, String > getItemNBTTags( ItemStack item )
@@ -173,9 +187,7 @@ public class NBTUtils {
 
     public boolean checkForItemID( ItemStack item ) { return getItemNBTString( item, "ID") != null; }
 
-    public boolean isCustomEntity( LivingEntity entity ) { return getEntityNBTString( entity, "ID") != null; }
-
-    public boolean isCustomItem( ItemStack item ) { return getItemNBTString( item, "ID") != null; }
+    public boolean isCustomEntity( LivingEntity entity ) { return getEntityNBTString( entity, "CUSTOM") != null; }
 
     public String getItemID( ItemStack item ) { return getItemNBTString( item, "ID" ); }
 

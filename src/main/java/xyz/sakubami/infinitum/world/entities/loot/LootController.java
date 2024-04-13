@@ -1,4 +1,4 @@
-package xyz.sakubami.infinitum.world.entities.mob.loot;
+package xyz.sakubami.infinitum.world.entities.loot;
 
 import org.bukkit.Location;
 import org.bukkit.World;

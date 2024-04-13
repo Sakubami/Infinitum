@@ -1,9 +1,9 @@
-package xyz.sakubami.infinitum.world.entities.mob.loot;
+package xyz.sakubami.infinitum.world.entities.loot;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static xyz.sakubami.infinitum.world.entities.mob.loot.CustomLoot.*;
+import static xyz.sakubami.infinitum.world.entities.loot.CustomLoot.*;
 
 public enum CustomLootTable
 {

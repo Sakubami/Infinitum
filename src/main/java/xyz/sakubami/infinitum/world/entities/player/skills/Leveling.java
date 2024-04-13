@@ -2,14 +2,12 @@ package xyz.sakubami.infinitum.world.entities.player.skills;
 
 import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.world.entities.control.EntityConnector;
-import xyz.sakubami.infinitum.world.entities.control.PlayerSaving;
 
 import java.util.UUID;
 
 public class Leveling {
 
     EntityConnector cache = EntityConnector.get();
-    PlayerSaving queue = PlayerSaving.get();
 
     public int calculateLevel( int experience )
     {
@@ -53,6 +51,5 @@ public class Leveling {
             Infinitum.getInstance().getServer().broadcastMessage("u leveled up lol");
         int present = cache.get( uuid ).getExperience().get( type );
         cache.get( uuid ).getExperience().replace( type, amount + present );
-        queue.scheduleSave( 45 );
     }
 }

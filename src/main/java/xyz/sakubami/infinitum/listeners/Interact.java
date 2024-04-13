@@ -14,14 +14,14 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import xyz.sakubami.infinitum.Infinitum;
-import xyz.sakubami.infinitum.world.functionality.Attribute;
-import xyz.sakubami.infinitum.world.functionality.crafting.Crafting;
-import xyz.sakubami.infinitum.world.functionality.crafting.stations.Primer;
 import xyz.sakubami.infinitum.utils.InteractHelper;
 import xyz.sakubami.infinitum.utils.builder.mob.CustomEntityBuilder;
 import xyz.sakubami.infinitum.utils.worldedit.InfinitumSchematic;
 import xyz.sakubami.infinitum.utils.worldedit.WorldEditHelper;
 import xyz.sakubami.infinitum.world.entities.control.EntityControl;
+import xyz.sakubami.infinitum.world.functionality.Attribute;
+import xyz.sakubami.infinitum.world.functionality.crafting.Crafting;
+import xyz.sakubami.infinitum.world.functionality.crafting.stations.Primer;
 
 public class Interact implements Listener {
 
@@ -61,10 +61,12 @@ public class Interact implements Listener {
         if ( helper.rightClickBlock( e, Material.DIAMOND_BLOCK ) )
         {
             player.sendMessage( "testing" );
-            new EntityControl( new CustomEntityBuilder( EntityType.ZOMBIE, player.getWorld() ).build() )
-                    .teleport( player.getLocation() )
-                    .attribute( Attribute.HEALTH, 500 )
-                    .attribute( Attribute.MAX_HEALTH, 500 )
+            new EntityControl( new CustomEntityBuilder( EntityType.ZOMBIE, player.getWorld(), player.getLocation() )
+                        .health( 500000 )
+                        .maxHealth( 1000000 )
+                        .attribute( Attribute.DEFENSE, 1500 )
+                        .name( "HEHE I SAWPPENDNEF THIS ")
+                        .build() )
                     .equip( new ItemStack( Material.DIAMOND_HELMET ), EquipmentSlot.HEAD )
                     .queue();
         }
