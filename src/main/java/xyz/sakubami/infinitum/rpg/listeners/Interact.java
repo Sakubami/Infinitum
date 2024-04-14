@@ -62,8 +62,8 @@ public class Interact implements Listener {
         {
             player.sendMessage( "testing" );
             new EntityControl( new CustomEntityBuilder( EntityType.ZOMBIE, player.getWorld(), player.getLocation() )
-                        .health( 45000 )
-                        .maxHealth( 45000 )
+                        .health( 250000 )
+                        .maxHealth( 250000 )
                         .name( "§6Golden Ghoul")
                         .build() )
                     .equip( new ItemStack( Material.GOLDEN_CHESTPLATE ), EquipmentSlot.CHEST )

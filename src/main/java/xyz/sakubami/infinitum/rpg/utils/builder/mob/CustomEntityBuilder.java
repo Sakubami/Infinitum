@@ -19,10 +19,9 @@ public class CustomEntityBuilder {
 
     private final EntityConnector connector = EntityConnector.get();
     private final NBTUtils nbt = new NBTUtils();
-    private final EntityType type;
     private final HashMap< Attribute, Integer > attributes = new HashMap<>();
-    private final World world;
     private final Location location;
+    private String placeHolderName;
     private LivingEntity entity;
     private String nameReplacement = "DEFAULT";
     private int health = 100000;
@@ -41,41 +40,21 @@ public class CustomEntityBuilder {
 
     public CustomEntityBuilder( EntityType type, World world )
     {
-        this.world = world;
-        this.type = type;
         this.location = new Location( world, 0, 200, 0 );
-        this.nbt.addNBTTag( "CUSTOM", "true" );
         this.entity = ( LivingEntity ) world.spawnEntity( location, type );
         addDefaultAttributes();
     }
 
     public CustomEntityBuilder( EntityType type, World world, Location location )
     {
-        this.world = world;
-        this.type = type;
         this.location = location;
-        this.nbt.addNBTTag( "CUSTOM", "true" );
         this.entity = ( LivingEntity ) world.spawnEntity( location, type );
         addDefaultAttributes();
-    }
-
-    /**
-     * used to return a placeholder as an {@link ArmorStand} entity
-     */
-    public CustomEntityBuilder( World world, Location location  )
-    {
-        this.world = world;
-        this.type = EntityType.ARMOR_STAND;
-        this.location = location;
-        this.nbt.addNBTTag( "CUSTOM", "true" );
-        this.entity = ( LivingEntity ) world.spawnEntity( location, EntityType.ARMOR_STAND );
     }
 
     /*
     public CustomEntityBuilder( MobTemplate template, World world )
     {
-        this.world = world;
-        this.type = template.getType();
         this.attributes = template.getAttributes();
         this.location = new Location( world, 0, 2000, 0 );
         this.NBT.addNBTTag( "CUSTOM", "true" );
@@ -95,6 +74,12 @@ public class CustomEntityBuilder {
     public CustomEntityBuilder name( String name )
     {
         this.nameReplacement = name;
+        return this;
+    }
+
+    public CustomEntityBuilder placeHolderName( String name )
+    {
+        this.placeHolderName = name;
         return this;
     }
 
@@ -126,6 +111,7 @@ public class CustomEntityBuilder {
 
     public EntityMask build()
     {
+        nbt.addNBTTag( "CUSTOM", "true" );
         entity = nbt.parseAllEntityNBTTags( entity );
 
         entity.getEquipment().clear();
@@ -143,6 +129,13 @@ public class CustomEntityBuilder {
         placeHolder.setGravity( false );
         placeHolder.setInvulnerable( true );
         placeHolder.setVisible( false );
+        placeHolder.setCollidable( false );
+
+        if ( placeHolderName != null )
+        {
+            placeHolder.setCustomName( placeHolderName );
+            placeHolder.setCustomNameVisible( true );
+        }
 
         return placeHolder;
     }

@@ -4,9 +4,7 @@ public class MathUtils {
 
     public int percentageOf( int v, int percentage )
     {
-        float a = ( float ) percentage / 100;
-        float b = ( v * a );
-        return Math.round( b );
+        return ( int ) Math.round( v * ( ( double ) percentage / 100 ) );
     }
 
     public int getPercentage( int v, int v2 )

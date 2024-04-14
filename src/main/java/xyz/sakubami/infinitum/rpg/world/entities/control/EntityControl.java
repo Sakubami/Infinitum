@@ -1,11 +1,13 @@
 package xyz.sakubami.infinitum.rpg.world.entities.control;
 
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import xyz.sakubami.infinitum.Infinitum;
+import xyz.sakubami.infinitum.rpg.utils.builder.mob.CustomEntityBuilderUtils;
 import xyz.sakubami.infinitum.rpg.utils.math.MathUtils;
 import xyz.sakubami.infinitum.rpg.world.entities.player.skills.ExperienceType;
 import xyz.sakubami.infinitum.rpg.world.functionality.Attribute;
@@ -20,6 +22,7 @@ public class EntityControl {
     private final HashMap<EntityMask, Boolean> queue = new HashMap<>();
     private final CustomType customType;
     private final HashMap<Attribute, Integer> attributes;
+    private final CustomEntityBuilderUtils builderUtils = new CustomEntityBuilderUtils();
 
     public EntityControl( EntityMask entityMask)
     {
@@ -68,18 +71,21 @@ public class EntityControl {
 
     public EntityControl damage( int raw )
     {
-        int finalDef = ( attributes.get( Attribute.DEFENSE ) / 100 ) +1;
-        int damagedEHP = ( attributes.get( Attribute.HEALTH ) * finalDef ) - raw ;
+        int finalDef = ( attributes.get( Attribute.DEFENSE ) / 100 ) + 1;
+        int damagedEHP = ( attributes.get( Attribute.HEALTH ) * finalDef ) - raw;
         int damagedHP = damagedEHP / finalDef;
 
         if ( damagedHP <= 0 )
         {
-            updateHealthDisplay( 0 );
-            entityMask.getEntity().damage( 999999999 );
-            if ( customType.equals( CustomType.MOB ) )
-                queue.put( entityMask, true );
-            else
-                queue.put( entityMask, false );
+            Bukkit.getScheduler().runTaskLater( Infinitum.getInstance(),  () ->
+            {
+                updateHealthDisplay( 0 );
+                entityMask.getEntity().setHealth( 0 );
+                if ( customType.equals( CustomType.MOB ) )
+                    queue.put( entityMask, true );
+                else
+                    queue.put( entityMask, false );
+            }, 1 );
         }
         else
         {
@@ -93,12 +99,16 @@ public class EntityControl {
 
     public EntityControl kill()
     {
-        updateHealthDisplay( 0 );
-        entityMask.getEntity().damage( 999999999 );
-        if ( customType.equals( CustomType.MOB ) )
-            queue.put( entityMask, true );
-        else
-            queue.put( entityMask, false );
+        Bukkit.getScheduler().runTaskLater( Infinitum.getInstance(),  () ->
+        {
+            updateHealthDisplay( 0 );
+            entityMask.getEntity().setHealth( 0 );
+            if ( customType.equals( CustomType.MOB ) )
+                queue.put( entityMask, true );
+            else
+                queue.put( entityMask, false );
+        }, 1 );
+        builderUtils.createDamageTag( true, 999999999, entityMask.getEntity().getWorld(), entityMask.getEntity().getLocation() );
         return this;
     }
 
@@ -126,9 +136,9 @@ public class EntityControl {
     {
         ChatColor color = ChatColor.of( "#18ff03" );
 
-        int max = attributes.get( Attribute.MAX_HEALTH );
+        int max = entityMask.getMasked().get( Attribute.MAX_HEALTH );
 
-        if ( mathUtils.percentageOf( v , 50 ) <= ( max / 2 ) )
+        if ( v <= mathUtils.percentageOf( max , 50 ) )
             color = ChatColor.of( "#ffff03" );
 
         if ( customType.equals( CustomType.MOB ) )

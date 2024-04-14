@@ -23,19 +23,13 @@ public class Damage implements Listener {
     @EventHandler
     public void onInteract( PlayerInteractEntityEvent e )
     {
-
-
         if ( helper.rightClickCustomEntity( e ) )
         {
-            EntityConnector connector = EntityConnector.get();
             LivingEntity entity = ( LivingEntity) e.getRightClicked();
-
-            new Attack( 500, connector.get( entity ) )
-                    .setAOE( 5, entity.getLocation() )
-                    .attack();
 
             new EntityControl( entity )
                     .equip( new ItemStack( Material.DIAMOND_CHESTPLATE ), EquipmentSlot.CHEST )
+                    .kill()
                     .queue();
         }
     }
