@@ -5,7 +5,6 @@ import xyz.sakubami.infinitum.rpg.world.functionality.Attribute;
 import xyz.sakubami.infinitum.rpg.world.functionality.items.components.ItemTier;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class LoreBuilder {
@@ -36,8 +35,6 @@ public class LoreBuilder {
         List<String> list = new ArrayList<>();
         String newDesc = description;
 
-        this.lore.add( "§0" );
-
         for ( int i = 0; true ; i++ )
         {
             if ( newDesc.length() > 38 )
@@ -63,7 +60,6 @@ public class LoreBuilder {
 
     public LoreBuilder addEnchantments()
     {
-
         return this;
     }
 
@@ -72,24 +68,29 @@ public class LoreBuilder {
         return this;
     }
 
-    public List<String> build()
+    public List< String > build()
     {
+        if ( item.getLoreAttributes().isEmpty() )
+            this.addAttributes = false;
 
         if ( addAttributes )
         {
             int temp = 0;
 
-            HashMap<Attribute, Integer> attributes = item.getAttributes();
+            ArrayList< String > attributes = item.getLoreAttributes();
 
             String color = "§c";
 
-            for ( Attribute attribute : attributes.keySet() )
+            for ( String string : attributes )
             {
-                int v = attributes.get( attribute );
-                String component = "";
+                String[] split = string.split( "/" );
+                int v = Integer.parseInt( split[ 1 ] );
+                Attribute attribute = Attribute.valueOf( split[ 0 ] );
 
-                if ( v > 0 )
-                    component = "+" + v;
+                String component = "+" + v;
+
+                if ( v < 0 )
+                    component = String.valueOf( v );
 
                 if ( v != 0 )
                 {
@@ -107,13 +108,13 @@ public class LoreBuilder {
 
         if ( !description.isEmpty() )
             lore.addAll( description );
-        else
-            this.lore.add( "§0" );
 
         // enchants idk
 
+        //TODO change color if you can use it
+
         if ( addAttributes )
-            lore.add( "§4" + item.getItemClass().getTranslation() );
+            lore.add( "§a" + item.getItemClass().getTranslation() );
 
         // show how well it was crafted
 

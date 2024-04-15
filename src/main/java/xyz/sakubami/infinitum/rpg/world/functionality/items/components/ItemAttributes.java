@@ -10,10 +10,10 @@ public enum ItemAttributes
     NONE(
             ItemClass.GENERIC, 0, 0,  0, 0, 0, 0, 0 ),
     INFINITA_SCIENTIA(
-            ItemClass.GENERIC, 300, -300,  4, 3, 2, 1, 2 );
+            ItemClass.GENERIC, 0, -300,  100, 0, 0, 0, 0 );
 
     private final HashMap<Attribute, Integer> attributes = new HashMap<>();
-    private final ArrayList<String> loreAttributes = new ArrayList<>();
+    private final ArrayList< String > loreAttributes = new ArrayList<>();
 
     private final ItemClass itemClass;
 
@@ -22,13 +22,21 @@ public enum ItemAttributes
      */
     ItemAttributes ( ItemClass itemClass , int damage, int strength, int criticalChance, int criticalDamage, int health, int defense, int intelligence )
     {
-        loreAttributes.add( "DAMAGE" + "/" + damage );
-        loreAttributes.add( "STRENGTH" + "/" + strength );
-        loreAttributes.add( "CRITICAl_CHANCE" + "/" + criticalChance );
-        loreAttributes.add( "CRITICAL_DAMAGE" + "/" + damage );
-        loreAttributes.add( "HEALTH" + "/" + damage );
-        loreAttributes.add( "DEFENSE" + "/" + damage );
-        loreAttributes.add( "INTELLIGENCE" + "/" + damage );
+        if ( damage != 0 )
+            loreAttributes.add( "DAMAGE" + "/" + damage );
+        if ( strength != 0 )
+            loreAttributes.add( "STRENGTH" + "/" + strength );
+        if ( criticalChance != 0 )
+            loreAttributes.add( "CRITICAL_CHANCE" + "/" + criticalChance );
+        if ( criticalDamage != 0 )
+            loreAttributes.add( "CRITICAL_DAMAGE" + "/" + criticalDamage );
+        if ( health != 0 )
+            loreAttributes.add( "HEALTH" + "/" + health );
+        if ( defense != 0 )
+            loreAttributes.add( "DEFENSE" + "/" + defense );
+        if ( intelligence != 0 )
+            loreAttributes.add( "INTELLIGENCE" + "/" + intelligence );
+
         attributes.put( Attribute.DAMAGE, damage );
         attributes.put( Attribute.STRENGTH, strength );
         attributes.put( Attribute.CRITICAL_CHANCE, criticalChance );
@@ -42,5 +50,6 @@ public enum ItemAttributes
     }
 
     public HashMap<Attribute, Integer> getAttributes() { return attributes; }
+    public ArrayList< String > getLoreAttributes() { return loreAttributes; }
     public ItemClass getItemClass() { return itemClass; }
 }

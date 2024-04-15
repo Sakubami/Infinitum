@@ -61,16 +61,17 @@ public class Interact implements Listener {
         if ( helper.rightClickBlock( e, Material.DIAMOND_BLOCK ) )
         {
             player.sendMessage( "testing" );
-            new EntityControl( new CustomEntityBuilder( EntityType.ZOMBIE, player.getWorld(), player.getLocation() )
+            for ( int i = 0; i < 10; i++ )
+                new EntityControl( new CustomEntityBuilder( EntityType.ZOMBIE, player.getWorld(), player.getLocation() )
                         .health( 250000 )
                         .maxHealth( 250000 )
                         .name( "§6Golden Ghoul")
                         .build() )
-                    .equip( new ItemStack( Material.GOLDEN_CHESTPLATE ), EquipmentSlot.CHEST )
-                    .equip( new ItemStack( Material.GOLDEN_LEGGINGS ), EquipmentSlot.LEGS )
-                    .equip( new ItemStack( Material.GOLDEN_BOOTS ), EquipmentSlot.FEET )
-                    .equip( new ItemStack( Material.GOLDEN_SWORD ), EquipmentSlot.HAND )
-                    .queue();
+                        .equip( new ItemStack( Material.GOLDEN_CHESTPLATE ), EquipmentSlot.CHEST )
+                        .equip( new ItemStack( Material.GOLDEN_LEGGINGS ), EquipmentSlot.LEGS )
+                        .equip( new ItemStack( Material.GOLDEN_BOOTS ), EquipmentSlot.FEET )
+                        .equip( new ItemStack( Material.GOLDEN_SWORD ), EquipmentSlot.HAND )
+                        .queue();
             Infinitum.getInstance().getServer().broadcastMessage( ChatAdapter.convert(  "test" ) );
         }
 

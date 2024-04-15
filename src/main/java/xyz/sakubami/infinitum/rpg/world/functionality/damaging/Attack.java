@@ -8,6 +8,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import xyz.sakubami.infinitum.Infinitum;
+import xyz.sakubami.infinitum.external.chat.ChatAdapter;
 import xyz.sakubami.infinitum.rpg.utils.NBTUtils;
 import xyz.sakubami.infinitum.rpg.utils.builder.mob.CustomEntityBuilderUtils;
 import xyz.sakubami.infinitum.rpg.utils.math.EntityMath;
@@ -17,20 +18,19 @@ import xyz.sakubami.infinitum.rpg.world.entities.control.EntityMask;
 import xyz.sakubami.infinitum.rpg.world.functionality.Attribute;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 
 public class Attack {
 
     private int raw;
-    private EntityMask damager;
+    private final EntityMask damager;
     private final ArrayList< EntityMask > receivers = new ArrayList<>();
     private boolean doCritical = true;
 
     private final EntityMath entityMath = new EntityMath();
     private final EntityConnector connector = EntityConnector.get();
     private final NBTUtils nbt = new NBTUtils();
-    private final CustomEntityBuilderUtils builderUtils = new CustomEntityBuilderUtils();
+    private final CustomEntityBuilderUtils builderUtils = CustomEntityBuilderUtils.get();
 
     // USAGE who = false == received, true == dealt
 
@@ -80,6 +80,8 @@ public class Attack {
 
     public Attack setAOE( int radius, Location location )
     {
+        Infinitum.getInstance().getServer().broadcastMessage( ChatAdapter.convert(  "aoe debug" ) );
+
         for ( Entity entity : entityMath.getRadius( location, radius ) )
         {
             if ( ! ( entity instanceof LivingEntity ) )
@@ -119,19 +121,25 @@ public class Attack {
         {
             if ( !nbt.getItemNBTTags( itemStack ).isEmpty() )
             {
-                raw += weaponDamage = Integer.parseInt( nbt.getItemNBTString( itemStack, "ATTRIBUTE_DAMAGE" ) );
-                additive += Integer.parseInt( nbt.getItemNBTString( itemStack, "ATTRIBUTE_ADDITIVE" ) );
-                multiplicative += Integer.parseInt( nbt.getItemNBTString( itemStack, "ATTRIBUTE_MULTIPLICATIVE" ) );
-                strength += weaponStrength = Integer.parseInt( nbt.getItemNBTString( itemStack, "ATTRIBUTE_STRENGTH" ) );
-                criticalDamage += weaponCriticalDamage = Integer.parseInt( nbt.getItemNBTString( itemStack, "ATTRIBUTE_CRITICAL_DAMAGE" ) );
-                criticalChance += criticalChance = Integer.parseInt( nbt.getItemNBTString( itemStack, "ATTRIBUTE_CRITICAL_CHANCE" ) );
+                if ( nbt.getItemNBTString( itemStack, "ATTRIBUTE_DAMAGE" ) != null )
+                    raw += weaponDamage = nbt.getItemNBTInt( itemStack, "ATTRIBUTE_DAMAGE" );
+                if ( nbt.getItemNBTString( itemStack, "ATTRIBUTE_ADDITIVE" ) != null )
+                    additive += nbt.getItemNBTInt( itemStack, "ATTRIBUTE_ADDITIVE" );
+                if ( nbt.getItemNBTString( itemStack, "ATTRIBUTE_MULTIPLICATIVE" ) != null )
+                    multiplicative += nbt.getItemNBTInt( itemStack, "ATTRIBUTE_MULTIPLICATIVE" );
+                if ( nbt.getItemNBTString( itemStack, "ATTRIBUTE_STRENGTH" ) != null )
+                    strength += weaponStrength = nbt.getItemNBTInt( itemStack, "ATTRIBUTE_STRENGTH" );
+                if ( nbt.getItemNBTString( itemStack, "ATTRIBUTE_CRITICAL_DAMAGE" ) != null )
+                    criticalDamage += weaponCriticalDamage = nbt.getItemNBTInt( itemStack, "ATTRIBUTE_CRITICAL_DAMAGE" );
+                if ( nbt.getItemNBTString( itemStack, "ATTRIBUTE_CRITICAL_CHANCE" ) != null )
+                    criticalChance += criticalChance = nbt.getItemNBTInt( itemStack, "ATTRIBUTE_CRITICAL_CHANCE" );
             }
         }
 
         boolean critical = true;
 
-        Random random = new Random();
-        if ( criticalChance < random.nextInt( 100 ) || !doCritical )
+
+        if ( criticalChance < Infinitum.getInstance().getRandomGenerator().nextInt( 100 ) || !doCritical )
         {
             critical = false;
             criticalDamage = 0;

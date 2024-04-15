@@ -10,9 +10,9 @@ import java.util.List;
 
 public abstract class CustomEnchantment {
 
-    private final ArrayList<EnchantmentCategory> categories = new ArrayList<>();
+    private final ArrayList< EnchantmentCategory > categories = new ArrayList<>();
 
-    private static final HashMap<NamespacedKey, CustomEnchantment> enchants = new HashMap<>();
+    private static final HashMap< NamespacedKey, CustomEnchantment > enchants = new HashMap<>();
 
     protected CustomEnchantment( EnchantmentCategory category )
     {

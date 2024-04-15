@@ -3,10 +3,13 @@ package xyz.sakubami.infinitum;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.sakubami.infinitum.rpg.listeners.*;
+import xyz.sakubami.infinitum.rpg.utils.builder.mob.CustomEntityBuilderUtils;
 import xyz.sakubami.infinitum.rpg.world.entities.control.EntityConnector;
 import xyz.sakubami.infinitum.rpg.world.functionality.crafting.Crafting;
 import xyz.sakubami.infinitum.rpg.world.functionality.crafting.RecipeConfig;
 import xyz.sakubami.infinitum.rpg.world.functionality.crafting.stations.LocationConfig;
+
+import java.util.Random;
 
 public class Infinitum extends JavaPlugin {
 
@@ -16,6 +19,8 @@ public class Infinitum extends JavaPlugin {
     private RecipeConfig recipeConfig;
     private Crafting crafting;
     private EntityConnector entityConnector;
+    private Random random;
+    private CustomEntityBuilderUtils builderUtils;
 
     public void onEnable() {
         instance = this;
@@ -32,6 +37,8 @@ public class Infinitum extends JavaPlugin {
         this.recipeConfig = new RecipeConfig();
         this.crafting = new Crafting();
         this.entityConnector = new EntityConnector();
+        this.random = new Random();
+        this.builderUtils = new CustomEntityBuilderUtils();
 
         // register stuff
 
@@ -54,4 +61,8 @@ public class Infinitum extends JavaPlugin {
     public Crafting getCrafting() { return crafting; }
 
     public EntityConnector getEntityConnector() { return entityConnector; }
+
+    public Random getRandomGenerator() { return random; }
+
+    public CustomEntityBuilderUtils getBuilderUtils() { return builderUtils; }
 }

@@ -11,11 +11,11 @@ import java.util.UUID;
 
 public class PlayerInteractServer implements Listener {
 
+    Saving saving = new Saving();
+
     @EventHandler
     public void onServerJoin( PlayerJoinEvent e )
     {
-        Saving saving = new Saving();
-
         UUID uuid = e.getPlayer().getUniqueId();
         if ( saving.loadFromConfig( uuid ) )
             saving.addNew( uuid );
@@ -24,7 +24,6 @@ public class PlayerInteractServer implements Listener {
     @EventHandler
     public void onPlayerLeave( PlayerQuitEvent e )
     {
-        Saving saving = new Saving();
         EntityConnector connector = EntityConnector.get();
 
         saving.saveToConfig( e.getPlayer().getUniqueId() );

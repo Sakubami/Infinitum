@@ -22,7 +22,7 @@ public class EntityControl {
     private final HashMap<EntityMask, Boolean> queue = new HashMap<>();
     private final CustomType customType;
     private final HashMap<Attribute, Integer> attributes;
-    private final CustomEntityBuilderUtils builderUtils = new CustomEntityBuilderUtils();
+    private final CustomEntityBuilderUtils builderUtils = CustomEntityBuilderUtils.get();
 
     public EntityControl( EntityMask entityMask)
     {

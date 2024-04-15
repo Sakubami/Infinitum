@@ -93,10 +93,14 @@ public class ItemBuilder {
 
         this.lore = new LoreBuilder( item ).addDescription( !item.getLore().equalsIgnoreCase( "null" ) ).build();
 
+        for ( Attribute attribute : item.getAttributes().keySet() ) {
+            nbt.addNBTTag( key( "ATTRIBUTE_" + attribute.name() ), item.getAttributes().get( attribute ) );
+        }
+
         Infinitum.getInstance().getServer().broadcastMessage( item.toString() );
         Infinitum.getInstance().getServer().broadcastMessage( item.name() );
 
-        nbt.addNBTTag( key( "id" ), item.toString() );
+        nbt.addNBTTag( key( "ID" ), item.name() );
 
         /*
         for ( Attribute attribute : item.get) {
@@ -127,7 +131,8 @@ public class ItemBuilder {
         return this;
     }
 
-    public ItemBuilder setProtected( boolean value ) {
+    public ItemBuilder setProtected( boolean value )
+    {
         nbt.addNBTTag( key( "PROTECTED" ), String.valueOf( value ) );
         return this;
     }
@@ -222,11 +227,12 @@ public class ItemBuilder {
         if ( data != null )
             item.setData( data );
         if ( !enchantments.isEmpty() )
+        {
+            nbt.addNBTTag( key( "ENCHANTED" ), "true" );
             for ( CustomEnchantment enchantment : enchantments.keySet() )
-            {
-                nbt.addNBTTag( key( "ENCHANTED" ), "true" );
                 nbt.addNBTTag( CustomEnchantment.getID( enchantment ), enchantments.get( enchantment ) );
-            }
+        }
+
         if ( displayName != null )
             meta.setDisplayName( Chat.translate( displayName) );
         if ( !lore.isEmpty() )
@@ -235,7 +241,7 @@ public class ItemBuilder {
             meta.setCustomModelData( customModelData );
         if ( !flags.isEmpty() )
         {
-            for (ItemFlag f : flags )
+            for ( ItemFlag f : flags )
             {
                 meta.addItemFlags( f );
             }

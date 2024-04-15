@@ -25,7 +25,7 @@ public class CustomGeneration {
     public static void generateRandomChunks( Player player, Material suitable, int bounds )
     {
         World world = player.getWorld();
-        Random random = new Random();
+        Random random = Infinitum.getInstance().getRandomGenerator();
 
         if ( bounds == 0 )
             bounds = 125;

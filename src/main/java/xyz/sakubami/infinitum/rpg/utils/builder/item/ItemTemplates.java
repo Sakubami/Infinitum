@@ -7,6 +7,7 @@ import xyz.sakubami.infinitum.rpg.world.functionality.items.components.ItemCateg
 import xyz.sakubami.infinitum.rpg.world.functionality.items.components.ItemClass;
 import xyz.sakubami.infinitum.rpg.world.functionality.items.components.ItemTier;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public enum ItemTemplates
@@ -91,6 +92,7 @@ public enum ItemTemplates
     public String getLore() { return lore; }
     public ItemTier getTier() { return itemTier; }
     public HashMap<Attribute, Integer> getAttributes() { return attributes.getAttributes(); }
+    public ArrayList< String > getLoreAttributes() { return attributes.getLoreAttributes(); }
     public ItemClass getItemClass() { return itemClass; }
     public ItemCategory getItemCategory() { return itemCategory; }
 }
