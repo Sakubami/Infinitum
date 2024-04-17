@@ -2,35 +2,26 @@ package xyz.sakubami.infinitum.rpg.world.entities.loot;
 
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.inventory.ItemStack;
+import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.rpg.utils.builder.item.ItemBuilder;
+import xyz.sakubami.infinitum.rpg.world.functionality.items.components.CustomItem;
 
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.Map;
 
 public class LootController{
 
-    public void generateItem( Location location, CustomLoot loot )
+    public void generateItem( Location location, CustomItem item )
     {
         World world = location.getWorld();
-        int random = new Random().nextInt( 100 );
-
-        int chance = loot.getChance();
-        ItemStack newLoot = new ItemBuilder( loot.getItem() ).setGlowing().build();
-
-        if ( random < chance )
-        {
-            world.dropItemNaturally( location, newLoot );
-        }
+        world.dropItemNaturally( location, new ItemBuilder( item ).setGlowing().build() );
     }
 
     public void generateLoot( Location location, CustomLootTable lootTable )
     {
-        ArrayList< CustomLoot > contents = lootTable.getLootTable();
+        Map< CustomItem, Integer > contents = lootTable.get();
 
-        for ( CustomLoot item : contents )
-        {
-            generateItem( location, item );
-        }
+        for ( CustomItem item : contents.keySet() )
+            if ( contents.get( item ) > Infinitum.getInstance().getRandomGenerator().nextInt( 100 ) )
+                generateItem( location, item );
     }
 }

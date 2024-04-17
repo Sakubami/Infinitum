@@ -26,7 +26,6 @@ public class Attack {
     private final EntityMask damager;
     private final ArrayList< EntityMask > receivers = new ArrayList<>();
     private boolean doCritical = true;
-
     private final EntityMath entityMath = new EntityMath();
     private final EntityConnector connector = EntityConnector.get();
     private final NBTUtils nbt = new NBTUtils();
@@ -138,7 +137,6 @@ public class Attack {
 
         boolean critical = true;
 
-
         if ( criticalChance < Infinitum.getInstance().getRandomGenerator().nextInt( 100 ) || !doCritical )
         {
             critical = false;
@@ -152,7 +150,6 @@ public class Attack {
             new EntityControl( receiver )
                     .damage( finalDamage )
                     .queue();
-
             builderUtils.createDamageTag( critical, finalDamage, receiver.getEntity().getWorld(), receiver.getEntity().getLocation() );
             Infinitum.getInstance().getServer().broadcastMessage( "damage done= " + finalDamage );
         }

@@ -1,16 +1,12 @@
-package xyz.sakubami.infinitum.rpg.utils.builder.item;
+package xyz.sakubami.infinitum.rpg.world.functionality.items.components;
 
 import org.bukkit.Material;
 import xyz.sakubami.infinitum.rpg.world.functionality.Attribute;
-import xyz.sakubami.infinitum.rpg.world.functionality.items.components.ItemAttributes;
-import xyz.sakubami.infinitum.rpg.world.functionality.items.components.ItemCategory;
-import xyz.sakubami.infinitum.rpg.world.functionality.items.components.ItemClass;
-import xyz.sakubami.infinitum.rpg.world.functionality.items.components.ItemTier;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public enum ItemTemplates
+public enum CustomItem
 {
     NULL(
             Material.POPPED_CHORUS_FRUIT,
@@ -76,7 +72,7 @@ public enum ItemTemplates
     private final ItemClass itemClass;
     private final ItemCategory itemCategory;
 
-    ItemTemplates( Material material, ItemCategory itemCategory, ItemAttributes attributes, ItemTier itemTier, String name, String lore )
+    CustomItem(Material material, ItemCategory itemCategory, ItemAttributes attributes, ItemTier itemTier, String name, String lore )
     {
         this.material = material;
         this.name = name;

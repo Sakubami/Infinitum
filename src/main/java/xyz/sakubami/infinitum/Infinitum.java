@@ -1,5 +1,6 @@
 package xyz.sakubami.infinitum;
 
+import net.minecraft.world.item.ItemCooldowns;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.sakubami.infinitum.rpg.listeners.*;
@@ -21,6 +22,7 @@ public class Infinitum extends JavaPlugin {
     private EntityConnector entityConnector;
     private Random random;
     private CustomEntityBuilderUtils builderUtils;
+    private ItemCooldowns vanillaCoolDowns;
 
     public void onEnable() {
         instance = this;
@@ -39,6 +41,7 @@ public class Infinitum extends JavaPlugin {
         this.entityConnector = new EntityConnector();
         this.random = new Random();
         this.builderUtils = new CustomEntityBuilderUtils();
+        this.vanillaCoolDowns = new ItemCooldowns();
 
         // register stuff
 
@@ -53,16 +56,11 @@ public class Infinitum extends JavaPlugin {
     }
 
     public static Infinitum getInstance() { return instance; }
-
     public LocationConfig getLocationConfig() { return locationConfig; }
-
     public RecipeConfig getRecipeConfig() { return recipeConfig; }
-
     public Crafting getCrafting() { return crafting; }
-
     public EntityConnector getEntityConnector() { return entityConnector; }
-
     public Random getRandomGenerator() { return random; }
-
     public CustomEntityBuilderUtils getBuilderUtils() { return builderUtils; }
+    public ItemCooldowns getVanillaCoolDowns() { return vanillaCoolDowns; }
 }

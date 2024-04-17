@@ -7,6 +7,7 @@ import xyz.sakubami.infinitum.rpg.world.functionality.Attribute;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 public abstract class CustomEnchantment {
 
@@ -40,7 +41,7 @@ public abstract class CustomEnchantment {
         return enchants.get( id ) != null ;
     }
 
-    public void run() {}
+    public void run( UUID uuid ) {}
 
     public int getMinLevel() {
         return 1;

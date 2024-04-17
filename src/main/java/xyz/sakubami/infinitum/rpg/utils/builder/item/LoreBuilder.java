@@ -2,6 +2,7 @@ package xyz.sakubami.infinitum.rpg.utils.builder.item;
 
 import xyz.sakubami.infinitum.rpg.utils.NBTUtils;
 import xyz.sakubami.infinitum.rpg.world.functionality.Attribute;
+import xyz.sakubami.infinitum.rpg.world.functionality.items.components.CustomItem;
 import xyz.sakubami.infinitum.rpg.world.functionality.items.components.ItemTier;
 
 import java.util.ArrayList;
@@ -13,11 +14,11 @@ public class LoreBuilder {
 
     private final List<String> lore = new ArrayList<>();
     private List<String> description = new ArrayList<>();
-    private final ItemTemplates item;
+    private final CustomItem item;
     private boolean addAttributes = true;
     private final ItemTier itemTier;
 
-    public LoreBuilder( ItemTemplates item )
+    public LoreBuilder( CustomItem item )
     {
         this.item = item;
         this.itemTier = item.getTier();

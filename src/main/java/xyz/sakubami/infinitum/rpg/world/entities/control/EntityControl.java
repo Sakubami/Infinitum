@@ -9,6 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.rpg.utils.builder.mob.CustomEntityBuilderUtils;
 import xyz.sakubami.infinitum.rpg.utils.math.MathUtils;
+import xyz.sakubami.infinitum.rpg.world.entities.loot.LootController;
 import xyz.sakubami.infinitum.rpg.world.entities.player.skills.ExperienceType;
 import xyz.sakubami.infinitum.rpg.world.functionality.Attribute;
 
@@ -16,6 +17,7 @@ import java.util.HashMap;
 
 public class EntityControl {
 
+    private final LootController lootController = new LootController();
     private final EntityMask entityMask;
     private final MathUtils mathUtils = new MathUtils();
     private final EntityConnector connector = EntityConnector.get();
@@ -82,7 +84,10 @@ public class EntityControl {
                 updateHealthDisplay( 0 );
                 entityMask.getEntity().setHealth( 0 );
                 if ( customType.equals( CustomType.MOB ) )
+                {
+                    lootController.generateLoot( entityMask.getEntity().getLocation(), entityMask.getLootTable() );
                     queue.put( entityMask, true );
+                }
                 else
                     queue.put( entityMask, false );
             }, 1 );

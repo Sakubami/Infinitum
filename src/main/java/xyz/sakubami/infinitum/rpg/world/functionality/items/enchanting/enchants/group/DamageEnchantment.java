@@ -4,6 +4,8 @@ import xyz.sakubami.infinitum.rpg.world.functionality.items.enchanting.CustomEnc
 import xyz.sakubami.infinitum.rpg.world.functionality.items.enchanting.EnchantmentCategory;
 import xyz.sakubami.infinitum.rpg.world.functionality.spells.Element;
 
+import java.util.UUID;
+
 public class DamageEnchantment extends CustomEnchantment {
 
     private final Element element;
@@ -33,7 +35,7 @@ public class DamageEnchantment extends CustomEnchantment {
     }
 
     @Override
-    public void run()
+    public void run( UUID uuid )
     {
 
     }

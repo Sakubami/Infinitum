@@ -2,6 +2,7 @@ package xyz.sakubami.infinitum.rpg.listeners;
 
 import net.leonardo_dgs.interactivebooks.IBook;
 import net.leonardo_dgs.interactivebooks.InteractiveBooks;
+import net.minecraft.world.item.Item;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -14,7 +15,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import xyz.sakubami.infinitum.Infinitum;
-import xyz.sakubami.infinitum.external.chat.ChatAdapter;
 import xyz.sakubami.infinitum.rpg.utils.InteractHelper;
 import xyz.sakubami.infinitum.rpg.utils.builder.mob.CustomEntityBuilder;
 import xyz.sakubami.infinitum.rpg.utils.worldedit.InfinitumSchematic;
@@ -63,16 +63,16 @@ public class Interact implements Listener {
             player.sendMessage( "testing" );
             for ( int i = 0; i < 10; i++ )
                 new EntityControl( new CustomEntityBuilder( EntityType.ZOMBIE, player.getWorld(), player.getLocation() )
-                        .health( 250000 )
-                        .maxHealth( 250000 )
-                        .name( "§6Golden Ghoul")
-                        .build() )
+                            .health( 250000 )
+                            .maxHealth( 250000 )
+                            .name( "§6Golden Ghoul")
+                            .build() )
                         .equip( new ItemStack( Material.GOLDEN_CHESTPLATE ), EquipmentSlot.CHEST )
                         .equip( new ItemStack( Material.GOLDEN_LEGGINGS ), EquipmentSlot.LEGS )
                         .equip( new ItemStack( Material.GOLDEN_BOOTS ), EquipmentSlot.FEET )
                         .equip( new ItemStack( Material.GOLDEN_SWORD ), EquipmentSlot.HAND )
                         .queue();
-            Infinitum.getInstance().getServer().broadcastMessage( ChatAdapter.convert(  "test" ) );
+            Infinitum.getInstance().getVanillaCoolDowns().addCooldown( Item.byId( 0 ), 60 );
         }
 
         if ( helper.rightClickWithItem( e, e.getItem(), "INFINITA_SCIENTIA" ) )

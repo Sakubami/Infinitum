@@ -1,21 +1,31 @@
 package xyz.sakubami.infinitum.rpg.world.entities.loot;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import xyz.sakubami.infinitum.rpg.world.functionality.items.components.CustomItem;
 
-import static xyz.sakubami.infinitum.rpg.world.entities.loot.CustomLoot.*;
+import java.util.HashMap;
+import java.util.Map;
 
-public enum CustomLootTable
-{
-    ENDER_DRAGON( HEART_OF_THE_END, RUNE_OF_POWER ),
-    WITHER( END_CRYSTAL, INFINITA_SCIENTIA, NETHER_STAR );
+public enum CustomLootTable {
 
-    private final ArrayList<CustomLoot> contents = new ArrayList<>();
+    ENDER_DRAGON {
+        public Map< CustomItem, Integer > get() {
+            Map< CustomItem, Integer > lootTable = new HashMap<>();
+            lootTable.put( CustomItem.RUNE_OF_POWER, 50 );
+            lootTable.put( CustomItem.HEART_OF_THE_END, 10 );
+            return lootTable;
+        }
+    },
+    WITHER {
+        public Map< CustomItem, Integer > get() {
+            Map< CustomItem, Integer > lootTable = new HashMap<>();
+            lootTable.put( CustomItem.END_CRYSTAL, 100 );
+            lootTable.put( CustomItem.NETHER_STAR, 75 );
+            lootTable.put( CustomItem.INFINITA_SCIENTIA, 100 );
+            return lootTable;
+        }
+    };
 
-    CustomLootTable( CustomLoot... loot )
-    {
-        this.contents.addAll( Arrays.asList( loot ) );
-    }
+    CustomLootTable() {}
 
-    public ArrayList<CustomLoot> getLootTable() { return contents; }
+    public abstract Map< CustomItem, Integer > get();
 }

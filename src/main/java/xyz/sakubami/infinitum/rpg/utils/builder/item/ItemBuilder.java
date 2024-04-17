@@ -13,6 +13,7 @@ import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.rpg.utils.Chat;
 import xyz.sakubami.infinitum.rpg.utils.NBTUtils;
 import xyz.sakubami.infinitum.rpg.world.functionality.Attribute;
+import xyz.sakubami.infinitum.rpg.world.functionality.items.components.CustomItem;
 import xyz.sakubami.infinitum.rpg.world.functionality.items.components.ItemTier;
 import xyz.sakubami.infinitum.rpg.world.functionality.items.enchanting.CustomEnchantment;
 
@@ -85,7 +86,7 @@ public class ItemBuilder {
         this.enchantments = nbt.getItemEnchantments( item );
     }
 
-    public ItemBuilder( ItemTemplates item ) {
+    public ItemBuilder( CustomItem item ) {
         this.item = new ItemStack( item.getMaterial() );
         this.meta = Bukkit.getItemFactory().getItemMeta( item.getMaterial() );
         this.material = item.getMaterial();
