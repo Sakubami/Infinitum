@@ -6,7 +6,6 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.inventory.ItemStack;
 import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.external.chat.ChatAdapter;
 import xyz.sakubami.infinitum.rpg.utils.NBTUtils;
@@ -16,9 +15,12 @@ import xyz.sakubami.infinitum.rpg.world.entities.control.EntityConnector;
 import xyz.sakubami.infinitum.rpg.world.entities.control.EntityManipulator;
 import xyz.sakubami.infinitum.rpg.world.entities.control.EntityMask;
 import xyz.sakubami.infinitum.rpg.world.functionality.Attribute;
+import xyz.sakubami.infinitum.rpg.world.functionality.items.control.ItemArchive;
+import xyz.sakubami.infinitum.rpg.world.functionality.items.control.ItemMask;
 import xyz.sakubami.infinitum.rpg.world.functionality.items.enchanting.EnchantmentManager;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 
 public class Attack {
@@ -32,6 +34,7 @@ public class Attack {
     private final NBTUtils nbt = new NBTUtils();
     private final CustomEntityBuilderUtils builderUtils = CustomEntityBuilderUtils.get();
     private final EnchantmentManager enchantmentManager = new EnchantmentManager();
+    private final ItemArchive archive = ItemArchive.get();
 
     // USAGE who = false == received, true == dealt
 
@@ -116,28 +119,24 @@ public class Attack {
         int additive = 1;
         int multiplicative = 1;
 
-        ItemStack itemStack = damager.getEntity().getEquipment().getItemInMainHand();
+        ItemMask itemMask = archive.get( UUID.fromString( nbt.getItemNBTString( damager.getEntity().getEquipment().getItemInMainHand(), "UUID" ) ) );
+        if ( !itemMask.getEnchantments().isEmpty() )
+            enchantmentManager.runEnchants( itemMask, damager.getUuid() );
 
-        if ( nbt.checkForItemEnchantments( itemStack ) )
-            enchantmentManager.runEnchants( itemStack, damager.getUuid() );
-
-        if ( !itemStack.getType().equals( Material.AIR ) )
+        if ( !itemMask.getItem().getType().equals( Material.AIR ) )
         {
-            if ( !nbt.getItemNBTTags( itemStack ).isEmpty() )
-            {
-                if ( nbt.getItemNBTString( itemStack, "ATTRIBUTE_DAMAGE" ) != null )
-                    raw += weaponDamage = nbt.getItemNBTInt( itemStack, "ATTRIBUTE_DAMAGE" );
-                if ( nbt.getItemNBTString( itemStack, "ATTRIBUTE_ADDITIVE" ) != null )
-                    additive += nbt.getItemNBTInt( itemStack, "ATTRIBUTE_ADDITIVE" );
-                if ( nbt.getItemNBTString( itemStack, "ATTRIBUTE_MULTIPLICATIVE" ) != null )
-                    multiplicative += nbt.getItemNBTInt( itemStack, "ATTRIBUTE_MULTIPLICATIVE" );
-                if ( nbt.getItemNBTString( itemStack, "ATTRIBUTE_STRENGTH" ) != null )
-                    strength += weaponStrength = nbt.getItemNBTInt( itemStack, "ATTRIBUTE_STRENGTH" );
-                if ( nbt.getItemNBTString( itemStack, "ATTRIBUTE_CRITICAL_DAMAGE" ) != null )
-                    criticalDamage += weaponCriticalDamage = nbt.getItemNBTInt( itemStack, "ATTRIBUTE_CRITICAL_DAMAGE" );
-                if ( nbt.getItemNBTString( itemStack, "ATTRIBUTE_CRITICAL_CHANCE" ) != null )
-                    criticalChance += criticalChance = nbt.getItemNBTInt( itemStack, "ATTRIBUTE_CRITICAL_CHANCE" );
-            }
+            if ( itemMask.getAttributes().get( Attribute.DAMAGE ) != 0 )
+                raw += weaponDamage = itemMask.getAttributes().get( Attribute.DAMAGE );
+            if ( itemMask.getAttributes().get( Attribute.ADDITIVE ) != 0 )
+                additive += itemMask.getAttributes().get( Attribute.ADDITIVE );
+            if ( itemMask.getAttributes().get( Attribute.MULTIPLICATIVE ) != 0 )
+                multiplicative += itemMask.getAttributes().get( Attribute.MULTIPLICATIVE );
+            if ( itemMask.getAttributes().get( Attribute.STRENGTH ) != 0 )
+                strength += itemMask.getAttributes().get( Attribute.STRENGTH );
+            if ( itemMask.getAttributes().get( Attribute.CRITICAL_DAMAGE ) != 0 )
+                criticalDamage += itemMask.getAttributes().get( Attribute.CRITICAL_DAMAGE );
+            if ( itemMask.getAttributes().get( Attribute.CRITICAL_CHANCE ) != 0 )
+                criticalChance += itemMask.getAttributes().get( Attribute.CRITICAL_CHANCE );
         }
 
         boolean critical = true;

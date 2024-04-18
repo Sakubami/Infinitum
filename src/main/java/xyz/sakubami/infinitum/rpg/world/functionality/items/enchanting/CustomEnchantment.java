@@ -65,6 +65,8 @@ public abstract class CustomEnchantment {
 
     public boolean canEnchant( ItemStack itemStack ) { return categories.stream().anyMatch( category -> category.canEnchant( itemStack ) ); }
 
+    public boolean conflictsWith( CustomEnchantment customEnchantment ) { return false; }
+
     public static void registerEnchantment( NamespacedKey id, CustomEnchantment customEnchantment ) {
         if ( !enchants.containsKey( id ) )
         {

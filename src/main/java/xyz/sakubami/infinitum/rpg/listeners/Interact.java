@@ -92,11 +92,14 @@ public class Interact implements Listener {
         if ( helper.rightClickBlock( e, Material.NETHERITE_BLOCK ) )
         {
             new ItemManipulator( e.getItem(), e.getPlayer() )
+                    .addEnchant( EnchantmentLibrary.ATTRIBUTE_CRITICAL_DAMAGE, 10 )
                     .addEnchant( EnchantmentLibrary.ATTRIBUTE_STRENGTH, 10 )
                     .addEnchant( EnchantmentLibrary.DAMAGE_ALL, 10 )
-                    .addEnchant( EnchantmentLibrary.ATTRIBUTE_CRITICAL_DAMAGE, 10 )
                     .addEnchant( EnchantmentLibrary.DAMAGE_UNDEAD, 10 )
                     .addEnchant( EnchantmentLibrary.DAMAGE_ARACHNID, 10 )
+                    .addEnchant( EnchantmentLibrary.PROTECTION_ALL, 10 )
+                    .addEnchant( EnchantmentLibrary.PROTECTION_UNDEAD, 10 )
+                    .addEnchant( EnchantmentLibrary.PROTECTION_ARACHNID, 10 )
                     .queue();
             Infinitum.getInstance().getServer().broadcastMessage( " clicked lol " );
         }

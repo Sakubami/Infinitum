@@ -1,9 +1,8 @@
 package xyz.sakubami.infinitum.rpg.world.functionality.items.enchanting;
 
 import org.bukkit.NamespacedKey;
-import org.bukkit.inventory.ItemStack;
 import xyz.sakubami.infinitum.Infinitum;
-import xyz.sakubami.infinitum.rpg.utils.NBTUtils;
+import xyz.sakubami.infinitum.rpg.world.functionality.items.control.ItemMask;
 
 import java.util.UUID;
 
@@ -20,27 +19,25 @@ public class EnchantmentManager {
         return customEnchantment;
     }
 
-    private final NBTUtils nbt = new NBTUtils();
-
-    public void runEnchants( ItemStack itemStack, UUID uuid )
+    public void runEnchants( ItemMask itemMask, UUID uuid )
     {
-        for ( CustomEnchantment enchantment : nbt.getItemEnchantments( itemStack ).keySet() )
+        for ( CustomEnchantment enchantment : itemMask.getEnchantments().keySet() )
             enchantment.run( uuid );
     }
 
-    public int getAdditiveBonuses( ItemStack itemStack )
+    public int getAdditiveBonuses( ItemMask itemMask )
     {
         int value = 0;
-        for ( CustomEnchantment enchantment : nbt.getItemEnchantments( itemStack ).keySet() )
-            value += enchantment.getAdditiveBonus( nbt.getItemEnchantmentValue( itemStack, enchantment ) );
+        for ( CustomEnchantment enchantment : itemMask.getEnchantments().keySet() )
+            value += enchantment.getAdditiveBonus( itemMask.getEnchantments().get( enchantment ) );
         return value;
     }
 
-    public int getMultiplicativeBonuses( ItemStack itemStack )
+    public int getMultiplicativeBonuses( ItemMask itemMask )
     {
         int value = 0;
-        for ( CustomEnchantment enchantment : nbt.getItemEnchantments( itemStack ).keySet() )
-            value += enchantment.getAdditiveBonus( nbt.getItemEnchantmentValue( itemStack, enchantment ) );
+        for ( CustomEnchantment enchantment : itemMask.getEnchantments().keySet() )
+            value += enchantment.getMultiplicativeBonus( itemMask.getEnchantments().get( enchantment ) );
         return value;
     }
 }
