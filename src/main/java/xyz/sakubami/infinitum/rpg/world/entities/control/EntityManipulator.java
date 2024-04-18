@@ -15,7 +15,7 @@ import xyz.sakubami.infinitum.rpg.world.functionality.Attribute;
 
 import java.util.HashMap;
 
-public class EntityControl {
+public class EntityManipulator {
 
     private final LootController lootController = new LootController();
     private final EntityMask entityMask;
@@ -26,34 +26,34 @@ public class EntityControl {
     private final HashMap<Attribute, Integer> attributes;
     private final CustomEntityBuilderUtils builderUtils = CustomEntityBuilderUtils.get();
 
-    public EntityControl( EntityMask entityMask)
+    public EntityManipulator(EntityMask entityMask)
     {
         this.entityMask = entityMask;
         this.customType = entityMask.getCustomType();
         this.attributes = entityMask.getMasked();
     }
 
-    public EntityControl( LivingEntity entity )
+    public EntityManipulator(LivingEntity entity )
     {
         this.entityMask = connector.get( entity );
         this.customType = entityMask.getCustomType();
         this.attributes = entityMask.getMasked();
     }
 
-    public EntityControl teleport( Location location )
+    public EntityManipulator teleport(Location location )
     {
         entityMask.getEntity().teleport( location );
         return this;
     }
 
-    public EntityControl attribute( Attribute attribute, int v )
+    public EntityManipulator attribute(Attribute attribute, int v )
     {
         entityMask.getMasked().put( attribute, v );
         queue.put( entityMask, false );
         return this;
     }
 
-    public EntityControl equip( ItemStack itemStack, EquipmentSlot slot )
+    public EntityManipulator equip(ItemStack itemStack, EquipmentSlot slot )
     {
         LivingEntity entity = entityMask.getEntity();
         if ( slot.equals( EquipmentSlot.HEAD ) )
@@ -71,7 +71,7 @@ public class EntityControl {
         return this;
     }
 
-    public EntityControl damage( int raw )
+    public EntityManipulator damage(int raw )
     {
         int finalDef = ( attributes.get( Attribute.DEFENSE ) / 100 ) + 1;
         int damagedEHP = ( attributes.get( Attribute.HEALTH ) * finalDef ) - raw;
@@ -102,7 +102,7 @@ public class EntityControl {
         return this;
     }
 
-    public EntityControl kill()
+    public EntityManipulator kill()
     {
         Bukkit.getScheduler().runTaskLater( Infinitum.getInstance(),  () ->
         {
@@ -117,7 +117,7 @@ public class EntityControl {
         return this;
     }
 
-    public EntityControl heal( int v )
+    public EntityManipulator heal(int v )
     {
         int healing = attributes.get( Attribute.HEALTH ) + v;
         int max = attributes.get( Attribute.MAX_HEALTH );
@@ -155,7 +155,7 @@ public class EntityControl {
         }
     }
 
-    public EntityControl levelUp()
+    public EntityManipulator levelUp()
     {
         if ( customType.equals( CustomType.PLAYER ) )
         {
@@ -165,7 +165,7 @@ public class EntityControl {
         return this;
     }
 
-    public EntityControl addExperience( ExperienceType type, int exp )
+    public EntityManipulator addExperience(ExperienceType type, int exp )
     {
         if ( customType.equals( CustomType.PLAYER ) )
         {
@@ -175,7 +175,7 @@ public class EntityControl {
         return this;
     }
 
-    public EntityControl setExperience( ExperienceType type, int exp )
+    public EntityManipulator setExperience(ExperienceType type, int exp )
     {
         if ( customType.equals( CustomType.PLAYER ) )
         {

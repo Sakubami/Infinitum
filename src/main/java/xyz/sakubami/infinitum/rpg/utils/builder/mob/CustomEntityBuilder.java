@@ -11,6 +11,7 @@ import xyz.sakubami.infinitum.rpg.utils.NBTUtils;
 import xyz.sakubami.infinitum.rpg.world.entities.control.CustomType;
 import xyz.sakubami.infinitum.rpg.world.entities.control.EntityConnector;
 import xyz.sakubami.infinitum.rpg.world.entities.control.EntityMask;
+import xyz.sakubami.infinitum.rpg.world.entities.loot.CustomLootTable;
 import xyz.sakubami.infinitum.rpg.world.functionality.Attribute;
 
 import java.util.HashMap;
@@ -22,11 +23,12 @@ public class CustomEntityBuilder {
     private final HashMap< Attribute, Integer > attributes = new HashMap<>();
     private final Location location;
     private String placeHolderName;
+    private CustomLootTable lootTable;
     private LivingEntity entity;
     private String nameReplacement = "DEFAULT";
     private int health = 100000;
     private int max_health = 100000;
-    private String name = "§c" + WordUtils.capitalizeFully( "DEFAULT" ) + ChatColor.of( "#18ff03" ) + " " + 100 + "§f/" +  ChatColor.of( "#18ff03" ) + 100 + "§7hp";
+    private String oldName = "§c" + WordUtils.capitalizeFully( "DEFAULT" ) + ChatColor.of( "#18ff03" ) + " " + 100 + "§f/" +  ChatColor.of( "#18ff03" ) + 100 + "§7hp";
 
     // spawn at default location but teleport to desired location afterwards
 
@@ -103,6 +105,12 @@ public class CustomEntityBuilder {
         return this;
     }
 
+    public CustomEntityBuilder assignLootTable( CustomLootTable v )
+    {
+        this.lootTable = v;
+        return this;
+    }
+
     public CustomEntityBuilder antiKB()
     {
         entity.getAttribute( org.bukkit.attribute.Attribute.GENERIC_KNOCKBACK_RESISTANCE ).setBaseValue( 1.0 );
@@ -118,7 +126,7 @@ public class CustomEntityBuilder {
         entity.setCustomName( "§c" + nameReplacement + ChatColor.of( "#18ff03" ) + " " + health + "§f/" +  ChatColor.of( "#18ff03" ) + max_health + " §c❤" );
         entity.setCustomNameVisible( true );
 
-        EntityMask mask = new EntityMask( nameReplacement, entity, CustomType.MOB, 0, null, null, attributes );
+        EntityMask mask = new EntityMask( nameReplacement, entity, CustomType.MOB, 0, null, null, attributes, lootTable );
         connector.add( mask );
         return mask;
     }

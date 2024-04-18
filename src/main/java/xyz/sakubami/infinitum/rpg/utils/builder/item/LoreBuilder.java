@@ -1,27 +1,52 @@
 package xyz.sakubami.infinitum.rpg.utils.builder.item;
 
-import xyz.sakubami.infinitum.rpg.utils.NBTUtils;
 import xyz.sakubami.infinitum.rpg.world.functionality.Attribute;
-import xyz.sakubami.infinitum.rpg.world.functionality.items.components.CustomItem;
+import xyz.sakubami.infinitum.rpg.world.functionality.items.components.CustomItemTemplate;
+import xyz.sakubami.infinitum.rpg.world.functionality.items.components.ItemCategory;
+import xyz.sakubami.infinitum.rpg.world.functionality.items.components.ItemClass;
 import xyz.sakubami.infinitum.rpg.world.functionality.items.components.ItemTier;
+import xyz.sakubami.infinitum.rpg.world.functionality.items.control.ItemMask;
+import xyz.sakubami.infinitum.rpg.world.functionality.items.enchanting.CustomEnchantment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class LoreBuilder {
-
-    NBTUtils nbt = new NBTUtils();
-
-    private final List<String> lore = new ArrayList<>();
-    private List<String> description = new ArrayList<>();
-    private final CustomItem item;
+    private final List< String > newLore = new ArrayList<>();
+    private List< String > description = new ArrayList<>();
+    private final String oldLore;
+    private final ItemCategory itemCategory;
+    private String enchantments;
+    private final ItemClass itemClass;
+    private final List< String > loreAttributes;
     private boolean addAttributes = true;
     private final ItemTier itemTier;
 
-    public LoreBuilder( CustomItem item )
+    public LoreBuilder( CustomItemTemplate item )
     {
-        this.item = item;
+        this.itemCategory = item.getItemCategory();
+        this.oldLore = item.getLore();
+        this.itemClass = item.getItemClass();
         this.itemTier = item.getTier();
+        this.loreAttributes = convertAttributes( item.getAttributes() );
+    }
+
+    // rework with new item library and maybe add item masks like entity masks to get the attributes n shit for update purposes
+
+    public LoreBuilder( ItemMask item )
+    {
+        this.oldLore = item.getDescription();
+        this.itemTier = item.getTier();
+        this.itemCategory = item.getItemCategory();
+        this.itemClass = item.getItemClass();
+        this.loreAttributes = convertAttributes( item.getAttributes() );
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for ( CustomEnchantment enchantment : item.getEnchantments().keySet() ) {
+            stringBuilder.append ( enchantment.toString() ).append( "$" ).append( item.getEnchantments().get( enchantment ) ).append( " " );
+        }
+        this.enchantments = stringBuilder.toString();
     }
 
     public LoreBuilder toggleAttributes( boolean toggle )
@@ -32,9 +57,11 @@ public class LoreBuilder {
 
     public LoreBuilder addDescription( boolean toggle )
     {
-        String description = item.getLore();
-        List<String> list = new ArrayList<>();
-        String newDesc = description;
+        if ( !toggle )
+            return this;
+
+        List< String > list = new ArrayList<>();
+        String newDesc = oldLore;
 
         for ( int i = 0; true ; i++ )
         {
@@ -53,8 +80,7 @@ public class LoreBuilder {
 
         list.add( "§0" );
 
-        if ( toggle )
-            this.description = list;
+        this.description = list;
 
         return this;
     }
@@ -71,18 +97,16 @@ public class LoreBuilder {
 
     public List< String > build()
     {
-        if ( item.getLoreAttributes().isEmpty() )
+        if ( this.loreAttributes.isEmpty() )
             this.addAttributes = false;
 
         if ( addAttributes )
         {
             int temp = 0;
 
-            ArrayList< String > attributes = item.getLoreAttributes();
-
             String color = "§c";
 
-            for ( String string : attributes )
+            for ( String string : loreAttributes)
             {
                 String[] split = string.split( "/" );
                 int v = Integer.parseInt( split[ 1 ] );
@@ -95,33 +119,69 @@ public class LoreBuilder {
 
                 if ( v != 0 )
                 {
-                    this.lore.add( "§7" + attribute.getTranslation() + ": " + color + component );
+                    this.newLore.add( "§7" + attribute.getTranslation() + ": " + color + component );
                     temp += 1;
                     if ( temp >= 4 ) {
-                        this.lore.add( "§0" );
                         color = "§a";
                         temp = 0;
                     }
                 }
             }
         }
-        this.lore.add( "§0" );
+        this.newLore.add( "§0" );
+
+        if ( enchantments != null )
+        {
+            for ( int i = 0; true ; i++ )
+            {
+                if ( enchantments.length() > 38 )
+                {
+                    String split = enchantments.substring( 0, 38 ).strip();
+                    String remaining = enchantments.substring( 0, split.lastIndexOf( " " ) );
+                    newLore.add ( "§9" + remaining.replace("$", " ") );
+                    enchantments = enchantments.substring ( split.lastIndexOf( " " ) ).strip();
+                } else
+                {
+                    newLore.add( "§9" + enchantments.replace("$", " ").strip() );
+                    break;
+                }
+            }
+
+            this.newLore.add( "§0" );
+        }
 
         if ( !description.isEmpty() )
-            lore.addAll( description );
-
-        // enchants idk
+            newLore.addAll( description );
 
         //TODO change color if you can use it
 
         if ( addAttributes )
-            lore.add( "§a" + item.getItemClass().getTranslation() );
+            newLore.add( "§a" + itemClass.getTranslation() );
 
         // show how well it was crafted
 
+        newLore.add( "§f§lSTUFE " + itemTier.getColor() + "§l" + itemTier.name() + " §f§l" + itemCategory.getTranslation().toUpperCase() );
 
-        lore.add( "§f§lSTUFE " + itemTier.getColor() + "§l" + itemTier.name() + " §f§l" + item.getItemCategory().getTranslation() );
+        return this.newLore;
+    }
 
-        return this.lore;
+    private List< String > convertAttributes( Map< Attribute, Integer > attributes )
+    {
+        List< String > output = new ArrayList<>();
+        if ( attributes.get( Attribute.DAMAGE ) != 0 )
+            output.add( "DAMAGE" + "/" + attributes.get( Attribute.DAMAGE ) );
+        if ( attributes.get( Attribute.STRENGTH ) != 0 )
+            output.add( "STRENGTH" + "/" + attributes.get( Attribute.STRENGTH ) );
+        if ( attributes.get( Attribute.CRITICAL_CHANCE ) != 0 )
+            output.add( "CRITICAL_CHANCE" + "/" + attributes.get( Attribute.CRITICAL_CHANCE ) );
+        if ( attributes.get( Attribute.CRITICAL_DAMAGE ) != 0 )
+            output.add( "CRITICAL_DAMAGE" + "/" + attributes.get( Attribute.CRITICAL_DAMAGE ) );
+        if ( attributes.get( Attribute.HEALTH ) != 0 )
+            output.add( "HEALTH" + "/" + attributes.get( Attribute.HEALTH ) );
+        if ( attributes.get( Attribute.DEFENSE ) != 0 )
+            output.add( "DEFENSE" + "/" + attributes.get( Attribute.DEFENSE ) );
+        if ( attributes.get( Attribute.INTELLIGENCE ) != 0 )
+            output.add( "INTELLIGENCE" + "/" + attributes.get( Attribute.INTELLIGENCE ) );
+        return output;
     }
 }

@@ -1,18 +1,16 @@
 package xyz.sakubami.infinitum.rpg.listeners;
 
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
-import xyz.sakubami.infinitum.rpg.world.entities.loot.CustomLootTable;
-import xyz.sakubami.infinitum.rpg.world.entities.loot.LootController;
+import xyz.sakubami.infinitum.rpg.utils.NBTUtils;
 import xyz.sakubami.infinitum.rpg.world.entities.player.skills.combat.CombatExperience;
 
 public class EntityKill implements Listener {
 
-    LootController lootController = new LootController();
+    NBTUtils nbt = new NBTUtils();
 
     @EventHandler
     public void onEntityDeath( EntityDeathEvent e )
@@ -26,15 +24,9 @@ public class EntityKill implements Listener {
             combatExperience.gainExperience( player.getUniqueId(), entity );
         }
 
-        if ( entity.getType().equals( EntityType.ENDER_DRAGON ) )
+        if ( nbt.checkForEntityNBTData( e.getEntity() ) )
         {
-            lootController.generateLoot( entity.getLocation(), CustomLootTable.ENDER_DRAGON );
-        }
-
-        if ( entity.getType().equals( EntityType.WITHER ) )
-        {
-            e.getDrops().set( 0 , null );
-            lootController.generateLoot( entity.getLocation(), CustomLootTable.WITHER );
+            e.getDrops().clear();
         }
     }
 }

@@ -6,7 +6,6 @@ import org.bukkit.World;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import xyz.sakubami.infinitum.Infinitum;
-import xyz.sakubami.infinitum.external.chat.ChatAdapter;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -18,6 +17,12 @@ public class CustomEntityBuilderUtils {
     public CustomEntityBuilderUtils()
     {
         colorList = new ArrayList<>();
+        colorList.add( "§f");
+        colorList.add( "§f");
+        colorList.add( "§e");
+        colorList.add( "§6");
+        colorList.add( "§c");
+        colorList.add( "§c");
         colorList.add( "§f");
         colorList.add( "§f");
         colorList.add( "§e");
@@ -54,7 +59,6 @@ public class CustomEntityBuilderUtils {
 
             for ( char character : uncolored.toCharArray() )
             {
-                Infinitum.getInstance().getServer().broadcastMessage( ChatAdapter.convert(  "stringbuilder debug weil er ein hurensohn ist abc toll ja sehr gut AAAAAAAAAAA" ) );
                 criticalString.append( colorList.get( i ) ).append( character );
                 i++;
             }

@@ -1,5 +1,6 @@
 package xyz.sakubami.infinitum.rpg.world.functionality.items.enchanting.enchants.group;
 
+import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.rpg.world.functionality.items.enchanting.CustomEnchantment;
 import xyz.sakubami.infinitum.rpg.world.functionality.items.enchanting.EnchantmentCategory;
 import xyz.sakubami.infinitum.rpg.world.functionality.spells.Element;
@@ -37,6 +38,6 @@ public class DamageEnchantment extends CustomEnchantment {
     @Override
     public void run( UUID uuid )
     {
-
+        Infinitum.getInstance().getServer().broadcastMessage( "FOUND ENCHANTMENT ALL_DAMAGE ");
     }
 }

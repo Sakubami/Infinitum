@@ -1,10 +1,11 @@
 package xyz.sakubami.infinitum.rpg.world.functionality.items.enchanting;
 
 import org.bukkit.NamespacedKey;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.rpg.utils.NBTUtils;
+
+import java.util.UUID;
 
 public class EnchantmentManager {
 
@@ -21,18 +22,25 @@ public class EnchantmentManager {
 
     private final NBTUtils nbt = new NBTUtils();
 
-    public void runEnchants( ItemStack itemStack )
+    public void runEnchants( ItemStack itemStack, UUID uuid )
     {
         for ( CustomEnchantment enchantment : nbt.getItemEnchantments( itemStack ).keySet() )
-            enchantment.run();
-        Enchantment a = Enchantment.DURABILITY;
+            enchantment.run( uuid );
     }
 
     public int getAdditiveBonuses( ItemStack itemStack )
     {
         int value = 0;
         for ( CustomEnchantment enchantment : nbt.getItemEnchantments( itemStack ).keySet() )
-            value += enchantment.getAdditiveBonus( 1 );
+            value += enchantment.getAdditiveBonus( nbt.getItemEnchantmentValue( itemStack, enchantment ) );
+        return value;
+    }
+
+    public int getMultiplicativeBonuses( ItemStack itemStack )
+    {
+        int value = 0;
+        for ( CustomEnchantment enchantment : nbt.getItemEnchantments( itemStack ).keySet() )
+            value += enchantment.getAdditiveBonus( nbt.getItemEnchantmentValue( itemStack, enchantment ) );
         return value;
     }
 }

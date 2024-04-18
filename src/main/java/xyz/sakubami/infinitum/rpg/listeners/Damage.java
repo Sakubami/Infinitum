@@ -12,7 +12,7 @@ import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.rpg.utils.InteractHelper;
 import xyz.sakubami.infinitum.rpg.utils.NBTUtils;
 import xyz.sakubami.infinitum.rpg.world.entities.control.EntityConnector;
-import xyz.sakubami.infinitum.rpg.world.entities.control.EntityControl;
+import xyz.sakubami.infinitum.rpg.world.entities.control.EntityManipulator;
 import xyz.sakubami.infinitum.rpg.world.functionality.damaging.Attack;
 
 public class Damage implements Listener {
@@ -27,7 +27,7 @@ public class Damage implements Listener {
         {
             LivingEntity entity = ( LivingEntity) e.getRightClicked();
 
-            new EntityControl( entity )
+            new EntityManipulator( entity )
                     .equip( new ItemStack( Material.DIAMOND_CHESTPLATE ), EquipmentSlot.CHEST )
                     .kill()
                     .queue();

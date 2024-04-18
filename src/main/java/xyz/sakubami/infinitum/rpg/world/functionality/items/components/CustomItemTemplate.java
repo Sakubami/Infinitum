@@ -3,10 +3,9 @@ package xyz.sakubami.infinitum.rpg.world.functionality.items.components;
 import org.bukkit.Material;
 import xyz.sakubami.infinitum.rpg.world.functionality.Attribute;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
-public enum CustomItem
+public enum CustomItemTemplate
 {
     NULL(
             Material.POPPED_CHORUS_FRUIT,
@@ -62,7 +61,15 @@ public enum CustomItem
             ItemAttributes.NONE,
             ItemTier.II,
             "Fragment der Realität",
-            "&7Stufe &6II" );
+            "&7Stufe &6II" ),
+
+    STICK_OF_GOD(
+            Material.BLAZE_ROD,
+            ItemCategory.WEAPON,
+            ItemAttributes.ADMIN,
+            ItemTier.V,
+            "§5§kA §cStab Gottes §5§kA",
+            "Nur wahre götter sind würdig diesen Stab zu schwingen" );
 
     private final Material material;
     private final String name;
@@ -72,7 +79,7 @@ public enum CustomItem
     private final ItemClass itemClass;
     private final ItemCategory itemCategory;
 
-    CustomItem(Material material, ItemCategory itemCategory, ItemAttributes attributes, ItemTier itemTier, String name, String lore )
+    CustomItemTemplate( Material material, ItemCategory itemCategory, ItemAttributes attributes, ItemTier itemTier, String name, String lore )
     {
         this.material = material;
         this.name = name;
@@ -88,7 +95,6 @@ public enum CustomItem
     public String getLore() { return lore; }
     public ItemTier getTier() { return itemTier; }
     public HashMap<Attribute, Integer> getAttributes() { return attributes.getAttributes(); }
-    public ArrayList< String > getLoreAttributes() { return attributes.getLoreAttributes(); }
     public ItemClass getItemClass() { return itemClass; }
     public ItemCategory getItemCategory() { return itemCategory; }
 }

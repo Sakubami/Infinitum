@@ -37,19 +37,18 @@ public class Combust implements Listener {
 
         if ( world.getBlockAt( location ).getType().equals( Material.LAVA_CAULDRON ) )
         {
-            String name;
+            String id;
             ItemStack item = ( ( Item ) e.getEntity() ).getItemStack();
-            if ( nbt.checkForItemID( item ) )
+            if ( nbt.isCustomItem( item ) )
             {
-                name = nbt.getItemID( item ) + "/" + item.getAmount();
+                id = nbt.getItemID( item ) + "/" + item.getAmount();
             } else
             {
-                name = item.getType().name() + "/" + item.getAmount();
+                id = item.getType().name() + "/" + item.getAmount();
             }
 
             world.playSound( location, Sound.ITEM_BUCKET_FILL_LAVA, 1 , 4 );
-
-            Crafting.get().queryCauldronCraft( location , name );
+            Crafting.get().queryCauldronCraft( location , id );
         }
     }
 

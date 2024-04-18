@@ -2,7 +2,6 @@ package xyz.sakubami.infinitum.rpg.listeners;
 
 import net.leonardo_dgs.interactivebooks.IBook;
 import net.leonardo_dgs.interactivebooks.InteractiveBooks;
-import net.minecraft.world.item.Item;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -16,12 +15,18 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.rpg.utils.InteractHelper;
+import xyz.sakubami.infinitum.rpg.utils.builder.item.ItemBuilder;
 import xyz.sakubami.infinitum.rpg.utils.builder.mob.CustomEntityBuilder;
 import xyz.sakubami.infinitum.rpg.utils.worldedit.InfinitumSchematic;
 import xyz.sakubami.infinitum.rpg.utils.worldedit.WorldEditHelper;
-import xyz.sakubami.infinitum.rpg.world.entities.control.EntityControl;
+import xyz.sakubami.infinitum.rpg.world.entities.control.EntityManipulator;
+import xyz.sakubami.infinitum.rpg.world.entities.loot.CustomLootTable;
+import xyz.sakubami.infinitum.rpg.world.functionality.Attribute;
 import xyz.sakubami.infinitum.rpg.world.functionality.crafting.Crafting;
 import xyz.sakubami.infinitum.rpg.world.functionality.crafting.stations.Primer;
+import xyz.sakubami.infinitum.rpg.world.functionality.items.components.CustomItemTemplate;
+import xyz.sakubami.infinitum.rpg.world.functionality.items.control.ItemManipulator;
+import xyz.sakubami.infinitum.rpg.world.functionality.items.enchanting.EnchantmentLibrary;
 
 public class Interact implements Listener {
 
@@ -62,17 +67,37 @@ public class Interact implements Listener {
         {
             player.sendMessage( "testing" );
             for ( int i = 0; i < 10; i++ )
-                new EntityControl( new CustomEntityBuilder( EntityType.ZOMBIE, player.getWorld(), player.getLocation() )
+                new EntityManipulator( new CustomEntityBuilder( EntityType.ZOMBIE, player.getWorld(), player.getLocation() )
                             .health( 250000 )
                             .maxHealth( 250000 )
                             .name( "§6Golden Ghoul")
+                            .assignLootTable( CustomLootTable.ENDER_DRAGON )
                             .build() )
                         .equip( new ItemStack( Material.GOLDEN_CHESTPLATE ), EquipmentSlot.CHEST )
                         .equip( new ItemStack( Material.GOLDEN_LEGGINGS ), EquipmentSlot.LEGS )
                         .equip( new ItemStack( Material.GOLDEN_BOOTS ), EquipmentSlot.FEET )
                         .equip( new ItemStack( Material.GOLDEN_SWORD ), EquipmentSlot.HAND )
                         .queue();
-            Infinitum.getInstance().getVanillaCoolDowns().addCooldown( Item.byId( 0 ), 60 );
+            // Infinitum.getInstance().getVanillaCoolDowns().addCooldown( Item.byId( 0 ), 60 );
+
+
+        }
+
+        if ( helper.rightClickBlock( e, Material.GOLD_BLOCK ) )
+        {
+            player.getInventory().setItemInMainHand( new ItemBuilder( CustomItemTemplate.STICK_OF_GOD )
+                    .enchant( EnchantmentLibrary.DAMAGE_ALL, 10 )
+                    .build()
+            );
+        }
+
+        if ( helper.rightClickBlock( e, Material.NETHERITE_BLOCK ) )
+        {
+            new ItemManipulator( e.getItem(), e.getPlayer() )
+                    .setAttribute( Attribute.STRENGTH, 1 )
+                    .addEnchant( EnchantmentLibrary.ATTRIBUTE_STRENGTH, 10 )
+                    .queue();
+            Infinitum.getInstance().getServer().broadcastMessage( " clicked lol " );
         }
 
         if ( helper.rightClickWithItem( e, e.getItem(), "INFINITA_SCIENTIA" ) )

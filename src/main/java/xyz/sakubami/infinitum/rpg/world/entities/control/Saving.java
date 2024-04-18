@@ -56,7 +56,7 @@ public class Saving {
         // save individual players to own config file each time remove the loop etc
 
         LivingEntity entity = ( LivingEntity ) Infinitum.getInstance().getServer().getEntity( uuid );
-        connector.add( new EntityMask( name, entity, CustomType.PLAYER,  level, skills, experience, attributes ) );
+        connector.add( new EntityMask( name, entity, CustomType.PLAYER,  level, skills, experience, attributes, null ) );
         return false;
     }
 
@@ -128,7 +128,7 @@ public class Saving {
 
         LivingEntity entity = ( LivingEntity ) Infinitum.getInstance().getServer().getEntity( uuid );
 
-        connector.add( new EntityMask( entity.getName(), entity, CustomType.PLAYER, 0 , skillTree, experience, attributes ) );
+        connector.add( new EntityMask( entity.getName(), entity, CustomType.PLAYER, 0 , skillTree, experience, attributes, null ) );
         saveToConfig( uuid );
     }
 }

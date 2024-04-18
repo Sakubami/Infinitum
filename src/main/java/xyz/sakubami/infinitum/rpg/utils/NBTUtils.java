@@ -8,6 +8,7 @@ import org.bukkit.persistence.PersistentDataType;
 import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.rpg.world.functionality.Attribute;
 import xyz.sakubami.infinitum.rpg.world.functionality.items.components.ItemCategory;
+import xyz.sakubami.infinitum.rpg.world.functionality.items.components.ItemTier;
 import xyz.sakubami.infinitum.rpg.world.functionality.items.components.ItemType;
 import xyz.sakubami.infinitum.rpg.world.functionality.items.enchanting.CustomEnchantment;
 
@@ -142,15 +143,15 @@ public class NBTUtils {
         return list;
     }
 
-    public Map<CustomEnchantment, Integer > getItemEnchantments( ItemStack item )
+    public Map< CustomEnchantment, Integer > getItemEnchantments( ItemStack item )
     {
         Map< CustomEnchantment, Integer > enchants = new HashMap<>();
         if ( getItemNBTString( item, "ENCHANTED" ) == null )
             return null;
         for ( NamespacedKey key : getItemNBTTags( item ).keySet() )
         {
-            if ( CustomEnchantment.contains( key ) )
-                return null;
+            if ( !CustomEnchantment.contains( key ) )
+                continue;
             int level = getItemNBTInt( item, key );
             enchants.put( CustomEnchantment.getByID( key ), level );
         }
@@ -185,7 +186,9 @@ public class NBTUtils {
 
     public boolean checkForEntityNBTData( LivingEntity entity ) { return !entity.getPersistentDataContainer().isEmpty(); }
 
-    public boolean checkForItemID( ItemStack item ) { return getItemNBTString( item, "ID") != null; }
+    public boolean checkForItemEnchantments( ItemStack item ) { return getItemNBTString( item, "ENCHANTED") != null; }
+
+    public boolean isCustomItem( ItemStack item ) { return getItemNBTString( item, "CUSTOM") != null; }
 
     public boolean isCustomEntity( LivingEntity entity ) { return getEntityNBTString( entity, "CUSTOM") != null; }
 
@@ -194,6 +197,8 @@ public class NBTUtils {
     public ItemCategory getItemCategory ( ItemStack itemStack ) { return ItemCategory.valueOf( getItemNBTString( itemStack, "CATEGORY" ) ); }
 
     public ItemType getItemType ( ItemStack itemStack ) { return ItemType.valueOf( getItemNBTString( itemStack, "TYPE" ) ); }
+
+    public ItemTier getItemTier ( ItemStack itemStack ) { return ItemTier.valueOf( getItemNBTString( itemStack, "TIER" ) ); }
 
     public int getItemEnchantmentValue ( ItemStack itemStack, CustomEnchantment enchantment ) { return getItemNBTInt( itemStack, CustomEnchantment.getID( enchantment ) ); }
 

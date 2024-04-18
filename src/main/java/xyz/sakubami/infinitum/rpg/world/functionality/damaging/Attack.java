@@ -13,9 +13,10 @@ import xyz.sakubami.infinitum.rpg.utils.NBTUtils;
 import xyz.sakubami.infinitum.rpg.utils.builder.mob.CustomEntityBuilderUtils;
 import xyz.sakubami.infinitum.rpg.utils.math.EntityMath;
 import xyz.sakubami.infinitum.rpg.world.entities.control.EntityConnector;
-import xyz.sakubami.infinitum.rpg.world.entities.control.EntityControl;
+import xyz.sakubami.infinitum.rpg.world.entities.control.EntityManipulator;
 import xyz.sakubami.infinitum.rpg.world.entities.control.EntityMask;
 import xyz.sakubami.infinitum.rpg.world.functionality.Attribute;
+import xyz.sakubami.infinitum.rpg.world.functionality.items.enchanting.EnchantmentManager;
 
 import java.util.ArrayList;
 
@@ -30,6 +31,7 @@ public class Attack {
     private final EntityConnector connector = EntityConnector.get();
     private final NBTUtils nbt = new NBTUtils();
     private final CustomEntityBuilderUtils builderUtils = CustomEntityBuilderUtils.get();
+    private final EnchantmentManager enchantmentManager = new EnchantmentManager();
 
     // USAGE who = false == received, true == dealt
 
@@ -116,6 +118,9 @@ public class Attack {
 
         ItemStack itemStack = damager.getEntity().getEquipment().getItemInMainHand();
 
+        if ( nbt.checkForItemEnchantments( itemStack ) )
+            enchantmentManager.runEnchants( itemStack, damager.getUuid() );
+
         if ( !itemStack.getType().equals( Material.AIR ) )
         {
             if ( !nbt.getItemNBTTags( itemStack ).isEmpty() )
@@ -147,7 +152,7 @@ public class Attack {
 
         for ( EntityMask receiver : receivers )
         {
-            new EntityControl( receiver )
+            new EntityManipulator( receiver )
                     .damage( finalDamage )
                     .queue();
             builderUtils.createDamageTag( critical, finalDamage, receiver.getEntity().getWorld(), receiver.getEntity().getLocation() );

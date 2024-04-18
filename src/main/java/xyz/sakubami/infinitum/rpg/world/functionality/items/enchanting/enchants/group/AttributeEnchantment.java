@@ -1,8 +1,11 @@
 package xyz.sakubami.infinitum.rpg.world.functionality.items.enchanting.enchants.group;
 
+import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.rpg.world.functionality.Attribute;
 import xyz.sakubami.infinitum.rpg.world.functionality.items.enchanting.CustomEnchantment;
 import xyz.sakubami.infinitum.rpg.world.functionality.items.enchanting.EnchantmentCategory;
+
+import java.util.UUID;
 
 public class AttributeEnchantment extends CustomEnchantment {
 
@@ -20,8 +23,8 @@ public class AttributeEnchantment extends CustomEnchantment {
     }
 
     @Override
-    public void run()
+    public void run( UUID uuid )
     {
-
+        Infinitum.getInstance().getServer().broadcastMessage( "FOUND ENCHANTMENT ATTRIBUTE LOLZ");
     }
 }

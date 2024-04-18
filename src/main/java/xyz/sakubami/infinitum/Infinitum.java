@@ -1,6 +1,5 @@
 package xyz.sakubami.infinitum;
 
-import net.minecraft.world.item.ItemCooldowns;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.sakubami.infinitum.rpg.listeners.*;
@@ -9,6 +8,7 @@ import xyz.sakubami.infinitum.rpg.world.entities.control.EntityConnector;
 import xyz.sakubami.infinitum.rpg.world.functionality.crafting.Crafting;
 import xyz.sakubami.infinitum.rpg.world.functionality.crafting.RecipeConfig;
 import xyz.sakubami.infinitum.rpg.world.functionality.crafting.stations.LocationConfig;
+import xyz.sakubami.infinitum.rpg.world.functionality.items.control.ItemArchive;
 
 import java.util.Random;
 
@@ -22,7 +22,8 @@ public class Infinitum extends JavaPlugin {
     private EntityConnector entityConnector;
     private Random random;
     private CustomEntityBuilderUtils builderUtils;
-    private ItemCooldowns vanillaCoolDowns;
+    private ItemArchive itemArchive;
+    // private ItemCooldowns vanillaCoolDowns;
 
     public void onEnable() {
         instance = this;
@@ -41,7 +42,8 @@ public class Infinitum extends JavaPlugin {
         this.entityConnector = new EntityConnector();
         this.random = new Random();
         this.builderUtils = new CustomEntityBuilderUtils();
-        this.vanillaCoolDowns = new ItemCooldowns();
+        this.itemArchive = new ItemArchive();
+        // this.vanillaCoolDowns = new ItemCooldowns();
 
         // register stuff
 
@@ -62,5 +64,6 @@ public class Infinitum extends JavaPlugin {
     public EntityConnector getEntityConnector() { return entityConnector; }
     public Random getRandomGenerator() { return random; }
     public CustomEntityBuilderUtils getBuilderUtils() { return builderUtils; }
-    public ItemCooldowns getVanillaCoolDowns() { return vanillaCoolDowns; }
+    public ItemArchive getItemArchive() { return itemArchive; }
+    // public ItemCooldowns getVanillaCoolDowns() { return vanillaCoolDowns; }
 }

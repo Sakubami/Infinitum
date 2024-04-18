@@ -4,7 +4,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.rpg.world.functionality.crafting.stations.Primer;
-import xyz.sakubami.infinitum.rpg.world.functionality.items.components.CustomItem;
+import xyz.sakubami.infinitum.rpg.world.functionality.items.components.CustomItemTemplate;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import java.util.List;
 
 public class RecipeConfig {
 
-    private record Recipe( List<String> items, Primer primer, CustomItem result ) { }
+    private record Recipe( List<String> items, Primer primer, CustomItemTemplate result ) { }
 
     private final String path = "plugins/Infinitum/Crafting/Recipes.yml";
 
@@ -24,7 +24,7 @@ public class RecipeConfig {
         loadRecipes();
     }
 
-    public CustomItem craftRecipe(List<String> list, Primer primer )
+    public CustomItemTemplate craftRecipe(List<String> list, Primer primer )
     {
         for ( Recipe recipe : recipes )
         {
@@ -42,7 +42,7 @@ public class RecipeConfig {
         saveRecipes();
     }
 
-    public void addRecipe( List< String > items, Primer primer, CustomItem result )
+    public void addRecipe( List< String > items, Primer primer, CustomItemTemplate result )
     {
         if ( !recipes.contains( new Recipe( items, primer, result ) ) )
         {
@@ -63,7 +63,7 @@ public class RecipeConfig {
 
             List< String > list = config.getStringList( "recipes." + i + ".items" );
             Primer primer = Primer.valueOf( config.getString("recipes." + i + ".primer" ) );
-            CustomItem result = CustomItem.valueOf( config.getString("recipes." + i + ".result" ) );
+            CustomItemTemplate result = CustomItemTemplate.valueOf( config.getString("recipes." + i + ".result" ) );
 
             recipes.add( new Recipe( list, primer, result ) );
         }
