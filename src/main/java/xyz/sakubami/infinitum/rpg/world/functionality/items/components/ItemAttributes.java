@@ -11,7 +11,9 @@ public enum ItemAttributes
     INFINITA_SCIENTIA(
             ItemClass.GENERIC, 0, -300,  100, 0, 0, 0, 0 ),
     ADMIN(
-            ItemClass.GENERIC, 1500, 1500,  100, 1500, 1500, 1500, 1500 );
+            ItemClass.GENERIC, 1500, 1500,  100, 1500, 1500, 1500, 1500 ),
+    HYPERION(
+            ItemClass.GENERIC, 300, 250,  50, 100, 0, 0, 450 );
 
     private final HashMap< Attribute, Integer > attributes = new HashMap<>();
 

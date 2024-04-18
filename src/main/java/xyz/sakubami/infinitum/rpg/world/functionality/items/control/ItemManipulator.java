@@ -17,6 +17,7 @@ public class ItemManipulator {
     private final HashMap< ItemMask, Boolean > queue = new HashMap<>();
     private Player player;
     private boolean destroy = false;
+    private boolean isGlowing = false;
 
     public ItemManipulator( ItemMask itemMask )
     {
@@ -55,7 +56,10 @@ public class ItemManipulator {
     public ItemManipulator addEnchant( CustomEnchantment enchantment, int v )
     {
         if ( !itemMask.getEnchantments().containsKey( enchantment ) )
+        {
             itemMask.getEnchantments().put( enchantment, v );
+            this.isGlowing = true;
+        }
         return this;
     }
 
@@ -97,7 +101,7 @@ public class ItemManipulator {
     public void queue()
     {
         if ( !destroy )
-            player.getInventory().setItemInMainHand( new ItemBuilder( itemMask ).build() );
+            player.getInventory().setItemInMainHand( new ItemBuilder( itemMask ).setGlowing( isGlowing ).build() );
 
         for ( ItemMask mask : queue.keySet() )
         {

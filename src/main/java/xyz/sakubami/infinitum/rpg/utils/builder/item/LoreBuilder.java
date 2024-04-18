@@ -1,5 +1,6 @@
 package xyz.sakubami.infinitum.rpg.utils.builder.item;
 
+import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.rpg.world.functionality.Attribute;
 import xyz.sakubami.infinitum.rpg.world.functionality.items.components.CustomItemTemplate;
 import xyz.sakubami.infinitum.rpg.world.functionality.items.components.ItemCategory;
@@ -18,10 +19,12 @@ public class LoreBuilder {
     private final String oldLore;
     private final ItemCategory itemCategory;
     private String enchantments;
+    private boolean compactEnchantments = true;
     private final ItemClass itemClass;
     private final List< String > loreAttributes;
     private boolean addAttributes = true;
     private final ItemTier itemTier;
+    private int enchantmentLength;
 
     public LoreBuilder( CustomItemTemplate item )
     {
@@ -43,10 +46,19 @@ public class LoreBuilder {
         this.loreAttributes = convertAttributes( item.getAttributes() );
 
         StringBuilder stringBuilder = new StringBuilder();
-        for ( CustomEnchantment enchantment : item.getEnchantments().keySet() ) {
-            stringBuilder.append ( enchantment.toString() ).append( "$" ).append( item.getEnchantments().get( enchantment ) ).append( " " );
+        if ( !item.getEnchantments().isEmpty() )
+        {
+            this.enchantmentLength = item.getEnchantments().size();
+            if ( item.getEnchantments().size() > 6 )
+            {
+                this.compactEnchantments = false;
+            }
+            for ( CustomEnchantment enchantment : item.getEnchantments().keySet() )
+                stringBuilder.append ( enchantment.getDisplayName() ).append( "$" ).append( item.getEnchantments().get( enchantment ) ).append( ", " );
+
+            this.enchantments = stringBuilder.toString();
         }
-        this.enchantments = stringBuilder.toString();
+
     }
 
     public LoreBuilder toggleAttributes( boolean toggle )
@@ -82,16 +94,6 @@ public class LoreBuilder {
 
         this.description = list;
 
-        return this;
-    }
-
-    public LoreBuilder addEnchantments()
-    {
-        return this;
-    }
-
-    public LoreBuilder update()
-    {
         return this;
     }
 
@@ -132,21 +134,33 @@ public class LoreBuilder {
 
         if ( enchantments != null )
         {
-            for ( int i = 0; true ; i++ )
+            if ( compactEnchantments )
             {
-                if ( enchantments.length() > 38 )
+                for ( int i = 0; i < enchantmentLength; i++ )
                 {
-                    String split = enchantments.substring( 0, 38 ).strip();
-                    String remaining = enchantments.substring( 0, split.lastIndexOf( " " ) );
-                    newLore.add ( "§9" + remaining.replace("$", " ") );
-                    enchantments = enchantments.substring ( split.lastIndexOf( " " ) ).strip();
-                } else
-                {
-                    newLore.add( "§9" + enchantments.replace("$", " ").strip() );
-                    break;
-                }
-            }
+                    String single = enchantments.substring( 0, enchantments.indexOf( "," ) ).strip();
+                    newLore.add( "§9" + single.replace("$", " ") );
+                    enchantments = enchantments.substring( single.length() + 2 );
 
+                    Infinitum.getInstance().getServer().broadcastMessage( "LOOP ONE -> " + i + single + enchantments );
+                }
+            } else
+                for ( int i = 0; true ; i++ )
+                {
+                    if ( enchantments.length() > 38 )
+                    {
+                        String split = enchantments.substring( 0, 38 ).strip();
+                        String remaining = enchantments.substring( 0, split.lastIndexOf( "," ) );
+                        newLore.add ( "§9" + remaining.replace("$", " ") );
+                        enchantments = enchantments.substring ( split.lastIndexOf( " " ) ).strip();
+
+                        Infinitum.getInstance().getServer().broadcastMessage( "LOOP TWO -> " + i );
+                    } else
+                    {
+                        newLore.add( "§9" + enchantments.substring( 0, enchantments.lastIndexOf( "," ) ).replace("$", " ").strip() );
+                        break;
+                    }
+                }
             this.newLore.add( "§0" );
         }
 

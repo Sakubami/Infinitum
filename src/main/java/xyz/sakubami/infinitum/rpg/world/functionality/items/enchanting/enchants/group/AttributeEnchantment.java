@@ -27,4 +27,16 @@ public class AttributeEnchantment extends CustomEnchantment {
     {
         Infinitum.getInstance().getServer().broadcastMessage( "FOUND ENCHANTMENT ATTRIBUTE LOLZ");
     }
+
+    @Override
+    public String getDisplayName()
+    {
+        String v = "NULL";
+        switch ( attribute )
+        {
+            case STRENGTH -> v = "Stärke";
+            case CRITICAL_DAMAGE -> v =  "Kritisch";
+        }
+        return v;
+    }
 }

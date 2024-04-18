@@ -82,8 +82,11 @@ public class ItemBuilder {
     public ItemBuilder( CustomItemTemplate item ) {
         this.itemTier = item.getTier();
         this.id = item.name();
-        if ( !item.getItemCategory().equals( ItemCategory.MATERIAL ) )
+        if ( !item.getItemCategory().equals( ItemCategory.MATERIAL  ) )
+        {
             this.uuid = UUID.randomUUID();
+            nbt.addNBTTag( key( "UUID" ), uuid.toString() );
+        }
         this.itemClass = item.getItemClass();
         this.itemCategory = item.getItemCategory();
         this.description = item.getLore();
@@ -100,7 +103,6 @@ public class ItemBuilder {
         }
 
         nbt.addNBTTag( key( "ID" ), item.name() );
-        nbt.addNBTTag( key( "UUID" ), uuid.toString() );
     }
 
     public ItemBuilder( ItemMask item ) {
@@ -110,6 +112,7 @@ public class ItemBuilder {
         this.meta = Bukkit.getItemFactory().getItemMeta( item.getItem().getType() );
         this.material = item.getItem().getType();
         this.displayName = item.getTier().getColor() + item.getDisplayName();
+        this.isGlowing = Boolean.parseBoolean( nbt.getItemNBTString( this.item, "GLOWING" ) );
 
         this.lore = new LoreBuilder( item ).addDescription( !item.getDescription().equalsIgnoreCase( "null" ) ).build();
 
@@ -187,6 +190,11 @@ public class ItemBuilder {
         return this;
     }
 
+    public ItemBuilder setGlowing( boolean v) {
+        this.isGlowing = v;
+        return this;
+    }
+
     public ItemStack build()
     {
         item.setType( material );
@@ -214,10 +222,15 @@ public class ItemBuilder {
             meta.setCustomModelData( customModelData );
         if ( isGlowing )
         {
+            nbt.addNBTTag( key( "GLOWING" ), String.valueOf( isGlowing ) );
             meta.addEnchant( Enchantment.CHANNELING, 1, true );
-            meta.addItemFlags( ItemFlag.HIDE_ENCHANTS );
-            meta.addItemFlags( ItemFlag.HIDE_POTION_EFFECTS );
         }
+
+        meta.addItemFlags( ItemFlag.HIDE_ENCHANTS );
+        meta.addItemFlags( ItemFlag.HIDE_ATTRIBUTES );
+        meta.addItemFlags( ItemFlag.HIDE_ARMOR_TRIM );
+        meta.addItemFlags( ItemFlag.HIDE_POTION_EFFECTS );
+
         // TODO replace with archive n shit
         if ( !attributes.isEmpty() )
             for ( Attribute attribute : attributes.keySet() ) {

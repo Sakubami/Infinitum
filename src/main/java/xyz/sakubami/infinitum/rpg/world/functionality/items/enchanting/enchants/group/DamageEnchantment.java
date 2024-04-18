@@ -40,4 +40,17 @@ public class DamageEnchantment extends CustomEnchantment {
     {
         Infinitum.getInstance().getServer().broadcastMessage( "FOUND ENCHANTMENT ALL_DAMAGE ");
     }
+
+    @Override
+    public String getDisplayName()
+    {
+        String v = "NULL";
+        switch ( element )
+        {
+            case ALL -> v = "Schärfe";
+            case UNDEAD -> v = "Bann";
+            case ARACHNID -> v = "Anti-Spinne";
+        }
+        return v;
+    }
 }

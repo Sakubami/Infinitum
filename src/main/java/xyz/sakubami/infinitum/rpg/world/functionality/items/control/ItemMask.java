@@ -8,6 +8,7 @@ import xyz.sakubami.infinitum.rpg.world.functionality.items.components.ItemTier;
 import xyz.sakubami.infinitum.rpg.world.functionality.items.enchanting.CustomEnchantment;
 import xyz.sakubami.infinitum.rpg.world.functionality.items.reforging.Reforge;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -21,8 +22,8 @@ public class ItemMask {
     private String displayName;
     private Reforge reforge;
     private ItemTier tier;
-    private final Map< CustomEnchantment, Integer > enchantments;
-    private final Map< Attribute, Integer > attributes;
+    private final Map< CustomEnchantment, Integer > enchantments = new HashMap<>();
+    private final Map< Attribute, Integer > attributes = new HashMap<>();
     private final String description;
     private final ItemClass itemClass;
     private final ItemCategory itemCategory;
@@ -38,8 +39,8 @@ public class ItemMask {
         this.displayName = itemStack.getItemMeta().getDisplayName();
         this.reforge = reforge;
         this.tier = tier;
-        this.enchantments = enchantments;
-        this.attributes = attributes;
+        this.enchantments.putAll( enchantments );
+        this.attributes.putAll( attributes );
     }
 
     public String getId() { return id; }

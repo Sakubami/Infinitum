@@ -21,7 +21,6 @@ import xyz.sakubami.infinitum.rpg.utils.worldedit.InfinitumSchematic;
 import xyz.sakubami.infinitum.rpg.utils.worldedit.WorldEditHelper;
 import xyz.sakubami.infinitum.rpg.world.entities.control.EntityManipulator;
 import xyz.sakubami.infinitum.rpg.world.entities.loot.CustomLootTable;
-import xyz.sakubami.infinitum.rpg.world.functionality.Attribute;
 import xyz.sakubami.infinitum.rpg.world.functionality.crafting.Crafting;
 import xyz.sakubami.infinitum.rpg.world.functionality.crafting.stations.Primer;
 import xyz.sakubami.infinitum.rpg.world.functionality.items.components.CustomItemTemplate;
@@ -85,8 +84,7 @@ public class Interact implements Listener {
 
         if ( helper.rightClickBlock( e, Material.GOLD_BLOCK ) )
         {
-            player.getInventory().setItemInMainHand( new ItemBuilder( CustomItemTemplate.STICK_OF_GOD )
-                    .enchant( EnchantmentLibrary.DAMAGE_ALL, 10 )
+            player.getInventory().setItemInMainHand( new ItemBuilder( CustomItemTemplate.HYPERION )
                     .build()
             );
         }
@@ -94,8 +92,11 @@ public class Interact implements Listener {
         if ( helper.rightClickBlock( e, Material.NETHERITE_BLOCK ) )
         {
             new ItemManipulator( e.getItem(), e.getPlayer() )
-                    .setAttribute( Attribute.STRENGTH, 1 )
                     .addEnchant( EnchantmentLibrary.ATTRIBUTE_STRENGTH, 10 )
+                    .addEnchant( EnchantmentLibrary.DAMAGE_ALL, 10 )
+                    .addEnchant( EnchantmentLibrary.ATTRIBUTE_CRITICAL_DAMAGE, 10 )
+                    .addEnchant( EnchantmentLibrary.DAMAGE_UNDEAD, 10 )
+                    .addEnchant( EnchantmentLibrary.DAMAGE_ARACHNID, 10 )
                     .queue();
             Infinitum.getInstance().getServer().broadcastMessage( " clicked lol " );
         }

@@ -37,7 +37,7 @@ public class InteractHelper {
     {
         if ( event.getHand() != null )
             if ( event.getHand().equals( EquipmentSlot.HAND ) )
-                if ( event.getAction().equals( Action.RIGHT_CLICK_AIR ) || event.getAction().equals( Action.RIGHT_CLICK_BLOCK ) )
+                if ( event.getAction().equals( Action.RIGHT_CLICK_BLOCK ) )
                     if ( event.getClickedBlock() != null )
                         return event.getClickedBlock().getType().equals( material );
         return false;

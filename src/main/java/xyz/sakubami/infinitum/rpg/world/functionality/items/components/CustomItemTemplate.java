@@ -69,7 +69,15 @@ public enum CustomItemTemplate
             ItemAttributes.ADMIN,
             ItemTier.V,
             "§5§kA §cStab Gottes §5§kA",
-            "Nur wahre götter sind würdig diesen Stab zu schwingen" );
+            "Nur wahre götter sind würdig diesen Stab zu schwingen" ),
+
+    HYPERION(
+            Material.DIAMOND_SWORD,
+            ItemCategory.WEAPON,
+            ItemAttributes.HYPERION,
+            ItemTier.V,
+            "Hyperion [Legendär]",
+                    "Ein machtvolles Schwert" );
 
     private final Material material;
     private final String name;

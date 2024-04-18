@@ -31,7 +31,9 @@ public abstract class CustomEnchantment {
     {
         for ( NamespacedKey key : enchants.keySet() )
         {
-            return enchants.get( key ).equals( enchantment ) ? key : null ;
+            CustomEnchantment enchant = enchants.get( key );
+            if ( enchant.equals( enchantment ) )
+                return key;
         }
         return null;
     }
@@ -40,6 +42,8 @@ public abstract class CustomEnchantment {
     {
         return enchants.get( id ) != null ;
     }
+
+    public String getDisplayName() { return "NULL"; }
 
     public void run( UUID uuid ) {}
 
