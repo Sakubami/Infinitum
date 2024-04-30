@@ -1,4 +1,4 @@
-package xyz.sakubami.infinitum.rpg.utils.builder.item;
+package xyz.sakubami.infinitum.rpgcore.utils.builder.item;
 
 import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.rpg.world.functionality.Attribute;

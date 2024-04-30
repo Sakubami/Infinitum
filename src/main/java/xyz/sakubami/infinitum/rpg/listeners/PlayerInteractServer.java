@@ -4,8 +4,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import xyz.sakubami.infinitum.rpg.world.entities.control.EntityConnector;
-import xyz.sakubami.infinitum.rpg.world.entities.control.Saving;
+import xyz.sakubami.infinitum.rpgcore.utils.control.EntityConnector;
+import xyz.sakubami.infinitum.rpgcore.utils.control.Saving;
 
 import java.util.UUID;
 

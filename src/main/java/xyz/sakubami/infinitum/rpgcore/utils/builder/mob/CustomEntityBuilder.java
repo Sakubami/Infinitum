@@ -1,4 +1,4 @@
-package xyz.sakubami.infinitum.rpg.utils.builder.mob;
+package xyz.sakubami.infinitum.rpgcore.utils.builder.mob;
 
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.lang.WordUtils;
@@ -8,9 +8,9 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import xyz.sakubami.infinitum.rpg.utils.NBTUtils;
-import xyz.sakubami.infinitum.rpg.world.entities.control.CustomType;
-import xyz.sakubami.infinitum.rpg.world.entities.control.EntityConnector;
-import xyz.sakubami.infinitum.rpg.world.entities.control.EntityMask;
+import xyz.sakubami.infinitum.rpgcore.utils.control.CustomType;
+import xyz.sakubami.infinitum.rpgcore.utils.control.EntityConnector;
+import xyz.sakubami.infinitum.rpgcore.utils.control.EntityMask;
 import xyz.sakubami.infinitum.rpg.world.entities.loot.CustomLootTable;
 import xyz.sakubami.infinitum.rpg.world.functionality.Attribute;
 

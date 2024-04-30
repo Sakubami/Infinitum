@@ -3,7 +3,7 @@ package xyz.sakubami.infinitum.rpg.utils.math;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
-import xyz.sakubami.infinitum.rpg.utils.builder.mob.CustomEntityBuilderUtils;
+import xyz.sakubami.infinitum.rpgcore.utils.builder.mob.CustomEntityBuilderUtils;
 
 import java.util.List;
 

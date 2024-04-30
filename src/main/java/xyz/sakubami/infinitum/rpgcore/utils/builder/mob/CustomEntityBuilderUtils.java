@@ -1,4 +1,4 @@
-package xyz.sakubami.infinitum.rpg.utils.builder.mob;
+package xyz.sakubami.infinitum.rpgcore.utils.builder.mob;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

@@ -7,13 +7,12 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import xyz.sakubami.infinitum.Infinitum;
-import xyz.sakubami.infinitum.external.chat.ChatAdapter;
 import xyz.sakubami.infinitum.rpg.utils.NBTUtils;
-import xyz.sakubami.infinitum.rpg.utils.builder.mob.CustomEntityBuilderUtils;
+import xyz.sakubami.infinitum.rpgcore.utils.builder.mob.CustomEntityBuilderUtils;
 import xyz.sakubami.infinitum.rpg.utils.math.EntityMath;
-import xyz.sakubami.infinitum.rpg.world.entities.control.EntityConnector;
-import xyz.sakubami.infinitum.rpg.world.entities.control.EntityManipulator;
-import xyz.sakubami.infinitum.rpg.world.entities.control.EntityMask;
+import xyz.sakubami.infinitum.rpgcore.utils.control.EntityConnector;
+import xyz.sakubami.infinitum.rpgcore.utils.control.EntityManipulator;
+import xyz.sakubami.infinitum.rpgcore.utils.control.EntityMask;
 import xyz.sakubami.infinitum.rpg.world.functionality.Attribute;
 import xyz.sakubami.infinitum.rpg.world.functionality.items.control.ItemArchive;
 import xyz.sakubami.infinitum.rpg.world.functionality.items.control.ItemMask;
@@ -84,8 +83,6 @@ public class Attack {
 
     public Attack setAOE( int radius, Location location )
     {
-        Infinitum.getInstance().getServer().broadcastMessage( ChatAdapter.convert(  "aoe debug" ) );
-
         for ( Entity entity : entityMath.getRadius( location, radius ) )
         {
             if ( ! ( entity instanceof LivingEntity ) )
@@ -110,10 +107,7 @@ public class Attack {
 
     public void attack()
     {
-        int weaponDamage = 0;
         int criticalChance = damager.getMasked().get( Attribute.CRITICAL_CHANCE);
-        int weaponStrength = 0;
-        int weaponCriticalDamage= 0;
         int strength = damager.getMasked().get( Attribute.STRENGTH );
         int criticalDamage = damager.getMasked().get( Attribute.CRITICAL_DAMAGE );
         int additive = 1;
@@ -126,7 +120,7 @@ public class Attack {
         if ( !itemMask.getItem().getType().equals( Material.AIR ) )
         {
             if ( itemMask.getAttributes().get( Attribute.DAMAGE ) != 0 )
-                raw += weaponDamage = itemMask.getAttributes().get( Attribute.DAMAGE );
+                raw += itemMask.getAttributes().get( Attribute.DAMAGE );
             if ( itemMask.getAttributes().get( Attribute.ADDITIVE ) != 0 )
                 additive += itemMask.getAttributes().get( Attribute.ADDITIVE );
             if ( itemMask.getAttributes().get( Attribute.MULTIPLICATIVE ) != 0 )
@@ -155,7 +149,7 @@ public class Attack {
                     .damage( finalDamage )
                     .queue();
             builderUtils.createDamageTag( critical, finalDamage, receiver.getEntity().getWorld(), receiver.getEntity().getLocation() );
-            Infinitum.getInstance().getServer().broadcastMessage( "damage done= " + finalDamage );
+            Infinitum.getInstance().getServer().broadcastMessage( "damage done = " + finalDamage );
         }
     }
 }

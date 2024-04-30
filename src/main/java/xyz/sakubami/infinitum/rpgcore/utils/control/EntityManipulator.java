@@ -1,4 +1,4 @@
-package xyz.sakubami.infinitum.rpg.world.entities.control;
+package xyz.sakubami.infinitum.rpgcore.utils.control;
 
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
@@ -7,7 +7,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import xyz.sakubami.infinitum.Infinitum;
-import xyz.sakubami.infinitum.rpg.utils.builder.mob.CustomEntityBuilderUtils;
+import xyz.sakubami.infinitum.rpgcore.utils.builder.mob.CustomEntityBuilderUtils;
 import xyz.sakubami.infinitum.rpg.utils.math.MathUtils;
 import xyz.sakubami.infinitum.rpg.world.entities.loot.LootController;
 import xyz.sakubami.infinitum.rpg.world.entities.player.skills.ExperienceType;

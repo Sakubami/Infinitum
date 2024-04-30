@@ -1,7 +1,7 @@
 package xyz.sakubami.infinitum.rpg.world.entities.player.skills;
 
 import xyz.sakubami.infinitum.Infinitum;
-import xyz.sakubami.infinitum.rpg.world.entities.control.EntityConnector;
+import xyz.sakubami.infinitum.rpgcore.utils.control.EntityConnector;
 
 import java.util.UUID;
 

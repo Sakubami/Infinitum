@@ -1,10 +1,10 @@
-package xyz.sakubami.infinitum.rpg.utils.builder.inventory;
+package xyz.sakubami.infinitum.rpgcore.utils.builder.inventory;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import xyz.sakubami.infinitum.rpg.utils.builder.item.ItemBuilder;
+import xyz.sakubami.infinitum.rpgcore.utils.builder.item.ItemBuilder;
 
 import java.util.ArrayList;
 

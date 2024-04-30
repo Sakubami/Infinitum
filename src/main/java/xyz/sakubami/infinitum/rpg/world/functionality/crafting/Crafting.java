@@ -7,7 +7,7 @@ import org.bukkit.util.Vector;
 import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.rpg.world.functionality.crafting.stations.Primer;
 import xyz.sakubami.infinitum.rpg.world.functionality.items.components.CustomItemTemplate;
-import xyz.sakubami.infinitum.rpg.utils.builder.item.ItemBuilder;
+import xyz.sakubami.infinitum.rpgcore.utils.builder.item.ItemBuilder;
 import xyz.sakubami.infinitum.rpg.utils.Loc;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package xyz.sakubami.infinitum.rpg.world.entities.control;
+package xyz.sakubami.infinitum.rpgcore.utils.control;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;

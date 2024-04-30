@@ -1,4 +1,4 @@
-package xyz.sakubami.infinitum.rpg.utils.builder.item;
+package xyz.sakubami.infinitum.rpgcore.utils.builder.item;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

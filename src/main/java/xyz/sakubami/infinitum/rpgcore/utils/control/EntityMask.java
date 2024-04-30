@@ -1,4 +1,4 @@
-package xyz.sakubami.infinitum.rpg.world.entities.control;
+package xyz.sakubami.infinitum.rpgcore.utils.control;
 
 import org.bukkit.entity.LivingEntity;
 import xyz.sakubami.infinitum.rpg.world.entities.loot.CustomLootTable;

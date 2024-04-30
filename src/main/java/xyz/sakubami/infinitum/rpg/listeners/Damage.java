@@ -11,8 +11,8 @@ import org.bukkit.inventory.ItemStack;
 import xyz.sakubami.infinitum.Infinitum;
 import xyz.sakubami.infinitum.rpg.utils.InteractHelper;
 import xyz.sakubami.infinitum.rpg.utils.NBTUtils;
-import xyz.sakubami.infinitum.rpg.world.entities.control.EntityConnector;
-import xyz.sakubami.infinitum.rpg.world.entities.control.EntityManipulator;
+import xyz.sakubami.infinitum.rpgcore.utils.control.EntityConnector;
+import xyz.sakubami.infinitum.rpgcore.utils.control.EntityManipulator;
 import xyz.sakubami.infinitum.rpg.world.functionality.damaging.Attack;
 
 public class Damage implements Listener {

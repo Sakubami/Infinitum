@@ -2,7 +2,7 @@ package xyz.sakubami.infinitum.rpg.world.functionality.items.control;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import xyz.sakubami.infinitum.rpg.utils.builder.item.ItemBuilder;
+import xyz.sakubami.infinitum.rpgcore.utils.builder.item.ItemBuilder;
 import xyz.sakubami.infinitum.rpg.world.functionality.Attribute;
 import xyz.sakubami.infinitum.rpg.world.functionality.items.components.ItemTier;
 import xyz.sakubami.infinitum.rpg.world.functionality.items.enchanting.CustomEnchantment;

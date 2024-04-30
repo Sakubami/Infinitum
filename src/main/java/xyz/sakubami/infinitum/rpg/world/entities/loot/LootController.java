@@ -3,7 +3,7 @@ package xyz.sakubami.infinitum.rpg.world.entities.loot;
 import org.bukkit.Location;
 import org.bukkit.World;
 import xyz.sakubami.infinitum.Infinitum;
-import xyz.sakubami.infinitum.rpg.utils.builder.item.ItemBuilder;
+import xyz.sakubami.infinitum.rpgcore.utils.builder.item.ItemBuilder;
 import xyz.sakubami.infinitum.rpg.world.functionality.items.components.CustomItemTemplate;
 
 import java.util.Map;
